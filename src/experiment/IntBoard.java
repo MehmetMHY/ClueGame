@@ -20,6 +20,7 @@ public class IntBoard {
 			}
 		}
 		adjMtx = new HashMap<BoardCell, Set<BoardCell>>();
+		targets = new HashSet<BoardCell>();
 		calcAdjacencies();
 		
 	}
@@ -30,25 +31,20 @@ public class IntBoard {
 		for (int i = 0; i < ROW; i++) {
 			for (int j = 0; j < COL; j++) {
 				tempSet = new HashSet<BoardCell>();
-				temp = new BoardCell(i,j);
 				if (i + 1 < ROW) {
-					BoardCell tempT = new BoardCell(i + 1, j);
-					tempSet.add(tempT);
+					tempSet.add(getCell(i+1,j));
 				} 
 				if (j + 1 < COL) {
-					BoardCell tempT = new BoardCell(i, j + 1);
-					tempSet.add(tempT);
+					tempSet.add(getCell(i,j+1));
 				} 
 				if (i - 1 >= 0) {
-					BoardCell tempT = new BoardCell(i - 1, j);
-					tempSet.add(tempT);
+					tempSet.add(getCell(i - 1, j));
 				} 
 				if (j - 1 >= 0) {
-					BoardCell tempT = new BoardCell(i, j - 1);
-					tempSet.add(tempT);
+					tempSet.add(getCell(i,j - 1));
 				}
 				//System.out.println(i + " " + j + " " + tempSet);
-				adjMtx.put(temp, tempSet);;
+				adjMtx.put(getCell(i,j), tempSet);;
 			}
 		}
 	}
@@ -61,14 +57,19 @@ public class IntBoard {
 	public void calcTargets(BoardCell startCell, int pathLength) {
 		for (int i = 0; i < ROW ; i++) {
 			for (int j = 0; j < COL; j++) {
-				if (i + j == pathLength) {
-					BoardCell temp = new BoardCell(i,j);
-					targets.add(temp);
+				for(int k = pathLength; k >= 1; k -= 2) {
+					if (Math.abs(i - startCell.getRow()) + Math.abs(j - startCell.getCol()) == k) {
+						this.targets.add(getCell(i, j));
+					}
 				}
 			}
 		}
+		System.out.println(targets);
 	}
 	
+	/**
+	 * @return Returns targets if generated otherwise returns null
+	 */
 	public Set<BoardCell> getTargets() {
 		return targets;
 	}
