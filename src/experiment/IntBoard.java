@@ -1,8 +1,6 @@
 package experiment;
 
 import java.util.*;
-import java.util.Map;
-import java.util.Set;
 
 public class IntBoard {
 	
@@ -16,29 +14,41 @@ public class IntBoard {
 	
 	public IntBoard() {
 		grid = new BoardCell[ROW][COL];
+		for (int i = 0; i < ROW; i++) {
+			for (int j = 0; j < COL; j++) {
+				grid[i][j] = new BoardCell(i,j);
+			}
+		}
+		adjMtx = new HashMap<BoardCell, Set<BoardCell>>();
 		calcAdjacencies();
 		
 	}
 	
 	public void calcAdjacencies() {
-		Set<BoardCell> tempSet = new HashSet<BoardCell>();
-		for (int i = 0; i < ROW+1; i++) {
-			for (int j = 0; j < COL+1; j++) {
-				BoardCell temp = new BoardCell(i,j);
-				for (int a = -1; a <= 1; a++) {
-					for (int b = -1; b <= 1; b++) {
-						if (i + a >= 0 || i + a <= ROW) {
-							if (j + b >= 0 || j + b <= COL) {
-								if (Math.abs(a) == Math.abs(b)) {
-									BoardCell tempT = new BoardCell(i + a,j + b);
-									tempSet.add(tempT);
-								}
-							}
-						}
-					}
+		Set<BoardCell> tempSet;
+		BoardCell temp;
+		for (int i = 0; i < ROW; i++) {
+			for (int j = 0; j < COL; j++) {
+				tempSet = new HashSet<BoardCell>();
+				temp = new BoardCell(i,j);
+				if (i + 1 < ROW) {
+					BoardCell tempT = new BoardCell(i + 1, j);
+					tempSet.add(tempT);
+				} 
+				if (j + 1 < COL) {
+					BoardCell tempT = new BoardCell(i, j + 1);
+					tempSet.add(tempT);
+				} 
+				if (i - 1 >= 0) {
+					BoardCell tempT = new BoardCell(i - 1, j);
+					tempSet.add(tempT);
+				} 
+				if (j - 1 >= 0) {
+					BoardCell tempT = new BoardCell(i, j - 1);
+					tempSet.add(tempT);
 				}
-				adjMtx.put(temp, tempSet);
-				tempSet.clear();
+				//System.out.println(i + " " + j + " " + tempSet);
+				adjMtx.put(temp, tempSet);;
 			}
 		}
 	}
@@ -49,8 +59,8 @@ public class IntBoard {
 	}
 	
 	public void calcTargets(BoardCell startCell, int pathLength) {
-		for (int i = 0; i < ROW + 1; i++) {
-			for (int j = 0; j < COL + 1; j++) {
+		for (int i = 0; i < ROW ; i++) {
+			for (int j = 0; j < COL; j++) {
 				if (i + j == pathLength) {
 					BoardCell temp = new BoardCell(i,j);
 					targets.add(temp);
@@ -59,10 +69,25 @@ public class IntBoard {
 		}
 	}
 	
-	public void getTargets() {
-		
+	public Set<BoardCell> getTargets() {
+		return targets;
 	}
-	
-	
+
+	public BoardCell getCell(int i, int j) {
+		return grid[i][j];
+	}
+
+	public Set<BoardCell> getAdjList(BoardCell cell) {
+		Set<BoardCell> temp = new HashSet<BoardCell>();
+		for (BoardCell key : adjMtx.keySet()) {
+			if (key.getCol() == cell.getCol()) {
+				if (key.getRow() == cell.getRow()) {
+					temp = adjMtx.get(key);
+				}
+			}
+		}
+		return temp;
+	}
+
 	
 }
