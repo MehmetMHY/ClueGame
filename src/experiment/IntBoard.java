@@ -8,21 +8,23 @@ public class IntBoard {
 	private Map<BoardCell, Set<BoardCell>> adjMtx;
 	private Set<BoardCell> visited;
 	private Set<BoardCell> targets;
+	
 	private final static int ROW = 4;
 	private final static int COL = 4;
 	
 	
 	public IntBoard() {
 		grid = new BoardCell[ROW][COL];
+		
 		for (int i = 0; i < ROW; i++) {
 			for (int j = 0; j < COL; j++) {
 				grid[i][j] = new BoardCell(i,j);
 			}
 		}
+		
 		adjMtx = new HashMap<BoardCell, Set<BoardCell>>();
 		targets = new HashSet<BoardCell>();
 		calcAdjacencies();
-		
 	}
 	
 	public void calcAdjacencies() {
@@ -43,7 +45,6 @@ public class IntBoard {
 				if (j - 1 >= 0) {
 					tempSet.add(getCell(i,j - 1));
 				}
-				//System.out.println(i + " " + j + " " + tempSet);
 				adjMtx.put(getCell(i,j), tempSet);;
 			}
 		}
@@ -64,14 +65,15 @@ public class IntBoard {
 				}
 			}
 		}
-		System.out.println(targets);
 	}
 	
 	/**
 	 * @return Returns targets if generated otherwise returns null
 	 */
 	public Set<BoardCell> getTargets() {
-		return targets;
+		return null;
+		
+//		return targets;
 	}
 
 	public BoardCell getCell(int i, int j) {
@@ -79,16 +81,16 @@ public class IntBoard {
 	}
 
 	public Set<BoardCell> getAdjList(BoardCell cell) {
-		Set<BoardCell> temp = new HashSet<BoardCell>();
-		for (BoardCell key : adjMtx.keySet()) {
-			if (key.getCol() == cell.getCol()) {
-				if (key.getRow() == cell.getRow()) {
-					temp = adjMtx.get(key);
-				}
-			}
-		}
-		return temp;
+		return null;
+		
+//		Set<BoardCell> temp = new HashSet<BoardCell>();
+//		for (BoardCell key : adjMtx.keySet()) {
+//			if (key.getCol() == cell.getCol()) {
+//				if (key.getRow() == cell.getRow()) {
+//					temp = adjMtx.get(key);
+//				}
+//			}
+//		}
+//		return temp;
 	}
-
-	
 }
