@@ -1,3 +1,15 @@
+commit d5b4ada41d2286f9ff32df689a8f0c6523bdea89
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Sat Oct 5 22:44:41 2019 -0600
+
+    Removed some unneeded code
+
+commit d7490edfd3c5345fb14ecf127a27f6d964b44314
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Sat Oct 5 22:41:39 2019 -0600
+
+    Commented the code, fixed parts of the code, and fixed up Part I of this assginment
+
 commit 556dee0cfd919d75da41f5068f1f5f96a4cc4a6a
 Author: MehmetMHY <mehmet.mhy@gmail.com>
 Date:   Sat Oct 5 19:30:02 2019 -0600
