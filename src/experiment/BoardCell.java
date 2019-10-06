@@ -1,3 +1,10 @@
+/**. 
+ * BoardCell class that sets row and col and acts as an object
+ * 
+ * @author Mehmet Yilmaz
+ * @author Ruidi Huang
+ */
+
 package experiment;
 
 public class BoardCell {

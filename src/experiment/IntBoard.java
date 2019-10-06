@@ -1,3 +1,14 @@
+/**. 
+ * IntBoard class that creates the grid, adjacency cells set,
+ * initialize visited set, create targets set for the character(s),
+ * as well as set up BoardCell object. This is the main class for,
+ * setting up the grid for the game as well as determine all,
+ * targeted and adjacency cells on the grid.
+ * 
+ * @author Mehmet Yilmaz
+ * @author Ruidi Huang
+ */
+
 package experiment;
 
 import java.util.*;

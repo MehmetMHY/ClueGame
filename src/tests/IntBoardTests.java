@@ -1,3 +1,12 @@
+/**. 
+ * IntBoardTests is the class that does the JUnit testing for,
+ * IntBoard's adjacency and target set based on determined,
+ * grid cells.
+ * 
+ * @author Mehmet Yilmaz
+ * @author Ruidi Huang
+ */
+
 package tests;
 
 import static org.junit.Assert.*;
