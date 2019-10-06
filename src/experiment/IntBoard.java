@@ -54,12 +54,6 @@ public class IntBoard {
 		}
 	}
 	
-//	// DO WE NEED THIS?
-//	public Set<BoardCell> getAdList(int row, int col) {
-//		BoardCell temp = new BoardCell(row,col);
-//		return adjMtx.get(temp);
-//	}
-	
 	// calculates all possible target cells on the board, based on the pathLength and stores it in the targets set
 	public void calcTargets(BoardCell startCell, int pathLength) {
 		// loops though each ROW and COL of the grid
