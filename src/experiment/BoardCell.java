@@ -1,9 +1,10 @@
 package experiment;
 
 public class BoardCell {
-	private int row;
-	private int col;
+	private int row; // row value for BoardCell object
+	private int col; // col value for BoardCell object
 	
+	// constructor for BoardCell that sets the row and col for the BoardCell object
 	public BoardCell(int row, int col) {
 		super();
 		this.row = row;

@@ -1,0 +1,47 @@
+commit 556dee0cfd919d75da41f5068f1f5f96a4cc4a6a
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Sat Oct 5 19:30:02 2019 -0600
+
+    This is stuff for part II, but I need to add part I stuff so this is a backup of the code just incase if I mess something up
+
+commit 6057211434508eee8a8bfc3c693097985ad72b8c
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Fri Oct 4 17:53:19 2019 -0600
+
+    Added some more code
+
+commit 5766e6a997378bf0a19704916f190066e3478a05
+Author: Mehmet Yilmaz <mehmetyilmaz@mines.edu>
+Date:   Fri Oct 4 17:18:36 2019 -0600
+
+    Added some jUnit tests, this is our first attempt
+
+commit 68f44f9905852747fb56cb8887fe5bbe22d0e947
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Thu Oct 3 12:16:13 2019 -0600
+
+    Added some functions to BoardCell and InBoard classes
+
+commit a3f40730bbcf49ba0f2dcca9c28e0ff5b24d3d71
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Thu Oct 3 11:57:00 2019 -0600
+
+    Worked on some of the classes
+
+commit 0255581f450b1040bffbe6e881f9dabd0fce6734
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Thu Oct 3 11:17:45 2019 -0600
+
+    Testing some stuff
+
+commit d7862a344aa28669f4ee7580b3c3e932cff4b9df
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Thu Oct 3 11:09:31 2019 -0600
+
+    Added some packages
+
+commit 6a5ec170830a2aaa303dcd34b72c0d74a5044d74
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Thu Oct 3 11:07:14 2019 -0600
+
+    First commit
