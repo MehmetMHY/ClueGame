@@ -5,6 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Map;
+
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -69,25 +71,88 @@ public class myTest {
 	// These cells are white on the planning spreadsheet
 	@Test
 	public void FourDoorDirections() {
-		BoardCell room = board.getCellAt(4, 3);
+		int[] r = new int[] {14, 0};
+		int[] c = new int[] {14, 6};
+		BoardCell room = null;
+		
+		for(int i = 0; i < r.length; i++) {
+			// Test that room pieces that aren't doors know it
+			room = board.getCellAt(r[i], c[i]);
+			assertFalse(room.isDoorway());	
+			
+			// Test that walkways are not doors
+			BoardCell cell = board.getCellAt(r[i], c[i]);
+			assertFalse(cell.isDoorway());	
+		}
+
+		room = board.getCellAt(10, 6);
 		assertTrue(room.isDoorway());
 		assertEquals(DoorDirection.RIGHT, room.getDoorDirection());
-		room = board.getCellAt(4, 8);
+		
+		room = board.getCellAt(5, 16);
 		assertTrue(room.isDoorway());
 		assertEquals(DoorDirection.DOWN, room.getDoorDirection());
-		room = board.getCellAt(15, 18);
+		
+		room = board.getCellAt(9, 17);
 		assertTrue(room.isDoorway());
 		assertEquals(DoorDirection.LEFT, room.getDoorDirection());
+		
 		room = board.getCellAt(14, 11);
 		assertTrue(room.isDoorway());
 		assertEquals(DoorDirection.UP, room.getDoorDirection());
-		// Test that room pieces that aren't doors know it
-		room = board.getCellAt(14, 14);
-		assertFalse(room.isDoorway());	
-		// Test that walkways are not doors
-		BoardCell cell = board.getCellAt(0, 6);
-		assertFalse(cell.isDoorway());		
 
 	}
 	
+	// Test that we have the correct number of doors
+	@Test
+	public void testNumberOfDoorways() {
+		int totalDoors = 16;
+		int totalNonDoors = (board.getNumRows()*board.getNumColumns()-16);
+		int numDoors = 0;
+		for (int row=0; row<board.getNumRows(); row++)
+			for (int col=0; col<board.getNumColumns(); col++) {
+				BoardCell cell = board.getCellAt(row, col);
+				if (cell.isDoorway())
+					numDoors++;
+			}
+		
+		Assert.assertEquals(totalDoors, numDoors);
+		Assert.assertEquals(totalNonDoors, ((board.getNumRows()*board.getNumColumns())-numDoors));
+	}
+
+	@Test
+	public void testRoomInitials() {
+		// tests cell (0,0) to make sure the room initial is C
+		assertEquals('C', board.getCellAt(0, 0).getInitial());
+		
+		// tests cell (17,0) to make sure the room initial is K
+		assertEquals('K', board.getCellAt(17, 0).getInitial());
+		
+		// tests cell (8,1) to make sure the room initial is B
+		assertEquals('B', board.getCellAt(8, 1).getInitial());
+		
+		// tests cell (0,8) to make sure the room initial is R
+		assertEquals('R', board.getCellAt(0, 8).getInitial());
+		
+		// tests cell (0,15) to make sure the room initial is C
+		assertEquals('L', board.getCellAt(0, 15).getInitial());
+		
+		// tests cell (0,21) to make sure the room initial is S
+		assertEquals('S', board.getCellAt(0, 21).getInitial());
+		
+		// tests cell (20,9) to make sure the room initial is D
+		assertEquals('D', board.getCellAt(20, 9).getInitial());
+		
+		// tests cell (20,20) to make sure the room initial is O
+		assertEquals('O', board.getCellAt(20, 20).getInitial());
+		
+		// tests cell (8,20) to make sure the room initial is H
+		assertEquals('H', board.getCellAt(8, 20).getInitial());
+		
+		// tests cell (9,11) to make sure the room initial is C
+		assertEquals('X', board.getCellAt(9, 11).getInitial());
+		
+		// tests cell (0,5) to make sure the room initial is C
+		assertEquals('W', board.getCellAt(0, 5).getInitial());
+	}
 }

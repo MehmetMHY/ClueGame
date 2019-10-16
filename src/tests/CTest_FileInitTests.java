@@ -114,6 +114,4 @@ public class CTest_FileInitTests {
 		// Test the closet
 		assertEquals('X', board.getCellAt(9,13).getInitial());
 	}
-	
-
 }
