@@ -50,4 +50,9 @@ public class BoardCell {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public Object getDoorDirection() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

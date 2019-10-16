@@ -65,17 +65,17 @@ public class Board {
 		return null;
 	}
 
-	public Object getNumRows() {
+	public int getNumRows() {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
 	}
 
-	public Object getNumColumns() {
+	public int getNumColumns() {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
 	}
 
-	public BoardCell getCellAt(int i, int j) {
+	public clueGame.BoardCell getCellAt(int i, int j) {
 		// TODO Auto-generated method stub
 		return null;
 	}
