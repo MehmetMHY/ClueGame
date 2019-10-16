@@ -41,7 +41,7 @@ public class BoardCell {
 		return false;
 	}
 	
-	public bolean isDoorWay() {
+	public boolean isDoorWay() {
 		// TODO FK
 		return false;
 	}
