@@ -1,7 +1,7 @@
 K, Kitchen, Card
 D, Dining room, Card
 L, Library, Card
-O, Lounge, Card0
+O, Lounge, Card
 B, Bathroom, Card
 M, Master Bedroom, Card
 T, Theater, Card

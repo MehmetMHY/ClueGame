@@ -6,11 +6,9 @@
  */
 
 package clueGame;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.text.NumberFormat;
 
-public class BadConfigFormatException extends Throwable {
+@SuppressWarnings("serial")
+public class BadConfigFormatException extends Exception{
 	
 	public BadConfigFormatException() {
 		super();
@@ -20,7 +18,6 @@ public class BadConfigFormatException extends Throwable {
 		super(message);
 	}
 	
-	@Override
 	public String toString() {
 		return null;
 	}

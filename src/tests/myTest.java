@@ -32,10 +32,10 @@ public class myTest {
 	private static Board board; // static Board object
 	
 	@BeforeClass
-	public static void setUp() throws BadConfigFormatException {
+	public static void setUp() {
 		board = Board.getInstance(); // set instance variable for Board
 		board.setConfigFiles("OurBoardLayout.csv", "OurRooms.txt"); // set the file names for setConfigFiles()	
-		board.initialize(); // load both config files 
+		board.initialize();
 	}
 	
 	@Test
