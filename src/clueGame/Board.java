@@ -46,20 +46,23 @@ public class Board {
 		roomConfigFile = textFile;	
 	}
 	
-	public void initialize() {
+	public void initialize() throws BadConfigFormatException {
 		loadBoardConfig();
 		loadRoomConfig();
 	}
 
 
 	
-	public void loadRoomConfig() {
+	public void loadRoomConfig() throws BadConfigFormatException {
 		BufferedReader reader;
 		try {
 			reader = new BufferedReader(new FileReader(roomConfigFile));
 			String tempLine = reader.readLine();
 			while (tempLine != null) {
 				String[] line = tempLine.split(", ");
+				if (!line[2].equals("Card") || !line[2].equals("Other")) {
+					throw new BadConfigFormatException("Room type " + line[2] + " not valid");
+				}
 				legend.put(line[0].charAt(0), line[1]);
 				tempLine = reader.readLine();
 			}
@@ -69,7 +72,7 @@ public class Board {
 		}
 	}
 	
-	public void loadBoardConfig() {
+	public void loadBoardConfig() throws BadConfigFormatException {
 		BufferedReader reader;
 		int numRow = 0, numCol = 0;
 		try {
@@ -78,7 +81,12 @@ public class Board {
 			while (tempLine != null) {
 				numRow++;
 				String[] line = tempLine.split(",");
-				numCol = line.length;
+				if (numCol == 0) {
+					numCol = line.length;
+				} else if (numCol != line.length) {
+					throw new BadConfigFormatException("Column at " + numRow + " not valid");
+				}
+				
 				tempLine = reader.readLine();
 			}
 		} catch (Exception e) {
@@ -103,6 +111,9 @@ public class Board {
 				numCol = 0;
 				String[] line = tempLine.split(",");
 				for (String i:line) {
+					if (!legend.containsKey(i.charAt(0))) {
+						throw new BadConfigFormatException("Room letter" + legend.containsKey(i.charAt(0)) + " not valid");	
+					}
 					board[numRow][numCol].setRoomType(i);
 					numCol++;
 				}
@@ -112,7 +123,35 @@ public class Board {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		//System.out.println(board);
+		
+		for (int i = 0; i < numRows; i++) {
+			for (int j = 0; j < numColumns; j++) {
+				if (board[i][j].isDoorway()) {
+					switch(board[i][j].getDoorDirection()) {
+					case UP:
+						if (i - 1 < 0 || !board[i-1][j].getInitial().equals('W')) {
+							throw new BadConfigFormatException("Doorway at " + i + " " + j + " not valid");	
+						}
+						break;
+					case DOWN:
+						if (i + 1 >= numColumns || !board[i+1][j].getInitial().equals('W')) {
+							throw new BadConfigFormatException("Doorway at " + i + " " + j + " not valid");	
+						}
+						break;
+					case LEFT:
+						if (j - 1 < 0 || !board[i][j-1].getInitial().equals('W')) {
+							throw new BadConfigFormatException("Doorway at " + i + " " + j + " not valid");	
+						}
+						break;
+					case RIGHT:
+						if (j + 1 >= numColumns || !board[i][j+1].getInitial().equals('W')) {
+							throw new BadConfigFormatException("Doorway at " + i + " " + j + " not valid");	
+						}
+						break;
+					}
+				}
+			}
+		}
 		
 	}
 	
