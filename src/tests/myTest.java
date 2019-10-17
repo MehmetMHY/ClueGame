@@ -17,8 +17,8 @@ import clueGame.DoorDirection;
 public class myTest {
 
 	public static final int LEGEND_SIZE = 11; // number of entries in Legend
-	public static final int NUM_ROWS = 21; // number of rows in gameBoard
-	public static final int NUM_COLUMNS = 22; // number of cols in gameBoard
+	public static final int NUM_ROWS = 22; // number of rows in gameBoard
+	public static final int NUM_COLUMNS = 23; // number of cols in gameBoard
 
 	private static Board board; // Board object
 	
@@ -71,8 +71,8 @@ public class myTest {
 	// These cells are white on the planning spreadsheet
 	@Test
 	public void FourDoorDirections() {
-		int[] r = new int[] {12, 2};
-		int[] c = new int[] {4, 20};
+		int[] r = new int[] {21, 0};
+		int[] c = new int[] {22, 0};
 		BoardCell room = null;
 		
 		for(int i = 0; i < r.length; i++) {
@@ -107,7 +107,6 @@ public class myTest {
 	@Test
 	public void testNumberOfDoorways() {
 		int totalDoors = 14;
-		int totalNonDoors = (board.getNumRows()*board.getNumColumns()-16);
 		int numDoors = 0;
 		for (int row=0; row<board.getNumRows(); row++)
 			for (int col=0; col<board.getNumColumns(); col++) {
@@ -117,7 +116,6 @@ public class myTest {
 			}
 		
 		Assert.assertEquals(totalDoors, numDoors);
-		Assert.assertEquals(totalNonDoors, ((board.getNumRows()*board.getNumColumns())-numDoors));
 	}
 
 	@Test
