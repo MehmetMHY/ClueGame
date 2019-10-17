@@ -1,0 +1,11 @@
+K, Kitchen, Card
+D, Dining room, Card
+L, Library, Card
+O, Lounge, Card0
+B, Bathroom, Card
+M, Master Bedroom, Card
+T, Theater, Card
+C, Office, Card
+G, Game Hour, Card
+W, Walkway, Other
+X, Closest, Other
