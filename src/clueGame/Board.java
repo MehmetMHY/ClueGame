@@ -1,3 +1,10 @@
+/**. 
+ * Board is a class that reads the files and initializes everything.
+ * 
+ * @author Mehmet Yilmaz
+ * @author Ruidi Huang
+ */
+
 package clueGame;
 
 import java.io.BufferedReader;
