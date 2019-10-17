@@ -1,9 +1,11 @@
 package clueGame;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import experiment.BoardCell;
 
 public class Board {
 
@@ -13,7 +15,7 @@ public class Board {
 	
 	public final int MAX_BOARD_SIZE = 50;
 	
-	private Board BoardCell[][];
+	private BoardCell board[][];
 	
 	private Map<Character, String> legend;
 	
@@ -29,23 +31,89 @@ public class Board {
 	// variable used for singleton pattern
 	private static Board theInstance = new Board();
 	// constructor is private to ensure only one can be created
-	private Board() {}
+	private Board() {
+		legend = new HashMap<Character, String>();
+		adjMatrix = new HashMap<BoardCell, Set<BoardCell>>();
+		targets = new HashSet<BoardCell>();
+	}
 	// this method returns the only Board
 	public static Board getInstance() {
 		return theInstance;
 	}
 	
-	public void initialize() {
-		// TODO Auto-generated method stub
-		
+	public void setConfigFiles(String csvFile, String textFile) {
+		boardConfigFile = csvFile;
+		roomConfigFile = textFile;	
 	}
 	
+	public void initialize() {
+		loadBoardConfig();
+		loadRoomConfig();
+	}
+
+
+	
 	public void loadRoomConfig() {
-		// TODO FIX THIS SHIT
+		BufferedReader reader;
+		try {
+			reader = new BufferedReader(new FileReader(roomConfigFile));
+			String tempLine = reader.readLine();
+			while (tempLine != null) {
+				String[] line = tempLine.split(", ");
+				legend.put(line[0].charAt(0), line[1]);
+				tempLine = reader.readLine();
+			}
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void loadBoardConfig() {
-		// TODO DO IT
+		BufferedReader reader;
+		int numRow = 0, numCol = 0;
+		try {
+			reader = new BufferedReader(new FileReader(boardConfigFile));
+			String tempLine = reader.readLine();
+			while (tempLine != null) {
+				numRow++;
+				String[] line = tempLine.split(",");
+				numCol = line.length;
+				tempLine = reader.readLine();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		numRows = numRow;
+		numColumns = numCol;
+		board = new BoardCell[numRows][numColumns];
+		
+		for (int i = 0; i < numRows; i++) {
+			for (int j = 0; j < numColumns; j++) {
+				board[i][j] = new BoardCell(i,j);
+			}
+		}
+		
+		numRow = 0;
+		numCol = 0;
+		try {
+			reader = new BufferedReader(new FileReader(boardConfigFile));
+			String tempLine = reader.readLine();
+			while (tempLine != null) {
+				numCol = 0;
+				String[] line = tempLine.split(",");
+				for (String i:line) {
+					board[numRow][numCol].setRoomType(i);
+					numCol++;
+				}
+				numRow++;
+				tempLine = reader.readLine();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		//System.out.println(board);
+		
 	}
 	
 	public void calcAdjacencies() {
@@ -55,29 +123,21 @@ public class Board {
 	public void calcTargets(BoardCell startCell, int pathLength) {
 		// TODO ???
 	}
-	public void setConfigFiles(String string, String string2) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	public Map<Character, String> getLegend() {
-		// TODO Auto-generated method stub
-		return null;
+		return legend;
 	}
 
 	public int getNumRows() {
-		// TODO Auto-generated method stub
-		return 0;
+		return numRows;
 	}
 
 	public int getNumColumns() {
-		// TODO Auto-generated method stub
-		return 0;
+		return numColumns;
 	}
 
-	public clueGame.BoardCell getCellAt(int i, int j) {
-		// TODO Auto-generated method stub
-		return null;
+	public BoardCell getCellAt(int i, int j) {
+		return board[i][j];
 	}
-	
+
 }
