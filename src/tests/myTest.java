@@ -2,6 +2,8 @@
  * myTest is the class that does the JUnit testing for,
  * the over all setup and positioning of the board.
  * 
+ * >Please read ourTest.txt file for more information
+ * 
  * @author Mehmet Yilmaz
  * @author Ruidi Huang
  */
@@ -12,6 +14,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.FileNotFoundException;
 import java.util.Map;
 
 import org.junit.Assert;
@@ -26,13 +29,13 @@ import clueGame.DoorDirection;
 public class myTest {
 
 	public static final int LEGEND_SIZE = 11; // number of entries in Legend
-	public static final int NUM_ROWS = 21; // number of rows in gameBoard
-	public static final int NUM_COLUMNS = 22; // number of cols in gameBoard
+	public static final int NUM_ROWS = 22; // number of rows in gameBoard
+	public static final int NUM_COLUMNS = 23; // number of cols in gameBoard
 	public static final int NUM_DOORWAYS = 14; // number of doorways on the gameBoard
 	private static Board board; // static Board object
 	
 	@BeforeClass
-	public static void setUp() {
+	public static void setUp() throws FileNotFoundException, BadConfigFormatException {
 		board = Board.getInstance(); // set instance variable for Board
 		board.setConfigFiles("OurBoardLayout.csv", "OurRooms.txt"); // set the file names for setConfigFiles()	
 		board.initialize();
@@ -110,6 +113,7 @@ public class myTest {
 	@Test
 	public void testNumberOfDoorways() {
 		int numDoors = 0;
+		// loops though the whole 2D array board to access every cell on the board
 		for (int row=0; row<board.getNumRows(); row++) {
 			for (int col=0; col<board.getNumColumns(); col++) {
 				BoardCell cell = board.getCellAt(row, col);

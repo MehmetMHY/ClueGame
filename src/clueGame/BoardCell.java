@@ -55,6 +55,7 @@ public class BoardCell {
 		return roomType.charAt(0);
 	}
 
+	// based on the second char of the roomType, getDoorDirection returns the correcting DoorDirection
 	public DoorDirection getDoorDirection() {
 		switch(roomType.charAt(1)) {
 		case 'U':
