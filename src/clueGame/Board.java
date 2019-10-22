@@ -177,4 +177,22 @@ public class Board {
 		return board[i][j];
 	}
 
+	
+	// (10-20-2019) We need to work on this!!!
+	
+	public Set<BoardCell> getAdjList(int i, int j) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void calcTargets(int i, int j, int k) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Set<BoardCell> getTargets() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
