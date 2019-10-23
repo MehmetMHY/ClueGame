@@ -156,9 +156,41 @@ public class Board {
 	}
 	
 	public void calcAdjacencies() {
+		Set<BoardCell> tempSet;
+		BoardCell temp;
+		// determines if (ROW+1), (ROW-1), (COL+1), & (COL-1) is possible for each Cell in the grid and stores those coordinates in adjMtx
+		for (int i = 0; i < numRows; i++) {
+			for (int j = 0; j < numColumns; j++) {
+				tempSet = new HashSet<BoardCell>();
+				if (i + 1 < numRows) {
+					tempSet.add(getCellAt(i+1,j));
+				} 
+				if (j + 1 < numColumns) {
+					tempSet.add(getCellAt(i,j+1));
+				} 
+				if (i - 1 >= 0) {
+					tempSet.add(getCellAt(i - 1, j));
+				} 
+				if (j - 1 >= 0) {
+					tempSet.add(getCellAt(i,j - 1));
+				}
+				adjMatrix.put(getCellAt(i,j), tempSet);;
+			}
+		}
 	}
 	
 	public void calcTargets(BoardCell startCell, int pathLength) {
+		// loops though each ROW and COL of the grid
+		for (int i = 0; i < numRows ; i++) {
+			for (int j = 0; j < numColumns; j++) {
+				// loops though each (ROW, COL) coordinate and determines every target based on the startCell and pathLength
+				for(int k = pathLength; k >= 1; k -= 2) {
+					if (Math.abs(i - startCell.getRow()) + Math.abs(j - startCell.getCol()) == k) {
+						this.targets.add(getCellAt(i, j));
+					}
+				}
+			}
+		}
 	}
 
 	public Map<Character, String> getLegend() {
@@ -179,8 +211,20 @@ public class Board {
 	
 	
 	public Set<BoardCell> getAdjList(int i, int j) {
-		// TODO Auto-generated method stub
-		return null;
+		Set<BoardCell> temp = new HashSet<BoardCell>();
+		
+		BoardCell cell = getCellAt(i, j);
+		
+		// loops though adjMtx map and finds the key, based on the field: cell and sets temp as the value to that key
+		for (BoardCell key : adjMatrix.keySet()) {
+			if (key.getCol() == cell.getCol()) {
+				if (key.getRow() == cell.getRow()) {
+					temp = adjMatrix.get(key);
+				}
+			}
+		}
+		return temp;// TODO Auto-generated method stub
+		//return null;
 	}
 
 	public void calcTargets(int i, int j, int k) {
