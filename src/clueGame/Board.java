@@ -1,5 +1,5 @@
 /**. 
- * Board class thatt reads the files and initializes everything
+ * Board class that reads the files and initializes everything
  * 
  * @author Mehmet Yilmaz
  * @author Ruidi Huang
@@ -176,9 +176,7 @@ public class Board {
 	public BoardCell getCellAt(int i, int j) {
 		return board[i][j];
 	}
-
 	
-	// (10-20-2019) We need to work on this!!!
 	
 	public Set<BoardCell> getAdjList(int i, int j) {
 		// TODO Auto-generated method stub
@@ -187,7 +185,6 @@ public class Board {
 
 	public void calcTargets(int i, int j, int k) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public Set<BoardCell> getTargets() {

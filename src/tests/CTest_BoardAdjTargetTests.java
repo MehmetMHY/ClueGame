@@ -305,7 +305,7 @@ public class CTest_BoardAdjTargetTests {
 	@Test
 	public void testRoomExit()
 	{
-		// Take one step, essentially just the adj list
+		// Take one step, essentially just the adjlist
 		board.calcTargets(4, 20, 1);
 		Set<BoardCell> targets= board.getTargets();
 		// Ensure doesn't exit through the wall
