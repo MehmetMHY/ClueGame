@@ -160,13 +160,16 @@ public class Board {
 		}
 	}
 	
+	// calculates all possible adjacency cells on the board and stores it in the adjMatrix set
 	public void calcAdjacencies() {
 		Set<BoardCell> tempSet;
 		BoardCell temp;
+		
 		// determines if (ROW+1), (ROW-1), (COL+1), & (COL-1) is possible for each Cell in the grid and stores those coordinates in adjMtx
 		for (int i = 0; i < numRows; i++) {
 			for (int j = 0; j < numColumns; j++) {
 				tempSet = new HashSet<BoardCell>();
+				 // calculating adjacency cells for doors and checking to make sure the doors are in the correct direction
 				if (getCellAt(i,j).isDoorway()) {
 					switch(getCellAt(i,j).getDoorDirection()) {
 						case UP:
@@ -185,6 +188,7 @@ public class Board {
 					adjMatrix.put(getCellAt(i,j), tempSet);
 					continue;
 				}
+				// calculating adjacency cells for cells that are not Rooms (mainly walkways and doors)
 				else if (!getCellAt(i,j).isRoom()) {
 					if (i + 1 < numRows && !getCellAt(i+1,j).isRoom()) {
 						if (getCellAt(i+1,j).isDoorway() && getCellAt(i+1,j).getDoorDirection() == DoorDirection.UP) {
@@ -221,6 +225,7 @@ public class Board {
 		
 	}
 	
+	// calculates all possible target cells on the board, based on the pathLength and both the desired row and colmn values
 	public void calcTargets(int i, int j, int pathLength) {
 		targets = new HashSet<BoardCell>();
 		visited = new HashSet<BoardCell>();
@@ -228,8 +233,8 @@ public class Board {
 		recursive(i,j, pathLength);
 	}
 	
+	// calculates the target cells recursively (this is based on the pseudocode provided in one of the modules)
 	public void recursive(int i, int j, int pathLength) {
-		//System.out.println(getAdjList(i,j));
 		for (BoardCell cell : getAdjList(i,j)) {
 			if (!visited.contains(cell)) {
 				visited.add(cell);
