@@ -11,8 +11,10 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -27,6 +29,7 @@ public class Board {
 	private Set<BoardCell> targets;
 	private String boardConfigFile;
 	private String roomConfigFile;
+	private Set<BoardCell> visited;
 	
 	// variable used for singleton pattern
 	private static Board theInstance = new Board();
@@ -36,6 +39,7 @@ public class Board {
 		legend = new HashMap<Character, String>();
 		adjMatrix = new HashMap<BoardCell, Set<BoardCell>>();
 		targets = new HashSet<BoardCell>();
+		visited = new HashSet<BoardCell>();
 	}
 	
 	// this method returns the only Board
@@ -217,25 +221,25 @@ public class Board {
 		
 	}
 	
-	public void calcTargets(int a, int b, int pathLength) {
-		targets.clear();
-		for (int i = 0; i < numRows ; i++) {
-			for (int j = 0; j < numColumns; j++) {
-				// loops though each (ROW, COL) coordinate and determines every target based on the startCell and pathLength
-				for(int k = pathLength%2; k <= pathLength; k += 2) {
-					if (Math.abs(i - getCellAt(a,b).getRow()) + Math.abs(j - getCellAt(a,b).getCol()) == k) {
-						if (!getCellAt(i, j).isRoom() && getCellAt(i,j) != getCellAt(a,b)) {
-							if (getAdjList(i,j))
-							targets.add(getCellAt(i, j));
-						}
-					}
-				}
-//				if (Math.abs(i - getCellAt(a,b).getRow()) + Math.abs(j - getCellAt(a,b).getCol()) == pathLength) {
-//					if (!getCellAt(i, j).isRoom() && getCellAt(i,j) != getCellAt(a,b)) {
-//						targets.add(getCellAt(i, j));
-//					}
-//				}
+	public void calcTargets(int i, int j, int pathLength) {
+		targets = new HashSet<BoardCell>();
+		visited = new HashSet<BoardCell>();
+		visited.add(getCellAt(i,j));
+		recursive(i,j, pathLength);
+	}
+	
+	public void recursive(int i, int j, int pathLength) {
+		//System.out.println(getAdjList(i,j));
+		for (BoardCell cell : getAdjList(i,j)) {
+			if (!visited.contains(cell)) {
+				visited.add(cell);
 			}
+			if (pathLength == 1) {
+				targets.add(cell);
+			} else {
+				recursive(cell.getRow(),cell.getCol(), pathLength-1);
+			}
+			visited.remove(cell);
 		}
 	}
 	
