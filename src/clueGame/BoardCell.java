@@ -45,7 +45,7 @@ public class BoardCell {
 	}
 
 	public boolean isRoom() {
-		if (roomType.length() >= 1) {
+		if (roomType.charAt(0) != 'W' && roomType.length() == 1) {
 			return true;
 		}
 		return false;

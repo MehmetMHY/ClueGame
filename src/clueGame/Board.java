@@ -56,7 +56,8 @@ public class Board {
 			loadBoardConfig();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-		} 	
+		}
+		calcAdjacencies();
 	}
 
 	// reads legend text file and stores it in legend as well as throw any BadConfigFormatException
@@ -162,35 +163,89 @@ public class Board {
 		for (int i = 0; i < numRows; i++) {
 			for (int j = 0; j < numColumns; j++) {
 				tempSet = new HashSet<BoardCell>();
-				if (i + 1 < numRows) {
-					tempSet.add(getCellAt(i+1,j));
-				} 
-				if (j + 1 < numColumns) {
-					tempSet.add(getCellAt(i,j+1));
-				} 
-				if (i - 1 >= 0) {
-					tempSet.add(getCellAt(i - 1, j));
-				} 
-				if (j - 1 >= 0) {
-					tempSet.add(getCellAt(i,j - 1));
+				if (getCellAt(i,j).isDoorway()) {
+					switch(getCellAt(i,j).getDoorDirection()) {
+						case UP:
+							tempSet.add(getCellAt(i-1,j));
+							break;
+						case DOWN:
+							tempSet.add(getCellAt(i+1,j));
+							break;
+						case LEFT:
+							tempSet.add(getCellAt(i,j-1));
+							break;
+						case RIGHT:
+							tempSet.add(getCellAt(i,j+1));
+							break;
+					}
+					adjMatrix.put(getCellAt(i,j), tempSet);
+					continue;
 				}
-				adjMatrix.put(getCellAt(i,j), tempSet);;
+				else if (!getCellAt(i,j).isRoom()) {
+					if (i + 1 < numRows && !getCellAt(i+1,j).isRoom()) {
+						if (getCellAt(i+1,j).isDoorway() && getCellAt(i+1,j).getDoorDirection() == DoorDirection.UP) {
+							tempSet.add(getCellAt(i+1,j));
+						} else if (!getCellAt(i+1,j).isDoorway()) {
+							tempSet.add(getCellAt(i+1,j));
+						}
+					}
+					if (j + 1 < numColumns && !getCellAt(i,j+1).isRoom()) {
+						if (getCellAt(i,j+1).isDoorway() && getCellAt(i,j+1).getDoorDirection() == DoorDirection.LEFT) {
+							tempSet.add(getCellAt(i,j+1));
+						} else if (!getCellAt(i,j+1).isDoorway()) {
+							tempSet.add(getCellAt(i,j+1));
+						}
+					} 
+					if (i - 1 >= 0 && !getCellAt(i-1,j).isRoom()) {
+						if (getCellAt(i-1,j).isDoorway() && getCellAt(i-1,j).getDoorDirection() == DoorDirection.DOWN) {
+							tempSet.add(getCellAt(i-1,j));
+						} else if (!getCellAt(i-1,j).isDoorway()) {
+							tempSet.add(getCellAt(i-1,j));
+						}
+					} 
+					if (j - 1 >= 0 && !getCellAt(i,j-1).isRoom()) {
+						if (getCellAt(i,j-1).isDoorway() && getCellAt(i,j-1).getDoorDirection() == DoorDirection.RIGHT) {
+							tempSet.add(getCellAt(i,j-1));
+						} else if (!getCellAt(i,j-1).isDoorway()) {
+							tempSet.add(getCellAt(i,j-1));
+						}
+					}
+				}
+				adjMatrix.put(getCellAt(i,j), tempSet);
+			}
+		}
+		
+	}
+	
+	public void calcTargets(int a, int b, int pathLength) {
+		targets.clear();
+		for (int i = 0; i < numRows ; i++) {
+			for (int j = 0; j < numColumns; j++) {
+				// loops though each (ROW, COL) coordinate and determines every target based on the startCell and pathLength
+				for(int k = pathLength%2; k <= pathLength; k += 2) {
+					if (Math.abs(i - getCellAt(a,b).getRow()) + Math.abs(j - getCellAt(a,b).getCol()) == k) {
+						if (!getCellAt(i, j).isRoom() && getCellAt(i,j) != getCellAt(a,b)) {
+							if (getAdjList(i,j))
+							targets.add(getCellAt(i, j));
+						}
+					}
+				}
+//				if (Math.abs(i - getCellAt(a,b).getRow()) + Math.abs(j - getCellAt(a,b).getCol()) == pathLength) {
+//					if (!getCellAt(i, j).isRoom() && getCellAt(i,j) != getCellAt(a,b)) {
+//						targets.add(getCellAt(i, j));
+//					}
+//				}
 			}
 		}
 	}
 	
-	public void calcTargets(BoardCell startCell, int pathLength) {
-		// loops though each ROW and COL of the grid
-		for (int i = 0; i < numRows ; i++) {
-			for (int j = 0; j < numColumns; j++) {
-				// loops though each (ROW, COL) coordinate and determines every target based on the startCell and pathLength
-				for(int k = pathLength; k >= 1; k -= 2) {
-					if (Math.abs(i - startCell.getRow()) + Math.abs(j - startCell.getCol()) == k) {
-						this.targets.add(getCellAt(i, j));
-					}
-				}
-			}
-		}
+	public Set<BoardCell> getAdjList(int i, int j) {
+		return adjMatrix.get(getCellAt(i,j));
+	}
+
+
+	public Set<BoardCell> getTargets() {
+		return targets;
 	}
 
 	public Map<Character, String> getLegend() {
@@ -209,31 +264,4 @@ public class Board {
 		return board[i][j];
 	}
 	
-	
-	public Set<BoardCell> getAdjList(int i, int j) {
-		Set<BoardCell> temp = new HashSet<BoardCell>();
-		
-		BoardCell cell = getCellAt(i, j);
-		
-		// loops though adjMtx map and finds the key, based on the field: cell and sets temp as the value to that key
-		for (BoardCell key : adjMatrix.keySet()) {
-			if (key.getCol() == cell.getCol()) {
-				if (key.getRow() == cell.getRow()) {
-					temp = adjMatrix.get(key);
-				}
-			}
-		}
-		return temp;// TODO Auto-generated method stub
-		//return null;
-	}
-
-	public void calcTargets(int i, int j, int k) {
-		// TODO Auto-generated method stub
-	}
-
-	public Set<BoardCell> getTargets() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
