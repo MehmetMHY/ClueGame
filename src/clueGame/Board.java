@@ -233,13 +233,16 @@ public class Board {
 		for (BoardCell cell : getAdjList(i,j)) {
 			if (!visited.contains(cell)) {
 				visited.add(cell);
+				if (pathLength == 1) {
+					targets.add(cell);
+				} else if (cell.isDoorway()) {
+					targets.add(cell);
+				}
+				else {
+					recursive(cell.getRow(),cell.getCol(), pathLength-1);
+				}
+				visited.remove(cell);
 			}
-			if (pathLength == 1) {
-				targets.add(cell);
-			} else {
-				recursive(cell.getRow(),cell.getCol(), pathLength-1);
-			}
-			visited.remove(cell);
 		}
 	}
 	
