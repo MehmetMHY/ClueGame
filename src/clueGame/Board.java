@@ -19,7 +19,6 @@ import java.util.Map;
 import java.util.Set;
 
 public class Board {
-
 	private int numRows;
 	private int numColumns;
 	public final int MAX_BOARD_SIZE = 50;
@@ -36,8 +35,8 @@ public class Board {
 	
 	// constructor is private to ensure only one can be created, its also used to initialize legend, adjMatrix, and targets
 	private Board() {
-		legend = new HashMap<Character, String>();
 		adjMatrix = new HashMap<BoardCell, Set<BoardCell>>();
+		legend = new HashMap<Character, String>();
 		targets = new HashSet<BoardCell>();
 		visited = new HashSet<BoardCell>();
 	}
@@ -64,7 +63,7 @@ public class Board {
 		calcAdjacencies();
 	}
 
-	// reads legend text file and stores it in legend as well as throw any BadConfigFormatException
+	// reads legend text file and stores it in legend private Map variable as well as throw any BadConfigFormatException
 	@SuppressWarnings("resource")
 	public void loadRoomConfig() throws BadConfigFormatException, IOException {
 		BufferedReader reader;
@@ -85,71 +84,100 @@ public class Board {
 	@SuppressWarnings("resource")
 	public void loadBoardConfig() throws IOException, BadConfigFormatException {
 		BufferedReader reader;
-		int numRow = 0, numCol = 0;
-
-		// the first loop determines the size of the board
-		reader = new BufferedReader(new FileReader(boardConfigFile));
-		String tempLine = reader.readLine();
-		while (tempLine != null) {
-			numRow++;
-			String[] line = tempLine.split(",");
-			if (numCol == 0) {
-				numCol = line.length;
-			} else if (numCol != line.length) {
-				throw new BadConfigFormatException("Column at " + numRow + " not valid");
-			}
-			tempLine = reader.readLine();
-		}
-		numRows = numRow;
-		numColumns = numCol;
+		String tempLine;
+		
+		// Initialize numRows and numColumns
+		calcRowCol();
+		
+		// initialize board with newly initialize numRows and numColumns
 		board = new BoardCell[numRows][numColumns];
 		
+		// create board cell objects for board
 		for (int i = 0; i < numRows; i++) {
 			for (int j = 0; j < numColumns; j++) {
 				board[i][j] = new BoardCell(i,j);
 			}
 		}
 		
-		// after finding the size of the board, it loads the content in the csv file into the board
-		numRow = 0;
-		numCol = 0;
+		// loads the content in the csv file into the board
 		reader = new BufferedReader(new FileReader(boardConfigFile));
 		tempLine = reader.readLine();
+		
+		
+		// checks to make sure all the content on the board match the content in the legend
+		int textRow = 0;
+		int textCol = 0;
 		while (tempLine != null) {
-			numCol = 0;
+			textCol = 0;
 			String[] line = tempLine.split(",");
 			for (String i:line) {
 				if (!legend.containsKey(i.charAt(0))) {
+					// throw exception if something is on the board that is not included in the legend
 					throw new BadConfigFormatException("Key " + i.charAt(0) + " doesn't exist");
 				}
-				board[numRow][numCol].setRoomType(i);
-				numCol++;
+				board[textRow][textCol].setRoomType(i);
+				textCol++;
 			}
-			numRow++;
+			textRow++;
 			tempLine = reader.readLine();
 		}
 		
-		// checks for valid doors by making so that the door is by a walkway as well as if the do is in the correct DoorDirection
+		// checks for valid doors
+		checkDoorDirection();
+	}
+	
+	// calculates the number of Rows and Cols in the csv file for the ClueGame board
+	private void calcRowCol() throws FileNotFoundException, IOException, BadConfigFormatException {
+		BufferedReader reader;
+		int textRow = 0; // counter for rows
+		int textCol = 0; // counter for cols
+
+		// this loop determines the size of the board
+		reader = new BufferedReader(new FileReader(boardConfigFile));
+		String tempLine = reader.readLine();
+		while (tempLine != null) {
+			textRow++;
+			String[] line = tempLine.split(",");
+			if (textCol == 0) {
+				// if the Col was not initialized we initialize it
+				textCol = line.length;
+			} else if (textCol != line.length) {
+				// checks to make sure there is a consistent number of columns otherwise an excetpion is thrown
+				throw new BadConfigFormatException("Column at " + textRow + " not valid");
+			}
+			tempLine = reader.readLine();
+		}
+
+		numRows = textRow;
+		numColumns = textCol;
+	}
+
+	// checks for valid doors by making so that the door is by a walkway as well as if the do is in the correct DoorDirection 
+	private void checkDoorDirection() throws BadConfigFormatException {
 		for (int i = 0; i < numRows; i++) {
 			for (int j = 0; j < numColumns; j++) {
 				if (board[i][j].isDoorway()) {
 					switch(board[i][j].getDoorDirection()) {
 					case UP:
+						// throw exception if there is no walkway above an UP doorway
 						if (i - 1 < 0 || !board[i-1][j].getInitial().equals('W')) {
 							throw new BadConfigFormatException("Doorway at " + i + " " + j + " not valid");	
 						}
 						break;
 					case DOWN:
+						// throw exception if there is no walkway above an DOWN doorway
 						if (i + 1 >= numColumns || !board[i+1][j].getInitial().equals('W')) {
 							throw new BadConfigFormatException("Doorway at " + i + " " + j + " not valid");	
 						}
 						break;
 					case LEFT:
+						// throw exception if there is no walkway above an LEFT doorway
 						if (j - 1 < 0 || !board[i][j-1].getInitial().equals('W')) {
 							throw new BadConfigFormatException("Doorway at " + i + " " + j + " not valid");	
 						}
 						break;
 					case RIGHT:
+						// throw exception if there is no walkway above an RIGHT doorway
 						if (j + 1 >= numColumns || !board[i][j+1].getInitial().equals('W')) {
 							throw new BadConfigFormatException("Doorway at " + i + " " + j + " not valid");	
 						}
@@ -161,6 +189,7 @@ public class Board {
 	}
 	
 	// calculates all possible adjacency cells on the board and stores it in the adjMatrix set
+	@SuppressWarnings("incomplete-switch")
 	public void calcAdjacencies() {
 		Set<BoardCell> tempSet;
 		BoardCell temp;
@@ -169,6 +198,7 @@ public class Board {
 		for (int i = 0; i < numRows; i++) {
 			for (int j = 0; j < numColumns; j++) {
 				tempSet = new HashSet<BoardCell>();
+				
 				 // calculating adjacency cells for doors and checking to make sure the doors are in the correct direction
 				if (getCellAt(i,j).isDoorway()) {
 					switch(getCellAt(i,j).getDoorDirection()) {
@@ -188,41 +218,38 @@ public class Board {
 					adjMatrix.put(getCellAt(i,j), tempSet);
 					continue;
 				}
+				
 				// calculating adjacency cells for cells that are not Rooms (mainly walkways and doors)
 				else if (!getCellAt(i,j).isRoom()) {
-					if (i + 1 < numRows && !getCellAt(i+1,j).isRoom()) {
-						if (getCellAt(i+1,j).isDoorway() && getCellAt(i+1,j).getDoorDirection() == DoorDirection.UP) {
-							tempSet.add(getCellAt(i+1,j));
-						} else if (!getCellAt(i+1,j).isDoorway()) {
-							tempSet.add(getCellAt(i+1,j));
-						}
-					}
-					if (j + 1 < numColumns && !getCellAt(i,j+1).isRoom()) {
-						if (getCellAt(i,j+1).isDoorway() && getCellAt(i,j+1).getDoorDirection() == DoorDirection.LEFT) {
-							tempSet.add(getCellAt(i,j+1));
-						} else if (!getCellAt(i,j+1).isDoorway()) {
-							tempSet.add(getCellAt(i,j+1));
-						}
-					} 
-					if (i - 1 >= 0 && !getCellAt(i-1,j).isRoom()) {
-						if (getCellAt(i-1,j).isDoorway() && getCellAt(i-1,j).getDoorDirection() == DoorDirection.DOWN) {
-							tempSet.add(getCellAt(i-1,j));
-						} else if (!getCellAt(i-1,j).isDoorway()) {
-							tempSet.add(getCellAt(i-1,j));
-						}
-					} 
-					if (j - 1 >= 0 && !getCellAt(i,j-1).isRoom()) {
-						if (getCellAt(i,j-1).isDoorway() && getCellAt(i,j-1).getDoorDirection() == DoorDirection.RIGHT) {
-							tempSet.add(getCellAt(i,j-1));
-						} else if (!getCellAt(i,j-1).isDoorway()) {
-							tempSet.add(getCellAt(i,j-1));
-						}
-					}
+					// 
+					checkDirection(tempSet, i, j);
 				}
 				adjMatrix.put(getCellAt(i,j), tempSet);
 			}
 		}
-		
+	}
+
+	private void checkDirection(Set<BoardCell> tempSet, int i, int j) {
+		if (i + 1 < numRows && !getCellAt(i+1,j).isRoom()) {
+			if ((getCellAt(i+1,j).isDoorway() && getCellAt(i+1,j).getDoorDirection() == DoorDirection.UP) || !getCellAt(i+1,j).isDoorway()) {
+				tempSet.add(getCellAt(i+1,j));
+			}
+		}
+		if (j + 1 < numColumns && !getCellAt(i,j+1).isRoom()) {
+			if ((getCellAt(i,j+1).isDoorway() && getCellAt(i,j+1).getDoorDirection() == DoorDirection.LEFT) || !getCellAt(i,j+1).isDoorway()) {
+				tempSet.add(getCellAt(i,j+1));
+			}
+		} 
+		if (i - 1 >= 0 && !getCellAt(i-1,j).isRoom()) {
+			if ((getCellAt(i-1,j).isDoorway() && getCellAt(i-1,j).getDoorDirection() == DoorDirection.DOWN) || !getCellAt(i-1,j).isDoorway()) {
+				tempSet.add(getCellAt(i-1,j));
+			}
+		} 
+		if (j - 1 >= 0 && !getCellAt(i,j-1).isRoom()) {
+			if ((getCellAt(i,j-1).isDoorway() && getCellAt(i,j-1).getDoorDirection() == DoorDirection.RIGHT) || !getCellAt(i,j-1).isDoorway()) {
+				tempSet.add(getCellAt(i,j-1));
+			}
+		}
 	}
 	
 	// calculates all possible target cells on the board, based on the pathLength and both the desired row and colmn values
@@ -255,7 +282,6 @@ public class Board {
 		return adjMatrix.get(getCellAt(i,j));
 	}
 
-
 	public Set<BoardCell> getTargets() {
 		return targets;
 	}
@@ -275,5 +301,4 @@ public class Board {
 	public BoardCell getCellAt(int i, int j) {
 		return board[i][j];
 	}
-	
 }
