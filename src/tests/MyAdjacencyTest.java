@@ -18,7 +18,9 @@ import java.util.Set;
 
 public class MyAdjacencyTest {
 	private static Board board; // initializing a static Board object for all the tests
+	private Set<BoardCell> testPoint; // initializing BoardCell set testPoint for all the tests
 	
+	// initialize everything before doing all the tests
 	@BeforeClass
 	public static void setUp() {
 		board = Board.getInstance(); // only set instance variable for Board
@@ -30,7 +32,7 @@ public class MyAdjacencyTest {
 	@Test
 	public void testAdjacentLocationsWalways(){
 		// test walkway at point (7,4)
-		Set<BoardCell> testPoint = board.getAdjList(7,4);
+		testPoint = board.getAdjList(7,4);
 		assertTrue(testPoint.contains(board.getCellAt(6, 4)));
 		assertTrue(testPoint.contains(board.getCellAt(8, 4)));
 		assertTrue(testPoint.contains(board.getCellAt(7, 5)));
@@ -55,7 +57,7 @@ public class MyAdjacencyTest {
 	@Test
 	public void testAdjacentLocationsInRooms(){
 		// test cell (2,2) in room M
-		Set<BoardCell> testPoint = board.getAdjList(2,2);
+		testPoint = board.getAdjList(2,2);
 		assertEquals(0, testPoint.size());
 		
 		// test cell (18, 11) in room D
@@ -67,11 +69,11 @@ public class MyAdjacencyTest {
 		assertEquals(0, testPoint.size());
 	}
 	
-	// Adjacency tests for locations at each edge of the board (UP and DOWN edges)
+	// Adjacency tests for locations at the edge(s) of the board (UP and DOWN edges)
 	@Test
 	public void testAdjacentAtEdges(){
 		// test adjacency list for the UP edge of the board
-		Set<BoardCell> testPoint = board.getAdjList(0, 7);
+		testPoint = board.getAdjList(0, 7);
 		assertTrue(testPoint.contains(board.getCellAt(1, 7)));
 		assertTrue(testPoint.contains(board.getCellAt(0, 8)));
 		assertEquals(2, testPoint.size());
@@ -87,7 +89,7 @@ public class MyAdjacencyTest {
 	@Test
 	public void testBesideRoomNotDoorWay(){
 		// testBesideRoomNotDoorWay test for point (9, 15)
-		Set<BoardCell> testPoint = board.getAdjList(9, 15);
+		testPoint = board.getAdjList(9, 15);
 		assertTrue(testPoint.contains(board.getCellAt(10, 15)));
 		assertTrue(testPoint.contains(board.getCellAt(9, 14)));
 		assertTrue(testPoint.contains(board.getCellAt(8, 15)));
@@ -104,7 +106,7 @@ public class MyAdjacencyTest {
 	@Test
 	public void testLocationsAdjacenetToDoorway(){
 		// test cell (5, 4)
-		Set<BoardCell> testPoint = board.getAdjList(5, 4);
+		testPoint = board.getAdjList(5, 4);
 		assertTrue(testPoint.contains(board.getCellAt(6, 4)));
 		assertTrue(testPoint.contains(board.getCellAt(5, 5)));
 		assertTrue(testPoint.contains(board.getCellAt(4, 4)));
@@ -123,8 +125,6 @@ public class MyAdjacencyTest {
 	// Adjacency tests for locations that are doorways. The value of the adjacent cell should be 1.
 	@Test
 	public void LocationsAreDoorways(){
-		Set<BoardCell> testPoint;
-
 		// test UP door at cell (12, 4)
 		testPoint = board.getAdjList(12, 4);
 		assertTrue(testPoint.contains(board.getCellAt(12,5)));
@@ -288,6 +288,7 @@ public class MyAdjacencyTest {
 	// Target tests for targets that allow the user to enter into a room, shortcut verison
 	@Test
 	public void TargetsEnterRoomShortcut(){
+		// get all target cells for cell (6, 19)
 		board.calcTargets(6, 10, 3);
 		Set<BoardCell> targets= board.getTargets();
 		
@@ -307,7 +308,7 @@ public class MyAdjacencyTest {
 	// Targets test for targets calculated when leaving a room
 	@Test
 	public void testRoomExit() {
-		// test cell point (11, 16) with a dice roll of 2
+		// test cell point (11, 16) with a dice roll of 1
 		board.calcTargets(11, 16, 1);
 		Set<BoardCell> targets= board.getTargets();		
 		// there should only be 1 target
