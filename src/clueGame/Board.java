@@ -1,5 +1,9 @@
 /**. 
- * Board class that reads the files and initializes everything
+ * Board class that creates the grid, adjacency cells set,
+ * initialize visited set, create targets set for the character(s),
+ * as well as set up BoardCell object. This is the main class for,
+ * setting up the grid for the game as well as determine all,
+ * targeted and adjacency cells on the grid.
  * 
  * @author Mehmet Yilmaz
  * @author Ruidi Huang
@@ -84,7 +88,7 @@ public class Board {
 		BufferedReader reader;
 		String tempLine;
 		
-		// Initialize numRows and numColumns
+		// initialize numRows and numColumns
 		calcRowCol();
 		
 		// initialize board with newly initialize numRows and numColumns
@@ -100,7 +104,6 @@ public class Board {
 		// loads the content in the csv file into the board
 		reader = new BufferedReader(new FileReader(boardConfigFile));
 		tempLine = reader.readLine();
-		
 		
 		// checks to make sure all the content on the board match the content in the legend
 		int textRow = 0;

@@ -1,0 +1,260 @@
+-NOTE: We (Mehmet Yilmaz and Ruidi Huang) did work on the ClueGame code mainly though pair programming.
+
+commit 7bafe3cb824f3d16f02809611c680a11fb181d7c
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Thu Oct 24 21:38:07 2019 -0600
+
+    Removed some unneeded files and Refactored the calcAdjacencies() method into two methods: calcAdjacencies() and checkDirections(). To make the method cleaner and easier to read
+
+commit 7e3e46b500b7914a8733a5d5fea57307b2305fd8
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Thu Oct 24 21:33:53 2019 -0600
+
+    Added more comments as well as fix some of the tests to work with the new rules that were not on canvas
+
+commit 8ce8d9bc5a96b7c6144367c96fbce79d46232107
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Thu Oct 24 21:32:47 2019 -0600
+
+    Re-organized the layout as well as comment somethings to make it easier to udnerstand the code
+
+commit f671d49bf4785d28de8fa4b2b5554d549bf68481
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Thu Oct 24 20:25:52 2019 -0600
+
+    Maded changes to the TEST excel sheet to make it easier to read and know what tests the MyAdjacencyTest JUnit file is doing
+
+commit 4092faf90d97726088b18b067829ba6e973d5db2
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Thu Oct 24 20:23:08 2019 -0600
+
+    Added some comments to the MyAdjacencyTest for our board layout to explain what each text was doing as well as what each point represents
+
+commit 0de2a0268a00a851f067326d0683245d5a5e047f
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Thu Oct 24 12:14:54 2019 -0600
+
+    Refactored by changing numRow and numCol to textRow and textCol to make it easier to read. Also split the loadBoardConfig() method into 3 methods to make it easier to read and track
+
+commit af39f343d8f36bb68cb8e5c78c3cada1165c8ba6
+Author: Mehmet Yilmaz <mehmetyilmaz@mines.edu>
+Date:   Wed Oct 23 23:50:12 2019 -0600
+
+    Added some comments for Part IV assignment
+
+commit e43468c233283efc118eea04b0945466f1719da3
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Wed Oct 23 23:36:25 2019 -0600
+
+    Finished testing ex
+
+commit a368b51ff13a3a7796f5588744287b82d9cd9409
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Wed Oct 23 23:12:10 2019 -0600
+
+    Changed calcTargets
+
+commit 71e95cd1cfa2bc5d11e666e155181a3b176c11af
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Wed Oct 23 19:10:35 2019 -0600
+
+    Halfway done with testing
+
+commit 3860c1ecfe1d6deb23b22ea20724fa32c4c2877c
+Author: Mehmet Yilmaz <mehmetyilmaz@mines.edu>
+Date:   Wed Oct 23 14:55:47 2019 -0600
+
+    Started working on part IV
+
+commit add7d0f19a82e696e21fca88ff501ca80a6b0fd0
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Tue Oct 22 18:42:02 2019 -0600
+
+    Finished the MyAdjacencyTests as well as cleaned up the Excel file showing our tests
+
+commit fcca236a19ffeecc36555055dfd7afded9da6333
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Tue Oct 22 15:41:04 2019 -0600
+
+    Updating Excel sheet
+
+commit b55a595c02864d5429ce92fb00de0f45c626a181
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Tue Oct 22 03:54:35 2019 -0600
+
+    Updated OurBoardLayout - Test csv file as well as added some tests
+
+commit 420b0f7606d3600e26d1aedfe46eceddb1b81192
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Fri Oct 18 11:32:41 2019 -0600
+
+    Changed board layout
+
+commit 62dca931e85683afc1cc5ad413586d0dab1c5754
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Wed Oct 16 22:28:54 2019 -0600
+
+    Making a backup for finished work
+
+commit bcf2f56cfafa1d3a072500c47fc1d33cf49fa103
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Wed Oct 16 21:15:16 2019 -0600
+
+    Developed some exceptions for the code
+
+commit 9e06ec665cf30752f286147c0b5de7afeba1d689
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Wed Oct 16 19:45:24 2019 -0600
+
+    Added some comments to the code as well as added some throws to myTest class
+
+commit 9007fc9b59d7f1f86a14fd3e05fd7e515a44a48b
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Wed Oct 16 19:39:36 2019 -0600
+
+    Passed all sample tests
+
+commit de7edb08fdd38d78467bdd9e2fe255e65b531358
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Wed Oct 16 18:47:15 2019 -0600
+
+    Fixed BadConfigFormatException class git error
+
+commit ec48416fa8add5c9095f59a973fecab5246c8b96
+Merge: 4c88ee2 e6a2be4
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Wed Oct 16 18:45:40 2019 -0600
+
+    Fixing git
+
+commit 4c88ee281d0a21a045d9a00b2c10916a9ee781bd
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Wed Oct 16 18:44:16 2019 -0600
+
+    Modified code to work with tests
+
+commit e6a2be440b10fb8f9fc1d2defd612ff754e781ad
+Author: Mehmet <mehmet.mhy@gmail.com>
+Date:   Wed Oct 16 18:40:41 2019 -0600
+
+    Update BadConfigFormatException.java
+
+commit 8135e6095074c78d59ac97449b04a47533306ab7
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Wed Oct 16 18:08:45 2019 -0600
+
+    Added some files and finished up tests for now
+
+commit 2e2c6df400003e5e367f7c10ddac52296b01f699
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Wed Oct 16 18:04:33 2019 -0600
+
+    Passed all tests in CTest_FileInitTests
+
+commit 37134902a4e4f42603fb2f228b9c217032f73a02
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Wed Oct 16 16:50:54 2019 -0600
+
+    Finished the tests cases
+
+commit c0156cbb0da44d652c3dd726174227951d68693d
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Wed Oct 16 14:32:29 2019 -0600
+
+    Corrected some small things
+
+commit b9917c7098005d0f8efecb5999b52dbb70d3addb
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Tue Oct 15 19:42:06 2019 -0600
+
+    Changed some small things
+
+commit 1a1e5b93c8b06daa517787357b41f55c8ec8397d
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Tue Oct 15 19:37:56 2019 -0600
+
+    Added test for room
+
+commit 84005db180f7d9bb3fbc92775a833e0d5718c8a9
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Tue Oct 15 19:07:16 2019 -0600
+
+    Removed old zip file
+
+commit 3414cbd7d1e19651edbdbd096e9ca846f422ae70
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Tue Oct 15 19:01:56 2019 -0600
+
+    Added skeleton
+
+commit da1836151643a939df45b51d2d608a17ca6e29d8
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Sat Oct 5 23:18:20 2019 -0600
+
+    Created more comments
+
+commit a13259883dcc31a616a1e6e094a3604500f9db8c
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Sat Oct 5 22:45:18 2019 -0600
+
+    Updated the log.txt
+
+commit d5b4ada41d2286f9ff32df689a8f0c6523bdea89
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Sat Oct 5 22:44:41 2019 -0600
+
+    Removed some unneeded code
+
+commit d7490edfd3c5345fb14ecf127a27f6d964b44314
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Sat Oct 5 22:41:39 2019 -0600
+
+    Commented the code, fixed parts of the code, and fixed up Part I of this assginment
+
+commit 556dee0cfd919d75da41f5068f1f5f96a4cc4a6a
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Sat Oct 5 19:30:02 2019 -0600
+
+    This is stuff for part II, but I need to add part I stuff so this is a backup of the code just incase if I mess something up
+
+commit 6057211434508eee8a8bfc3c693097985ad72b8c
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Fri Oct 4 17:53:19 2019 -0600
+
+    Added some more code
+
+commit 5766e6a997378bf0a19704916f190066e3478a05
+Author: Mehmet Yilmaz <mehmetyilmaz@mines.edu>
+Date:   Fri Oct 4 17:18:36 2019 -0600
+
+    Added some jUnit tests, this is our first attempt
+
+commit 68f44f9905852747fb56cb8887fe5bbe22d0e947
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Thu Oct 3 12:16:13 2019 -0600
+
+    Added some functions to BoardCell and InBoard classes
+
+commit a3f40730bbcf49ba0f2dcca9c28e0ff5b24d3d71
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Thu Oct 3 11:57:00 2019 -0600
+
+    Worked on some of the classes
+
+commit 0255581f450b1040bffbe6e881f9dabd0fce6734
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Thu Oct 3 11:17:45 2019 -0600
+
+    Testing some stuff
+
+commit d7862a344aa28669f4ee7580b3c3e932cff4b9df
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Thu Oct 3 11:09:31 2019 -0600
+
+    Added some packages
+
+commit 6a5ec170830a2aaa303dcd34b72c0d74a5044d74
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Thu Oct 3 11:07:14 2019 -0600
+
+    First commit

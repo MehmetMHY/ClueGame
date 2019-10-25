@@ -37,11 +37,13 @@ public class MyAdjacencyTest {
 		assertTrue(testPoint.contains(board.getCellAt(8, 4)));
 		assertTrue(testPoint.contains(board.getCellAt(7, 5)));
 		assertTrue(testPoint.contains(board.getCellAt(7, 3)));
+		// the number of adjacent cells for (7, 4) should only be 4
 		assertEquals(4, testPoint.size());
 		
 		// test walkway at point (8,22)
 		testPoint = board.getAdjList(8, 22);
 		assertTrue(testPoint.contains(board.getCellAt(8, 21)));
+		// the number of adjacent cells for (8, 22) should only be 1
 		assertEquals(1, testPoint.size());
 		
 		// test walkway at point (14,15)
@@ -50,6 +52,7 @@ public class MyAdjacencyTest {
 		assertTrue(testPoint.contains(board.getCellAt(14, 14)));
 		assertTrue(testPoint.contains(board.getCellAt(13, 15)));
 		assertTrue(testPoint.contains(board.getCellAt(15, 15)));
+		// the number of adjacent cells for (14, 15) should only be 4
 		assertEquals(4, testPoint.size());
 	}
 	
@@ -285,7 +288,7 @@ public class MyAdjacencyTest {
 		assertTrue(targets.contains(board.getCellAt(16, 6)));
 	}
 	
-	// Target tests for targets that allow the user to enter into a room, shortcut verison
+	// Target tests for targets that allow the user to enter into a room, shortcut-edition
 	@Test
 	public void TargetsEnterRoomShortcut(){
 		// get all target cells for cell (6, 19)
