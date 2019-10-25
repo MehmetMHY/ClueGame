@@ -23,6 +23,5 @@ public class BadConfigFormatException extends Exception {
 	public String toString() {
 		return null;
 	}
-	
 }
 
