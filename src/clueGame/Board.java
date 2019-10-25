@@ -64,7 +64,6 @@ public class Board {
 	}
 
 	// reads legend text file and stores it in legend private Map variable as well as throw any BadConfigFormatException
-	@SuppressWarnings("resource")
 	public void loadRoomConfig() throws BadConfigFormatException, IOException {
 		BufferedReader reader;
 		reader = new BufferedReader(new FileReader(roomConfigFile));
@@ -81,7 +80,6 @@ public class Board {
 	}
 	
 	// reads csv files and stores it in the board as well as throw any BadConfigFormatException
-	@SuppressWarnings("resource")
 	public void loadBoardConfig() throws IOException, BadConfigFormatException {
 		BufferedReader reader;
 		String tempLine;
@@ -189,7 +187,6 @@ public class Board {
 	}
 	
 	// calculates all possible adjacency cells on the board and stores it in the adjMatrix set
-	@SuppressWarnings("incomplete-switch")
 	public void calcAdjacencies() {
 		Set<BoardCell> tempSet;
 		BoardCell temp;
@@ -221,7 +218,7 @@ public class Board {
 				
 				// calculating adjacency cells for cells that are not Rooms (mainly walkways and doors)
 				else if (!getCellAt(i,j).isRoom()) {
-					// 
+					// check door directions to make sure the doors are in the right direction
 					checkDirection(tempSet, i, j);
 				}
 				adjMatrix.put(getCellAt(i,j), tempSet);
@@ -230,21 +227,25 @@ public class Board {
 	}
 
 	private void checkDirection(Set<BoardCell> tempSet, int i, int j) {
+		// adds cell to set if the cell is a door in the UP direction or is not a door at call, this is for UP doors
 		if (i + 1 < numRows && !getCellAt(i+1,j).isRoom()) {
 			if ((getCellAt(i+1,j).isDoorway() && getCellAt(i+1,j).getDoorDirection() == DoorDirection.UP) || !getCellAt(i+1,j).isDoorway()) {
 				tempSet.add(getCellAt(i+1,j));
 			}
 		}
+		// adds cell to set if the cell is a door in the LEFT direction or is not a door at call, this is for LEFT doors
 		if (j + 1 < numColumns && !getCellAt(i,j+1).isRoom()) {
 			if ((getCellAt(i,j+1).isDoorway() && getCellAt(i,j+1).getDoorDirection() == DoorDirection.LEFT) || !getCellAt(i,j+1).isDoorway()) {
 				tempSet.add(getCellAt(i,j+1));
 			}
 		} 
+		// adds cell to set if the cell is a door in the DOWN direction or is not a door at call, this is for DOWN doors
 		if (i - 1 >= 0 && !getCellAt(i-1,j).isRoom()) {
 			if ((getCellAt(i-1,j).isDoorway() && getCellAt(i-1,j).getDoorDirection() == DoorDirection.DOWN) || !getCellAt(i-1,j).isDoorway()) {
 				tempSet.add(getCellAt(i-1,j));
 			}
 		} 
+		// adds cell to set if the cell is a door in the RIGHT direction or is not a door at call, this is for RIGHT doors
 		if (j - 1 >= 0 && !getCellAt(i,j-1).isRoom()) {
 			if ((getCellAt(i,j-1).isDoorway() && getCellAt(i,j-1).getDoorDirection() == DoorDirection.RIGHT) || !getCellAt(i,j-1).isDoorway()) {
 				tempSet.add(getCellAt(i,j-1));
@@ -252,42 +253,42 @@ public class Board {
 		}
 	}
 	
+	/**. 
+	 * The pseudocode for calcTargets() and recursive() was provide by the 9-29-2019 before class prep work: "C12P Class Prep - Clue".
+	 */
+	
 	// calculates all possible target cells on the board, based on the pathLength and both the desired row and colmn values
 	public void calcTargets(int i, int j, int pathLength) {
+		// re-initializing everything for recursive step(s)
 		targets = new HashSet<BoardCell>();
 		visited = new HashSet<BoardCell>();
+		
+		// add current/standing-on cell to visited set
 		visited.add(getCellAt(i,j));
+		
+		// run recursive element of calcTargets
 		recursive(i,j, pathLength);
 	}
 	
 	// calculates the target cells recursively (this is based on the pseudocode provided in one of the modules)
 	public void recursive(int i, int j, int pathLength) {
+		// iterate though cell's adjacent cells at cell (i, j)
 		for (BoardCell cell : getAdjList(i,j)) {
+			// if visited set does not contain a cell from the AdjList list, add that cell to the visited cell
 			if (!visited.contains(cell)) {
 				visited.add(cell);
-				if (pathLength == 1) {
+				if (pathLength == 1) { // add the cell to target if the pathLength is 1 as a base case
 					targets.add(cell);
-				} else if (cell.isDoorway()) {
+				} else if (cell.isDoorway()) { // if the cell is a door way, also add it to targets as another base case
 					targets.add(cell);
 				}
-				else {
+				else { // repeat this process recursive with pathLength-1, do this until pathLength is 0
 					recursive(cell.getRow(),cell.getCol(), pathLength-1);
 				}
+				// after all is done, remove the cell from the visited set
 				visited.remove(cell);
 			}
 		}
-	}
-	
-	public Set<BoardCell> getAdjList(int i, int j) {
-		return adjMatrix.get(getCellAt(i,j));
-	}
-
-	public Set<BoardCell> getTargets() {
-		return targets;
-	}
-
-	public Map<Character, String> getLegend() {
-		return legend;
 	}
 
 	public int getNumRows() {
@@ -296,6 +297,18 @@ public class Board {
 
 	public int getNumColumns() {
 		return numColumns;
+	}
+	
+	public Set<BoardCell> getTargets() {
+		return targets;
+	}
+
+	public Map<Character, String> getLegend() {
+		return legend;
+	}
+	
+	public Set<BoardCell> getAdjList(int i, int j) {
+		return adjMatrix.get(getCellAt(i,j));
 	}
 
 	public BoardCell getCellAt(int i, int j) {

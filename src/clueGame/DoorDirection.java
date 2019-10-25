@@ -1,6 +1,6 @@
 /**. 
  * DoorDirection is an enum that contains the direction,
- * of each door.
+ * of each door
  * 
  * @author Mehmet Yilmaz
  * @author Ruidi Huang
