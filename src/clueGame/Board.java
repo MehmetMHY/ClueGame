@@ -50,6 +50,23 @@ public class Board {
 		return theInstance;
 	}
 	
+	public void loadConfigFiles() {
+		
+	}
+	
+	public void selectAnswer() {
+		
+	}
+	
+	public Card handleSuggestion() {
+		return null;
+
+	}
+	
+	public boolean checkAccusation(Solution accusation) {
+		return false;
+	}
+	
 	// initialize boardConfigFile and roomConfigFile
 	public void setConfigFiles(String csvFile, String textFile) {
 		boardConfigFile = csvFile;
