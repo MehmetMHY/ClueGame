@@ -33,7 +33,8 @@ public class Board {
 	private String boardConfigFile;
 	private String roomConfigFile;
 	private Set<BoardCell> visited;
-	
+	private Set<Card> deck;
+
 	// variable used for singleton pattern
 	private static Board theInstance = new Board();
 	
@@ -43,6 +44,7 @@ public class Board {
 		legend = new HashMap<Character, String>();
 		targets = new HashSet<BoardCell>();
 		visited = new HashSet<BoardCell>();
+		deck = new HashSet<Card>();
 	}
 	
 	// this method returns the only Board
@@ -50,8 +52,9 @@ public class Board {
 		return theInstance;
 	}
 	
-	public void loadConfigFiles() {
-		
+	@SuppressWarnings("resource")
+	public void loadConfigFiles() throws BadConfigFormatException, IOException {
+
 	}
 	
 	public void selectAnswer() {
@@ -78,6 +81,7 @@ public class Board {
 		try {
 			loadRoomConfig();
 			loadBoardConfig();
+			loadConfigFiles();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -85,6 +89,7 @@ public class Board {
 	}
 
 	// reads legend text file and stores it in legend private Map variable as well as throw any BadConfigFormatException
+	@SuppressWarnings("resource")
 	public void loadRoomConfig() throws BadConfigFormatException, IOException {
 		BufferedReader reader;
 		reader = new BufferedReader(new FileReader(roomConfigFile));
@@ -333,5 +338,13 @@ public class Board {
 
 	public BoardCell getCellAt(int i, int j) {
 		return board[i][j];
+	}
+	
+	public Set<Card> getDeck() {
+		return deck;
+	}
+
+	public void setDeck(Set<Card> deck) {
+		this.deck = deck;
 	}
 }
