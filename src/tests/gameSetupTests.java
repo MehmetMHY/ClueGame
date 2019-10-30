@@ -28,6 +28,7 @@ public class gameSetupTests {
 	private static ComputerPlayer c5;
 	
 	private ArrayList<Card> testDeck;
+	private Set<Card> dealtDeck;
 	private Map<String, ComputerPlayer> testComputers;
 	
 	@BeforeClass
@@ -63,7 +64,7 @@ public class gameSetupTests {
 	
 	@Test
 	public void testRoomCards(){	// test if every room cards are loaded correctly
-		testDeck = board.getDeck();
+		testDeck = board.getRoomDeck();
 		Card kitchen = new Card("Kitchen");
 		assertTrue(testDeck.contains(kitchen));
 		Card dining = new Card("Dining room");
@@ -86,7 +87,7 @@ public class gameSetupTests {
 	
 	@Test
 	public void testWeaponCards(){		// test if every weapon cards are loaded correctly
-		testDeck = board.getDeck();
+		testDeck = board.getWeaponDeck();
 		Card knife = new Card("Real Knife");
 		assertTrue(testDeck.contains(knife));
 		Card rifle = new Card("Binary Rifle");
@@ -94,7 +95,7 @@ public class gameSetupTests {
 		Card katana = new Card("Zangetsu");
 		assertTrue(testDeck.contains(katana));
 		Card dominator = new Card("Dominator");
-		assertTrue(testDeck.contains("Dominator"));
+		assertTrue(testDeck.contains(dominator));
 		Card cross = new Card("Cross Punisher");
 		assertTrue(testDeck.contains(cross));
 		Card gun = new Card("Gravity Gun");
@@ -103,7 +104,7 @@ public class gameSetupTests {
 	
 	@Test
 	public void testPeopleCards(){ // test if every name cards are loaded correctly
-		testDeck = board.getDeck();
+		testDeck = board.getPlayerDeck();
 		Card c1 = new Card("Mrs. Peacock");
 		assertTrue(testDeck.contains(c1));
 		Card c2 = new Card("Professor Plum");
@@ -120,6 +121,24 @@ public class gameSetupTests {
 //		assertTrue(testDeck.contains(c6));
 	}
 
-	
+	@Test
+	public void testDealCards() {	// test if the cards are dealt correctly
+		dealtDeck = board.getCardDealt();
+		
+		ArrayList<Card> testWeaponDeck = board.getWeaponDeck();
+		ArrayList<Card> testPlayerDeck = board.getPlayerDeck();
+		ArrayList<Card> testRoomDeck = board.getRoomDeck();
+		Card[] testSolutionDeck = board.getSolutionDeck();
+		
+		int totalSize = testWeaponDeck.size() + testPlayerDeck.size() + testRoomDeck.size(); 
+		totalSize = totalSize - testSolutionDeck.length;
+		assertTrue(testDeck.size() == totalSize);	// make sure each card is only dealt once
+
+		testComputers = board.getPlayers();
+		assertTrue(testComputers.get("Mr. Boddy").getMyCards().size() == 3);	// Test if there are 3 cards assigned to each player
+		assertTrue(testComputers.get("Mr. Green").getMyCards().size() == 3);
+		assertTrue(testComputers.get("Mrs. White").getMyCards().size() == 3);
+		assertTrue(testComputers.get("Professor Plum").getMyCards().size() == 3);
+	}
 	
 }

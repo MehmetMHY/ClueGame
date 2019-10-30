@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 abstract class Player {
 
-	private ArrayList<Card> seenCards = new ArrayList<Card>();
-	static ArrayList<Card> myCards = new ArrayList<Card>();
+	static  ArrayList<Card> seenCards = new ArrayList<Card>();
+	private ArrayList<Card> myCards = new ArrayList<Card>();
 	private String playerName;
 	private int row;
 	private int column;
@@ -46,16 +46,16 @@ abstract class Player {
 		return seenCards;
 	}
 
-	public void addSeenCards(Card newCard) {
+	public static void addSeenCards(Card newCard) {
 		seenCards.add(newCard);
 	}
 
-	public static ArrayList<Card> getMyCards() {
+	public ArrayList<Card> getMyCards() {
 		return myCards;
 	}
 
-	public static void setMyCards(ArrayList<Card> myCards) {
-		Player.myCards = myCards;
+	public void setMyCards(ArrayList<Card> myCards) {
+		this.myCards = myCards;
 	}
 	
 }

@@ -39,6 +39,7 @@ public class Board {
 	private ArrayList<Card> weaponDeck;
 	private ArrayList<Card> playerDeck;
 	private ArrayList<Card> roomDeck;
+	private Set<Card> cardDealt;
 	private Card[] solution = new Card[3];
 	private Map<String, ComputerPlayer> computers;
 	private HumanPlayer player;
@@ -56,6 +57,7 @@ public class Board {
 		playerDeck = new ArrayList<Card>();
 		roomDeck = new ArrayList<Card>();
 		computers = new HashMap<String, ComputerPlayer>();
+		cardDealt = new HashSet<Card> ();
 	}
 	
 	// this method returns the only Board
@@ -332,6 +334,10 @@ public class Board {
 		}
 	}
 
+	public Set<Card> getCardDealt() {
+		return cardDealt;
+	}
+	
 	public HumanPlayer getP1() {
 		return player;
 	}
@@ -375,9 +381,13 @@ public class Board {
 	public BoardCell getCellAt(int i, int j) {
 		return board[i][j];
 	}
-	
-	public ArrayList<Card> getDeck() {
-		return weaponDeck;
+
+	public Card[] getSolutionDeck() {
+		return solution;
+	}
+
+	public void setSolutionDeck(Card[] solution) {
+		this.solution = solution;
 	}
 
 }
