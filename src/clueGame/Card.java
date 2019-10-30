@@ -1,8 +1,8 @@
 package clueGame;
 
 public class Card {
+	private CardType type;
 	private String cardName;
-	
 	public Card(String name) {
 		cardName = name;
 	}
@@ -18,6 +18,14 @@ public class Card {
 
 	public String getCardName() {
 		return cardName;
+	}
+
+	public CardType getType() {
+		return type;
+	}
+
+	public void setType(CardType type) {
+		this.type = type;
 	}
 
 	public void setCardName(String cardName) {

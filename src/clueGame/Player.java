@@ -39,11 +39,7 @@ abstract class Player {
 	}
 
 	public Color getColor() {
-		return null;
-	}
-
-	public void setColor(Color color) {
-		this.color = color;
+		return this.color;
 	}
 
 	public ArrayList<Card> getSeenCards() {

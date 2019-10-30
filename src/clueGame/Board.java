@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -35,18 +36,26 @@ public class Board {
 	private String weaponConfigFile;
 	private String peopleConfigFile;
 	private Set<BoardCell> visited;
-	private Set<Card> deck;
+	private ArrayList<Card> weaponDeck;
+	private ArrayList<Card> playerDeck;
+	private ArrayList<Card> roomDeck;
+	private Card[] solution = new Card[3];
+	private Map<String, ComputerPlayer> computers;
+	private HumanPlayer player;
 
 	// variable used for singleton pattern
 	private static Board theInstance = new Board();
-	
+
 	// constructor is private to ensure only one can be created, its also used to initialize legend, adjMatrix, and targets
 	private Board() {
 		adjMatrix = new HashMap<BoardCell, Set<BoardCell>>();
 		legend = new HashMap<Character, String>();
 		targets = new HashSet<BoardCell>();
 		visited = new HashSet<BoardCell>();
-		deck = new HashSet<Card>();
+		weaponDeck = new ArrayList<Card>();
+		playerDeck = new ArrayList<Card>();
+		roomDeck = new ArrayList<Card>();
+		computers = new HashMap<String, ComputerPlayer>();
 	}
 	
 	// this method returns the only Board
@@ -56,36 +65,7 @@ public class Board {
 	
 	@SuppressWarnings("resource")
 	public void loadConfigFiles() throws BadConfigFormatException, IOException {
-		BufferedReader reader;
-		reader = new BufferedReader(new FileReader(weaponConfigFile));
-		String tempLine = reader.readLine();
-		while (tempLine != null) {
-			String[] line = tempLine.split(", ");
-			if (line.length == 1) {
-				Card temp = new Card(line[0]);
-				deck.add(temp);
-			} else {
-				throw new BadConfigFormatException("Weapon file's format not valid");
-			}
-			tempLine = reader.readLine();
-		}
-		reader.close();
 		
-		BufferedReader reader1;
-		reader1 = new BufferedReader(new FileReader(peopleConfigFile));
-		String tempLine1 = reader1.readLine();
-		while (tempLine1 != null) {
-			String[] line = tempLine1.split(", ");
-			if (line.length == 1) {
-				Card temp = new Card(line[0]);
-				deck.add(temp);
-			} else {
-				throw new BadConfigFormatException("AI name file's format not valid");
-			}
-			tempLine1 = reader1.readLine();
-		}
-		reader1.close();
-		System.out.println(deck);
 	}
 	
 	public void selectAnswer() {
@@ -352,6 +332,26 @@ public class Board {
 		}
 	}
 
+	public HumanPlayer getP1() {
+		return player;
+	}
+	
+	public ArrayList<Card> getWeaponDeck() {
+		return weaponDeck;
+	}
+
+	public ArrayList<Card> getPlayerDeck() {
+		return playerDeck;
+	}
+
+	public ArrayList<Card> getRoomDeck() {
+		return roomDeck;
+	}
+
+	public Map<String, ComputerPlayer> getPlayers() {
+		return computers;
+	}
+	
 	public int getNumRows() {
 		return numRows;
 	}
@@ -376,11 +376,8 @@ public class Board {
 		return board[i][j];
 	}
 	
-	public Set<Card> getDeck() {
-		return deck;
+	public ArrayList<Card> getDeck() {
+		return weaponDeck;
 	}
 
-	public void setDeck(Set<Card> deck) {
-		this.deck = deck;
-	}
 }
