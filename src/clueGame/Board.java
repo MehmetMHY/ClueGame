@@ -32,6 +32,8 @@ public class Board {
 	private Set<BoardCell> targets;
 	private String boardConfigFile;
 	private String roomConfigFile;
+	private String weaponConfigFile;
+	private String peopleConfigFile;
 	private Set<BoardCell> visited;
 	private Set<Card> deck;
 
@@ -54,7 +56,36 @@ public class Board {
 	
 	@SuppressWarnings("resource")
 	public void loadConfigFiles() throws BadConfigFormatException, IOException {
-
+		BufferedReader reader;
+		reader = new BufferedReader(new FileReader(weaponConfigFile));
+		String tempLine = reader.readLine();
+		while (tempLine != null) {
+			String[] line = tempLine.split(", ");
+			if (line.length == 1) {
+				Card temp = new Card(line[0]);
+				deck.add(temp);
+			} else {
+				throw new BadConfigFormatException("Weapon file's format not valid");
+			}
+			tempLine = reader.readLine();
+		}
+		reader.close();
+		
+		BufferedReader reader1;
+		reader1 = new BufferedReader(new FileReader(peopleConfigFile));
+		String tempLine1 = reader1.readLine();
+		while (tempLine1 != null) {
+			String[] line = tempLine1.split(", ");
+			if (line.length == 1) {
+				Card temp = new Card(line[0]);
+				deck.add(temp);
+			} else {
+				throw new BadConfigFormatException("AI name file's format not valid");
+			}
+			tempLine1 = reader1.readLine();
+		}
+		reader1.close();
+		System.out.println(deck);
 	}
 	
 	public void selectAnswer() {
@@ -73,7 +104,12 @@ public class Board {
 	// initialize boardConfigFile and roomConfigFile
 	public void setConfigFiles(String csvFile, String textFile) {
 		boardConfigFile = csvFile;
-		roomConfigFile = textFile;	
+		roomConfigFile = textFile;
+	}
+	
+	public void setCardConfigFiles(String weapon, String names) {
+		weaponConfigFile = weapon;
+		peopleConfigFile = names;
 	}
 	
 	// calls loadRoomConfig and LoadBoardCongig and catch any thrown exception(s)

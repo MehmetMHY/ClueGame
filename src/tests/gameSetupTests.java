@@ -31,6 +31,7 @@ public class gameSetupTests {
 		// initialize the board:
 		board = Board.getInstance(); // only set instance variable for Board
 		board.setConfigFiles("OurBoardLayout.csv", "OurRooms.txt"); // set the file names for setConfigFiles()
+		board.setCardConfigFiles("Weapon.txt", "AINames.txt");
 		board.initialize(); // load both config files for tests
 	}
 	
@@ -49,15 +50,24 @@ public class gameSetupTests {
 	@Test
 	public void testRoomCards(){
 		testDeck = board.getDeck();
-		assertTrue(testDeck.contains("Kitchen"));
-		assertTrue(testDeck.contains("Dining room"));
-		assertTrue(testDeck.contains("Library"));
-		assertTrue(testDeck.contains("Lounge"));
-		assertTrue(testDeck.contains("Bathroom"));
-		assertTrue(testDeck.contains("Master Bedroom"));
-		assertTrue(testDeck.contains("Theater"));
-		assertTrue(testDeck.contains("Office"));
-		assertTrue(testDeck.contains("Game Hour"));
+		Card kitchen = new Card("Kitchen");
+		assertTrue(testDeck.contains(kitchen));
+		Card dining = new Card("Dining room");
+		assertTrue(testDeck.contains(dining));
+		Card library = new Card("Library");
+		assertTrue(testDeck.contains(library));
+		Card lounge = new Card("Lounge");
+		assertTrue(testDeck.contains(lounge));
+		Card bathroom = new Card("Bathroom");
+		assertTrue(testDeck.contains(bathroom));
+		Card master = new Card("Master Bedroom");
+		assertTrue(testDeck.contains(master));
+		Card theater = new Card("Theater");
+		assertTrue(testDeck.contains(theater));
+		Card office = new Card("Office");
+		assertTrue(testDeck.contains(office));
+		Card game = new Card("Game Hour");
+		assertTrue(testDeck.contains(game));
 	}
 	
 	@Test
@@ -74,14 +84,11 @@ public class gameSetupTests {
 	@Test
 	public void testPeopleCards(){
 		testDeck = board.getDeck();
-		assertTrue(testDeck.contains("Mrs. Peacocks"));
+		assertTrue(testDeck.contains("Mrs. Peacock"));
 		assertTrue(testDeck.contains("Miss Scarlet"));
 		assertTrue(testDeck.contains("Professor Plum"));
-		assertTrue(testDeck.contains("Katana"));
-		assertTrue(testDeck.contains("Dominator"));
-		assertTrue(testDeck.contains("Death Note"));
-		assertTrue(testDeck.contains("Cross Punisher"));
-		assertTrue(testDeck.contains("Office"));
-		assertTrue(testDeck.contains("Game Hour"));
+		assertTrue(testDeck.contains("Mrs. White"));
+		assertTrue(testDeck.contains("Mr. Boddy"));
+		assertTrue(testDeck.contains("Mr Green"));
 	}
 }
