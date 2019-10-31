@@ -80,6 +80,7 @@ public class Board {
 			String[] line = tempLine.split(", ");
 			if (line.length == 1) {
 				Card temp = new Card(line[0]);
+				temp.setType(CardType.WEAPON);
 				weaponDeck.add(temp);
 			} else {
 				throw new BadConfigFormatException("Weapon file's format not valid");
@@ -96,6 +97,7 @@ public class Board {
 		while (tempLine1 != null) {
 			String[] line = tempLine1.split(", ");
 			Card temp = new Card(line[0]);
+			temp.setType(CardType.PERSON);
 			playerDeck.add(temp);
 			tempLine1 = reader1.readLine();
 		}
@@ -125,43 +127,80 @@ public class Board {
 			tempLine11 = reader11.readLine();
 		}
 		reader11.close();
+				
+		Random rand = new Random();
 		
-//		//System.out.println(computers);
+		int randint1 = rand.nextInt(weaponDeck.size());
+		int randint2 = rand.nextInt(roomDeck.size());
+		int randint3 = rand.nextInt(playerDeck.size());
+		
+		solution.add(weaponDeck.get(randint1));
+		solution.add(roomDeck.get(randint1));
+		solution.add(playerDeck.get(randint1));
+		
+		//System.out.println(solution);
+		
+		// Assign player 3 cards;
+		
+		int pW = rand.nextInt(weaponDeck.size());
+		int pR = rand.nextInt(roomDeck.size());
+		int pP = rand.nextInt(playerDeck.size());
+		
+		player.addCards(weaponDeck.get(pW));
+		cardDealt.add(weaponDeck.get(pW));
+		//weaponDeck.remove(pW);
+		player.addCards(roomDeck.get(pR));
+		cardDealt.add(roomDeck.get(pR));
+		//roomDeck.remove(pR);
+		player.addCards(playerDeck.get(pP));
+		cardDealt.add(playerDeck.get(pP));
+		//playerDeck.remove(pP);
+		
+//		System.out.println(player.getMyCards());
+//		System.out.println(cardDealt);
+		
+		// Create temporal arraylist so we can delete things
+		ArrayList<Card> tempWeaponDeck = new ArrayList<Card>(weaponDeck);
+		ArrayList<Card> tempRoomDeck = new ArrayList<Card>(roomDeck);
+		ArrayList<Card> tempPlayerDeck = new ArrayList<Card>(playerDeck);
+		
+//		System.out.println("size");
+//		System.out.println(tempWeaponDeck.size());
+//		System.out.println(tempRoomDeck.size());
+//		System.out.println(tempPlayerDeck.size());
 //		
-//		//System.out.println(player);
-//		
-//		// DEALING CARDS:
-//		
-//		ArrayList<Card> copyWeaponDeck = weaponDeck;
-//		ArrayList<Card> copyPlayerDeck = playerDeck;
-//		ArrayList<Card> copyRoomDeck = roomDeck;
-//
-//		Random r = new Random();
-//		int rand = 0;
-//		
-//		rand = r.nextInt(copyWeaponDeck.size());
-//		solution.add(copyWeaponDeck.get(rand));
-//		//System.out.println(copyWeaponDeck);
-//		copyWeaponDeck.remove(rand);
-//		//System.out.println(copyWeaponDeck);
-//		
-//		rand = r.nextInt(copyPlayerDeck.size());
-//		solution.add(copyPlayerDeck.get(rand));
-//		copyPlayerDeck.remove(rand);
-//		
-//		rand = r.nextInt(copyRoomDeck.size());
-//		solution.add(copyRoomDeck.get(rand));
-//		copyRoomDeck.remove(rand);
-//		
-//		//System.out.println(solution.size() + ":" + solution);
-//		
-//		completeDeck.addAll(copyWeaponDeck);
-//		completeDeck.addAll(copyPlayerDeck);
-//		completeDeck.addAll(copyRoomDeck);
-//		
-//		//System.out.println(solution.size() + ":" + solution);
-//		//System.out.println(completeDeck.size() + ":" + completeDeck);
+		//System.out.println(cardDealt);
+		
+		for (Map.Entry<String, ComputerPlayer> entry : computers.entrySet()) {
+			
+			// Initialize random cards and make sure they are not in dealt
+			int cW = rand.nextInt(tempWeaponDeck.size());
+			while (cardDealt.contains(tempWeaponDeck.get(cW))) {
+				cW = rand.nextInt(tempWeaponDeck.size());
+			}
+			int cR = rand.nextInt(tempRoomDeck.size());
+			while (cardDealt.contains(tempRoomDeck.get(cR))) {
+				cR = rand.nextInt(tempRoomDeck.size());
+			}
+			int cP = rand.nextInt(tempPlayerDeck.size());
+			while (cardDealt.contains(tempPlayerDeck.get(cP)) ) {
+				cP = rand.nextInt(tempPlayerDeck.size());
+			}
+			
+			// Add cards into players' hand
+			entry.getValue().addCards(tempWeaponDeck.get(cW));
+			entry.getValue().addCards(tempRoomDeck.get(cR));
+			entry.getValue().addCards(tempPlayerDeck.get(cP));
+			
+			// Add these cards into cardDealt
+			cardDealt.add(tempWeaponDeck.get(cW));
+			cardDealt.add(tempRoomDeck.get(cR));
+			cardDealt.add(tempPlayerDeck.get(cP));
 
+			
+		}
+		
+		//System.out.println(cardDealt);
 	}
 	
 	public void selectAnswer() {
@@ -212,6 +251,7 @@ public class Board {
 				legend.put(line[0].charAt(0), line[1]);
 				if (line[2].equals("Card")) {
 					Card rCard = new Card(line[1]);
+					rCard.setType(CardType.ROOM);
 					roomDeck.add(rCard);
 				}
 			} else {

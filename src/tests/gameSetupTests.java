@@ -158,7 +158,9 @@ public class gameSetupTests {
 		
 		int totalSize = testWeaponDeck.size() + testPlayerDeck.size() + testRoomDeck.size(); 
 		totalSize = totalSize - testSolutionDeck.size();
-		assertTrue(testDeck.size() == totalSize);	// make sure each card is only dealt once
+//		System.out.println(dealtDeck.size());
+//		System.out.println(totalSize);
+		assertTrue(dealtDeck.size() == totalSize);	// make sure each card is only dealt once
 
 		testComputers = board.getPlayers();
 		assertTrue(testComputers.get("Mr. Boddy").getMyCards().size() == 3);	// Test if there are 3 cards assigned to each player

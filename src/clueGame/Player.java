@@ -54,8 +54,8 @@ abstract class Player {
 		return myCards;
 	}
 
-	public void setMyCards(ArrayList<Card> myCards) {
-		this.myCards = myCards;
+	public void addCards(Card newCard) {
+		myCards.add(newCard);
 	}
 	
 }
