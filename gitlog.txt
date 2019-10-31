@@ -1,4 +1,8 @@
--NOTE: We (Mehmet Yilmaz and Ruidi Huang) did work on the ClueGame code mainly though pair programming.
+commit 09d752032157d2a2b5167d14760bb6dbafcc858f
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Wed Oct 30 23:55:09 2019 -0600
+
+    Added some comment to the gameSetupTests to make it easier to understand the tests
 
 commit 537ede40796bf612b309afeedb3e686b4a9d674f
 Author: RuidiH <ruidihuang@mymail.mines.edu>

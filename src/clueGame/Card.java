@@ -3,6 +3,7 @@ package clueGame;
 public class Card {
 	private CardType type;
 	private String cardName;
+	
 	public Card(String name) {
 		cardName = name;
 	}

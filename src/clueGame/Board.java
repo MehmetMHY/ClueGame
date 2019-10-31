@@ -71,8 +71,12 @@ public class Board {
 		return theInstance;
 	}
 	
+	// This function loads cards and players.
 	@SuppressWarnings("resource")
 	public void loadConfigFiles() throws BadConfigFormatException, IOException, IllegalAccessException, NoSuchFieldException, SecurityException {
+		
+		// The first reader reads in weapon cards
+		
 		BufferedReader reader;
 		reader = new BufferedReader(new FileReader(weaponConfigFile));
 		String tempLine = reader.readLine();
@@ -90,7 +94,9 @@ public class Board {
 		reader.close();
 		
 		//System.out.println(weaponDeck);
-				
+		
+		// The second reader (reader1) reads in player cards
+	
 		BufferedReader reader1;
 		reader1 = new BufferedReader(new FileReader(peopleConfigFile));
 		String tempLine1 = reader1.readLine();
@@ -104,6 +110,8 @@ public class Board {
 		reader1.close();
 		
 		//System.out.println(playerDeck);
+		
+		// The third(reader11) reads in both human and computer players
 		
 		BufferedReader reader11;
 		reader11 = new BufferedReader(new FileReader(peopleConfigFile));
@@ -129,6 +137,8 @@ public class Board {
 		reader11.close();
 				
 		Random rand = new Random();
+		
+		// Add 3 random cards into solution
 		
 		int randint1 = rand.nextInt(weaponDeck.size());
 		int randint2 = rand.nextInt(roomDeck.size());
@@ -173,7 +183,7 @@ public class Board {
 		
 		for (Map.Entry<String, ComputerPlayer> entry : computers.entrySet()) {
 			
-			// Initialize random cards and make sure they are not in dealt
+			// Initialize random cards and make sure they are not in cardDealt
 			int cW = rand.nextInt(tempWeaponDeck.size());
 			while (cardDealt.contains(tempWeaponDeck.get(cW))) {
 				cW = rand.nextInt(tempWeaponDeck.size());
@@ -222,6 +232,7 @@ public class Board {
 		roomConfigFile = textFile;
 	}
 	
+	// initialize weapon and people files' names
 	public void setCardConfigFiles(String weapon, String names) {
 		weaponConfigFile = weapon;
 		peopleConfigFile = names;
