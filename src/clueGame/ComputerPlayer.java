@@ -19,6 +19,12 @@ public class ComputerPlayer extends Player {
 	
 	
 	@Override
+	public String toString() {
+		return "ComputerPlayer [name=" + name + ", row=" + row + ", col=" + col + ", color=" + color + "]";
+	}
+
+
+	@Override
 	public Card disproveSuggestion(Solution suggection) {
 		// TODO Auto-generated method stub
 		return null;

@@ -87,9 +87,17 @@ public class gameSetupTests {
 	
 	@Test
 	public void testWeaponCards(){		// test if every weapon cards are loaded correctly
+		Card temp = new Card("Real Knife");
 		testDeck = board.getWeaponDeck();
-		Card knife = new Card("Real Knife");
-		assertTrue(testDeck.contains(knife));
+		//System.out.println(testDeck);
+		//Card knife = new Card("Real Knife");
+		//System.out.println(knife);
+		//System.out.println(temp.toString() + " " + testDeck.get(0).toString());
+		assertTrue(testDeck.get(0).equals(temp));
+		System.out.println("FUCK");
+		
+		
+		
 		Card rifle = new Card("Binary Rifle");
 		assertTrue(testDeck.contains(rifle));
 		Card katana = new Card("Zangetsu");

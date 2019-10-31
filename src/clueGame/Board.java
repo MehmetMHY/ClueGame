@@ -11,6 +11,7 @@
 
 package clueGame;
 
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -66,7 +67,61 @@ public class Board {
 	}
 	
 	@SuppressWarnings("resource")
-	public void loadConfigFiles() throws BadConfigFormatException, IOException {
+	public void loadConfigFiles() throws BadConfigFormatException, IOException, IllegalAccessException, NoSuchFieldException, SecurityException {
+		BufferedReader reader;
+		reader = new BufferedReader(new FileReader(weaponConfigFile));
+		String tempLine = reader.readLine();
+		while (tempLine != null) {
+			String[] line = tempLine.split(", ");
+			if (line.length == 1) {
+				Card temp = new Card(line[0]);
+				weaponDeck.add(temp);
+			} else {
+				throw new BadConfigFormatException("Weapon file's format not valid");
+			}
+			tempLine = reader.readLine();
+		}
+		reader.close();
+		
+		//System.out.println(weaponDeck);
+				
+		BufferedReader reader1;
+		reader1 = new BufferedReader(new FileReader(peopleConfigFile));
+		String tempLine1 = reader1.readLine();
+		while (tempLine1 != null) {
+			String[] line = tempLine1.split(", ");
+			Card temp = new Card(line[0]);
+			playerDeck.add(temp);
+			tempLine1 = reader1.readLine();
+		}
+		reader1.close();
+		
+		//System.out.println(playerDeck);
+		
+		BufferedReader reader11;
+		reader11 = new BufferedReader(new FileReader(peopleConfigFile));
+		String tempLine11 = reader11.readLine();
+		int counter = 0;
+		while (tempLine11 != null) {
+			String[] line = tempLine11.split(", ");
+			if (counter == 0) {
+				int inRow = Integer.parseInt(line[2]);
+				int inCol = Integer.parseInt(line[3]);
+				Color newColor = (Color)Color.class.getField(line[1]).get(null);
+				ComputerPlayer tempC = new ComputerPlayer(line[0], inRow, inCol, newColor);
+				computers.put(line[0], tempC);
+			} else {
+				int inRow = Integer.parseInt(line[2]);
+				int inCol = Integer.parseInt(line[3]);
+				Color newColor = (Color)Color.class.getField(line[1]).get(null);
+				player = new HumanPlayer(line[0], inRow, inCol, newColor);
+			}
+			tempLine11 = reader11.readLine();
+		}
+		reader11.close();
+		
+		//System.out.println(computers);
+		//System.out.println(player);
 		
 	}
 	
@@ -116,6 +171,12 @@ public class Board {
 			String[] line = tempLine.split(", ");
 			if (line[2].equals("Card") || line[2].equals("Other")) {
 				legend.put(line[0].charAt(0), line[1]);
+				//
+				if (line[2].equals("Card")) {
+					Card rCard = new Card(line[2]);
+					roomDeck.add(rCard);
+				}
+				//
 			} else {
 				throw new BadConfigFormatException("Room type " + line[2] + " not valid");
 			}

@@ -1,6 +1,6 @@
+Colonel Mustard, yellow, 21, 8
 Mrs. White, white, 18, 0
 Mr. Boddy, black, 8, 0
-Mr. Green, green,3, 22
+Mr. Green, green, 3, 22
 Professor Plum, cyan, 8, 22
 Mrs. Peacock, blue, 14, 22
-Colonel Mustard, yellow, 21, 8

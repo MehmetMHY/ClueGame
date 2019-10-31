@@ -7,8 +7,8 @@ public class Card {
 		cardName = name;
 	}
 
-	public boolean equals(Card one, Card two) {
-		return (one == two);
+	public boolean equals(Card temp) {
+		return this.cardName.equals(temp.toString());
 	}
 	
 	@Override
