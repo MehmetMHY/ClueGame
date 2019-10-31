@@ -70,4 +70,8 @@ public class BoardCell {
 	public String toString() {
 		return "BoardCell [row=" + row + ", col=" + col + "]";
 	}
+
+	public String getRoomType() {
+		return roomType;
+	}
 }

@@ -63,7 +63,6 @@ public class Board {
 		computers = new HashMap<String, ComputerPlayer>();
 		cardDealt = new HashSet<Card> ();
 		solution = new ArrayList<Card>();
-		//setCompleteDeck(new ArrayList<Card>());
 	}
 	
 	// this method returns the only Board
@@ -76,7 +75,6 @@ public class Board {
 	public void loadConfigFiles() throws BadConfigFormatException, IOException, IllegalAccessException, NoSuchFieldException, SecurityException {
 		
 		// The first reader reads in weapon cards
-		
 		BufferedReader reader;
 		reader = new BufferedReader(new FileReader(weaponConfigFile));
 		String tempLine = reader.readLine();
@@ -93,10 +91,7 @@ public class Board {
 		}
 		reader.close();
 		
-		//System.out.println(weaponDeck);
-		
 		// The second reader (reader1) reads in player cards
-	
 		BufferedReader reader1;
 		reader1 = new BufferedReader(new FileReader(peopleConfigFile));
 		String tempLine1 = reader1.readLine();
@@ -109,10 +104,7 @@ public class Board {
 		}
 		reader1.close();
 		
-		//System.out.println(playerDeck);
-		
 		// The third(reader11) reads in both human and computer players
-		
 		BufferedReader reader11;
 		reader11 = new BufferedReader(new FileReader(peopleConfigFile));
 		String tempLine11 = reader11.readLine();
@@ -148,38 +140,23 @@ public class Board {
 		solution.add(roomDeck.get(randint1));
 		solution.add(playerDeck.get(randint1));
 		
-		//System.out.println(solution);
-		
-		// Assign player 3 cards;
-		
 		int pW = rand.nextInt(weaponDeck.size());
 		int pR = rand.nextInt(roomDeck.size());
 		int pP = rand.nextInt(playerDeck.size());
 		
 		player.addCards(weaponDeck.get(pW));
 		cardDealt.add(weaponDeck.get(pW));
-		//weaponDeck.remove(pW);
+
 		player.addCards(roomDeck.get(pR));
 		cardDealt.add(roomDeck.get(pR));
-		//roomDeck.remove(pR);
+
 		player.addCards(playerDeck.get(pP));
 		cardDealt.add(playerDeck.get(pP));
-		//playerDeck.remove(pP);
-		
-//		System.out.println(player.getMyCards());
-//		System.out.println(cardDealt);
 		
 		// Create temporal arraylist so we can delete things
 		ArrayList<Card> tempWeaponDeck = new ArrayList<Card>(weaponDeck);
 		ArrayList<Card> tempRoomDeck = new ArrayList<Card>(roomDeck);
 		ArrayList<Card> tempPlayerDeck = new ArrayList<Card>(playerDeck);
-		
-//		System.out.println("size");
-//		System.out.println(tempWeaponDeck.size());
-//		System.out.println(tempRoomDeck.size());
-//		System.out.println(tempPlayerDeck.size());
-//		
-		//System.out.println(cardDealt);
 		
 		for (Map.Entry<String, ComputerPlayer> entry : computers.entrySet()) {
 			
@@ -206,11 +183,7 @@ public class Board {
 			cardDealt.add(tempWeaponDeck.get(cW));
 			cardDealt.add(tempRoomDeck.get(cR));
 			cardDealt.add(tempPlayerDeck.get(cP));
-
-			
 		}
-		
-		//System.out.println(cardDealt);
 	}
 	
 	public void selectAnswer() {
