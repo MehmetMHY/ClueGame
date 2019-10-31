@@ -31,6 +31,7 @@ public class gameSetupTests {
 	private Set<Card> dealtDeck;
 	private Map<String, ComputerPlayer> testComputers;
 	
+	// set up everything for the tests as well as initialize everything
 	@BeforeClass
 	public static void setup() {
 		// initialize the board:
@@ -38,34 +39,32 @@ public class gameSetupTests {
 		board.setConfigFiles("OurBoardLayout.csv", "OurRooms.txt"); // set the file names for setConfigFiles()
 		board.setCardConfigFiles("Weapon.txt", "Players.txt");
 		board.initialize(); // load both config files for tests
-		
-		// initialize the player objects and locations:
-//		p1 = new HumanPlayer("Colonel Mustard", 21, 8, Color.yellow); // human player initialization
-//		c1 = new ComputerPlayer("Mrs. White", 18, 0, Color.white); // computer player 1 initialization
-//		c2 = new ComputerPlayer("Mr. Boddy", 8, 0, Color.black); // computer player 2 initialization
-//		c3 = new ComputerPlayer("Mr. Green", 3, 22, Color.green); // computer player 3 initialization
-//		c4 = new ComputerPlayer("Professor Plum", 8, 22, Color.cyan); // computer player 4 initialization
-//		c5 = new ComputerPlayer("Mrs. Peacock", 14, 22, Color.blue); // computer player 5 initialization
 	}
 	
+	// Test whether the AIs and human player objects are correctly loaded.
 	@Test
-	public void testPlayerData() { 	// Test whether the AIs and human player objects are correctly loaded.
+	public void testPlayerData() {
 		testComputers = board.getPlayers();
 		
+		// create a new ComputerPlayer object which should be the same as the one read from the Player.txt
 		c2 = new ComputerPlayer("Mr. Boddy", 8, 0, Color.black);
+		// make sure that the c2 object is the same as the object created from loading the Player.txt
 		assertTrue(testComputers.get("Mr. Boddy").equals(c2));
 		
-		c4 = new ComputerPlayer("Professor Plum", 8, 22, Color.cyan);	
+		// create a new ComputerPlayer object which should be the same as the one read from the Player.txt
+		c4 = new ComputerPlayer("Professor Plum", 8, 22, Color.cyan);
+		// make sure that the c2 object is the same as the object created from loading the Player.txt
 		assertTrue(testComputers.get("Professor Plum").equals(c4));
-		// TODO: ADD A BIT MORE COMPUTERS
 		
-		
+		// create a new ComputerPlayer object which should be the same as the one read from the Player.txt
 		p1 = new HumanPlayer("Colonel Mustard", 21, 8, Color.yellow);
+		// make sure that the c2 object is the same as the object created from loading the Player.txt
 		assertTrue(board.getP1().equals(p1));
 	}
 	
+	// the following test it to make sure that the data loaded from the Room.txt file are correct
 	@Test
-	public void testRoomCards(){	// test if every room cards are loaded correctly
+	public void testRoomCards(){	
 		testDeck = board.getRoomDeck();
 		
 		Card kitchen = new Card("Kitchen");
@@ -96,8 +95,9 @@ public class gameSetupTests {
 		assertTrue(testDeck.get(8).equals(game));
 	}
 	
+	// the following test it to make sure that the data loaded from the Weapon.txt file are correct
 	@Test
-	public void testWeaponCards(){		// test if every weapon cards are loaded correctly
+	public void testWeaponCards(){
 		testDeck = board.getWeaponDeck();
 		
 		Card knife = new Card("Real Knife");
@@ -119,8 +119,9 @@ public class gameSetupTests {
 		assertTrue(testDeck.get(5).equals(gun));
 	}
 	
+	// the following test it to make sure that the data loaded from a part of OurRoom.txt file is correct
 	@Test
-	public void testPeopleCards(){ // test if every name cards are loaded correctly
+	public void testPeopleCards(){
 		testDeck = board.getPlayerDeck();
 
 		Card human = new Card("Colonel Mustard");
@@ -142,28 +143,26 @@ public class gameSetupTests {
 		assertTrue(testDeck.get(5).equals(c5));
 	}
 
+	// test if the cards are dealt correctly
 	@Test
-	public void testDealCards() {	// test if the cards are dealt correctly
+	public void testDealCards() {
 		dealtDeck = board.getCardDealt();
-		
-		//System.out.println(board.getPlayers());
 		
 		ArrayList<Card> testWeaponDeck = board.getWeaponDeck();
 		ArrayList<Card> testPlayerDeck = board.getPlayerDeck();
 		ArrayList<Card> testRoomDeck = board.getRoomDeck();
 		ArrayList<Card> testSolutionDeck = board.getSolutionDeck();
 		
-		//p1 = new HumanPlayer("Colonel Mustard", 21, 8, Color.yellow);
-		//assertTrue(board.getP1().equals(p1));
-		
-		int totalSize = testWeaponDeck.size() + testPlayerDeck.size() + testRoomDeck.size(); 
+		// totalSize holds how many cards there are total
+		int totalSize = testWeaponDeck.size() + testPlayerDeck.size() + testRoomDeck.size();
+		// update totalSize by deducing the amount lost from picking the 3 solution cards at the start of the game
 		totalSize = totalSize - testSolutionDeck.size();
-//		System.out.println(dealtDeck.size());
-//		System.out.println(totalSize);
+
 		assertTrue(dealtDeck.size() == totalSize);	// make sure each card is only dealt once
 
+		// Test if there are 3 cards assigned to each player
 		testComputers = board.getPlayers();
-		assertTrue(testComputers.get("Mr. Boddy").getMyCards().size() == 3);	// Test if there are 3 cards assigned to each player
+		assertTrue(testComputers.get("Mr. Boddy").getMyCards().size() == 3);
 		assertTrue(testComputers.get("Mr. Green").getMyCards().size() == 3);
 		assertTrue(testComputers.get("Mrs. White").getMyCards().size() == 3);
 		assertTrue(testComputers.get("Professor Plum").getMyCards().size() == 3);

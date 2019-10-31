@@ -1,5 +1,59 @@
 -NOTE: We (Mehmet Yilmaz and Ruidi Huang) did work on the ClueGame code mainly though pair programming.
 
+commit 537ede40796bf612b309afeedb3e686b4a9d674f
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Wed Oct 30 23:42:52 2019 -0600
+
+    Passed all tests for gameSetup
+
+commit 0ac06d5d5b7cb3c63a9dd4684a04489074206475
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Wed Oct 30 22:13:10 2019 -0600
+
+    Got more tests to work but I am having issues with the dealing tests
+
+commit ab7e817b268d0eeace3c3994e5d37ab46ef22689
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Wed Oct 30 19:10:11 2019 -0600
+
+    finishing codes for loadFileConfig function and try to make the tests pass
+
+commit c8ca30b803211d77fae2130cf4a40f46eca59a47
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Wed Oct 30 17:59:40 2019 -0600
+
+    Added the Deal-Card-Tests also started getting the tests to pass
+
+commit 05b99e8cf1750806da92c064a70b4d9396f3efd8
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Wed Oct 30 17:28:54 2019 -0600
+
+    Created failling tests for player objectst and make data structures for 3 decks, solution, computers, and players
+
+commit 74fa5d94af41bb2c9016d72900582a2b090a4556
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Wed Oct 30 15:03:10 2019 -0600
+
+    added setFileConfig and made some changes to the card tests.
+
+commit 0f10d103f64b01285e6af668d72cef66459770c6
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Tue Oct 29 12:12:06 2019 -0600
+
+    Initialized tests for cards and players before we do the functions
+
+commit 38cabf60dc0aa16a897a98e847276fcf35ff7972
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Mon Oct 28 16:55:15 2019 -0600
+
+    We added the following classes: Card, CardType, ComputerPlayer, HumanPlayer, Player, Soltuion, gameSetupTests. We also initilized everything for gameSetupTests
+
+commit 047cc228c39a98a2b3ce48cd9df1c5a4221c917e
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Thu Oct 24 21:59:04 2019 -0600
+
+    Added a gitlog file and finished all the commpenting up to Part IV of ClueGame
+
 commit 7bafe3cb824f3d16f02809611c680a11fb181d7c
 Author: MehmetMHY <mehmet.mhy@gmail.com>
 Date:   Thu Oct 24 21:38:07 2019 -0600
