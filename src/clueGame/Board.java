@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 public class Board {
@@ -40,10 +41,12 @@ public class Board {
 	private ArrayList<Card> weaponDeck;
 	private ArrayList<Card> playerDeck;
 	private ArrayList<Card> roomDeck;
-	private Set<Card> cardDealt;
-	private Card[] solution = new Card[3];
+	private ArrayList<Card> solution;
 	private Map<String, ComputerPlayer> computers;
 	private HumanPlayer player;
+	
+	private Set<Card> cardDealt;
+	private ArrayList<Card> completeDeck;
 
 	// variable used for singleton pattern
 	private static Board theInstance = new Board();
@@ -59,6 +62,8 @@ public class Board {
 		roomDeck = new ArrayList<Card>();
 		computers = new HashMap<String, ComputerPlayer>();
 		cardDealt = new HashSet<Card> ();
+		solution = new ArrayList<Card>();
+		//setCompleteDeck(new ArrayList<Card>());
 	}
 	
 	// this method returns the only Board
@@ -101,10 +106,10 @@ public class Board {
 		BufferedReader reader11;
 		reader11 = new BufferedReader(new FileReader(peopleConfigFile));
 		String tempLine11 = reader11.readLine();
-		int counter = 0;
+		boolean playerSet = false;
 		while (tempLine11 != null) {
 			String[] line = tempLine11.split(", ");
-			if (counter == 0) {
+			if (playerSet) {
 				int inRow = Integer.parseInt(line[2]);
 				int inCol = Integer.parseInt(line[3]);
 				Color newColor = (Color)Color.class.getField(line[1]).get(null);
@@ -115,14 +120,48 @@ public class Board {
 				int inCol = Integer.parseInt(line[3]);
 				Color newColor = (Color)Color.class.getField(line[1]).get(null);
 				player = new HumanPlayer(line[0], inRow, inCol, newColor);
+				playerSet = true;
 			}
 			tempLine11 = reader11.readLine();
 		}
 		reader11.close();
 		
-		//System.out.println(computers);
-		//System.out.println(player);
-		
+//		//System.out.println(computers);
+//		
+//		//System.out.println(player);
+//		
+//		// DEALING CARDS:
+//		
+//		ArrayList<Card> copyWeaponDeck = weaponDeck;
+//		ArrayList<Card> copyPlayerDeck = playerDeck;
+//		ArrayList<Card> copyRoomDeck = roomDeck;
+//
+//		Random r = new Random();
+//		int rand = 0;
+//		
+//		rand = r.nextInt(copyWeaponDeck.size());
+//		solution.add(copyWeaponDeck.get(rand));
+//		//System.out.println(copyWeaponDeck);
+//		copyWeaponDeck.remove(rand);
+//		//System.out.println(copyWeaponDeck);
+//		
+//		rand = r.nextInt(copyPlayerDeck.size());
+//		solution.add(copyPlayerDeck.get(rand));
+//		copyPlayerDeck.remove(rand);
+//		
+//		rand = r.nextInt(copyRoomDeck.size());
+//		solution.add(copyRoomDeck.get(rand));
+//		copyRoomDeck.remove(rand);
+//		
+//		//System.out.println(solution.size() + ":" + solution);
+//		
+//		completeDeck.addAll(copyWeaponDeck);
+//		completeDeck.addAll(copyPlayerDeck);
+//		completeDeck.addAll(copyRoomDeck);
+//		
+//		//System.out.println(solution.size() + ":" + solution);
+//		//System.out.println(completeDeck.size() + ":" + completeDeck);
+
 	}
 	
 	public void selectAnswer() {
@@ -171,12 +210,10 @@ public class Board {
 			String[] line = tempLine.split(", ");
 			if (line[2].equals("Card") || line[2].equals("Other")) {
 				legend.put(line[0].charAt(0), line[1]);
-				//
 				if (line[2].equals("Card")) {
-					Card rCard = new Card(line[2]);
+					Card rCard = new Card(line[1]);
 					roomDeck.add(rCard);
 				}
-				//
 			} else {
 				throw new BadConfigFormatException("Room type " + line[2] + " not valid");
 			}
@@ -443,12 +480,20 @@ public class Board {
 		return board[i][j];
 	}
 
-	public Card[] getSolutionDeck() {
+	public ArrayList<Card> getSolutionDeck() {
 		return solution;
 	}
 
-	public void setSolutionDeck(Card[] solution) {
+	public void setSolutionDeck(ArrayList<Card> solution) {
 		this.solution = solution;
+	}
+
+	public ArrayList<Card> getCompleteDeck() {
+		return completeDeck;
+	}
+
+	public void setCompleteDeck(ArrayList<Card> completeDeck) {
+		this.completeDeck = completeDeck;
 	}
 
 }

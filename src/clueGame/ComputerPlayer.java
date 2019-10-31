@@ -17,6 +17,21 @@ public class ComputerPlayer extends Player {
 		this.color = color;
 	}
 	
+	public boolean equals(ComputerPlayer temp) {
+		if(!temp.name.equals(this.name)) {
+			return false;
+		}
+		if(temp.row != (this.row)) {
+			return false;
+		}
+		if(temp.col != (this.col)) {
+			return false;
+		}
+		if(!temp.color.equals(this.color)) {
+			return false;
+		}
+		return true;
+	}
 	
 	@Override
 	public String toString() {

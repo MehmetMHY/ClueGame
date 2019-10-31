@@ -15,6 +15,22 @@ public class HumanPlayer extends Player {
 		this.col = col;
 		this.color = color;
 	}
+	
+	public boolean equals(HumanPlayer temp) {
+		if(!temp.name.equals(this.name)) {
+			return false;
+		}
+		if(temp.row != (this.row)) {
+			return false;
+		}
+		if(temp.col != (this.col)) {
+			return false;
+		}
+		if(!temp.color.equals(this.color)) {
+			return false;
+		}
+		return true;
+	}
 
 	@Override
 	public Card disproveSuggestion(Solution suggection) {

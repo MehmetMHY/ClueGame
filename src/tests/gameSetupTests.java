@@ -51,95 +51,113 @@ public class gameSetupTests {
 	@Test
 	public void testPlayerData() { 	// Test whether the AIs and human player objects are correctly loaded.
 		testComputers = board.getPlayers();
+		
 		c2 = new ComputerPlayer("Mr. Boddy", 8, 0, Color.black);
-		assertTrue(testComputers.get("Mr. Boddy") == c2);
-		c4 = new ComputerPlayer("Professor Plum", 8, 22, Color.cyan);
-		assertTrue(testComputers.get("Professor Plum") == c4);
+		assertTrue(testComputers.get("Mr. Boddy").equals(c2));
+		
+		c4 = new ComputerPlayer("Professor Plum", 8, 22, Color.cyan);	
+		assertTrue(testComputers.get("Professor Plum").equals(c4));
 		// TODO: ADD A BIT MORE COMPUTERS
 		
 		
 		p1 = new HumanPlayer("Colonel Mustard", 21, 8, Color.yellow);
-		assertTrue(board.getP1() == p1);
+		assertTrue(board.getP1().equals(p1));
 	}
 	
 	@Test
 	public void testRoomCards(){	// test if every room cards are loaded correctly
 		testDeck = board.getRoomDeck();
+		
 		Card kitchen = new Card("Kitchen");
-		assertTrue(testDeck.contains(kitchen));
+		assertTrue(testDeck.get(0).equals(kitchen));
+		
 		Card dining = new Card("Dining room");
-		assertTrue(testDeck.contains(dining));
+		assertTrue(testDeck.get(1).equals(dining));
+		
 		Card library = new Card("Library");
-		assertTrue(testDeck.contains(library));
+		assertTrue(testDeck.get(2).equals(library));
+		
 		Card lounge = new Card("Lounge");
-		assertTrue(testDeck.contains(lounge));
+		assertTrue(testDeck.get(3).equals(lounge));
+		
 		Card bathroom = new Card("Bathroom");
-		assertTrue(testDeck.contains(bathroom));
+		assertTrue(testDeck.get(4).equals(bathroom));
+		
 		Card master = new Card("Master Bedroom");
-		assertTrue(testDeck.contains(master));
+		assertTrue(testDeck.get(5).equals(master));
+		
 		Card theater = new Card("Theater");
-		assertTrue(testDeck.contains(theater));
+		assertTrue(testDeck.get(6).equals(theater));
+		
 		Card office = new Card("Office");
-		assertTrue(testDeck.contains(office));
+		assertTrue(testDeck.get(7).equals(office));
+		
 		Card game = new Card("Game Hour");
-		assertTrue(testDeck.contains(game));
+		assertTrue(testDeck.get(8).equals(game));
 	}
 	
 	@Test
 	public void testWeaponCards(){		// test if every weapon cards are loaded correctly
-		Card temp = new Card("Real Knife");
 		testDeck = board.getWeaponDeck();
-		//System.out.println(testDeck);
-		//Card knife = new Card("Real Knife");
-		//System.out.println(knife);
-		//System.out.println(temp.toString() + " " + testDeck.get(0).toString());
-		assertTrue(testDeck.get(0).equals(temp));
-		System.out.println("FUCK");
 		
-		
+		Card knife = new Card("Real Knife");
+		assertTrue(testDeck.get(0).equals(knife));
 		
 		Card rifle = new Card("Binary Rifle");
-		assertTrue(testDeck.contains(rifle));
+		assertTrue(testDeck.get(1).equals(rifle));
+		
 		Card katana = new Card("Zangetsu");
-		assertTrue(testDeck.contains(katana));
+		assertTrue(testDeck.get(2).equals(katana));
+		
 		Card dominator = new Card("Dominator");
-		assertTrue(testDeck.contains(dominator));
+		assertTrue(testDeck.get(3).equals(dominator));
+		
 		Card cross = new Card("Cross Punisher");
-		assertTrue(testDeck.contains(cross));
+		assertTrue(testDeck.get(4).equals(cross));
+		
 		Card gun = new Card("Gravity Gun");
-		assertTrue(testDeck.contains(gun));
+		assertTrue(testDeck.get(5).equals(gun));
 	}
 	
 	@Test
 	public void testPeopleCards(){ // test if every name cards are loaded correctly
 		testDeck = board.getPlayerDeck();
-		Card c1 = new Card("Mrs. Peacock");
-		assertTrue(testDeck.contains(c1));
-		Card c2 = new Card("Professor Plum");
-		assertTrue(testDeck.contains(c2));
-		Card c3 = new Card("Mrs. White");
-		assertTrue(testDeck.contains(c3));
-		Card c4 = new Card("Mr. Boddy");
-		assertTrue(testDeck.contains(c4));
-		Card c5 = new Card("Mr Green");
-		assertTrue(testDeck.contains(c5));
+
 		Card human = new Card("Colonel Mustard");
-		assertTrue(testDeck.contains(human));
-//		Card c6 = new Card("Miss Scarlet");
-//		assertTrue(testDeck.contains(c6));
+		assertTrue(testDeck.get(0).equals(human));
+		
+		Card c1 = new Card("Mrs. White");
+		assertTrue(testDeck.get(1).equals(c1));
+		
+		Card c2 = new Card("Mr. Boddy");
+		assertTrue(testDeck.get(2).equals(c2));
+		
+		Card c3 = new Card("Mr. Green");
+		assertTrue(testDeck.get(3).equals(c3));
+		
+		Card c4 = new Card("Professor Plum");
+		assertTrue(testDeck.get(4).equals(c4));
+		
+		Card c5 = new Card("Mrs. Peacock");
+		assertTrue(testDeck.get(5).equals(c5));
 	}
 
 	@Test
 	public void testDealCards() {	// test if the cards are dealt correctly
 		dealtDeck = board.getCardDealt();
 		
+		//System.out.println(board.getPlayers());
+		
 		ArrayList<Card> testWeaponDeck = board.getWeaponDeck();
 		ArrayList<Card> testPlayerDeck = board.getPlayerDeck();
 		ArrayList<Card> testRoomDeck = board.getRoomDeck();
-		Card[] testSolutionDeck = board.getSolutionDeck();
+		ArrayList<Card> testSolutionDeck = board.getSolutionDeck();
+		
+		//p1 = new HumanPlayer("Colonel Mustard", 21, 8, Color.yellow);
+		//assertTrue(board.getP1().equals(p1));
 		
 		int totalSize = testWeaponDeck.size() + testPlayerDeck.size() + testRoomDeck.size(); 
-		totalSize = totalSize - testSolutionDeck.length;
+		totalSize = totalSize - testSolutionDeck.size();
 		assertTrue(testDeck.size() == totalSize);	// make sure each card is only dealt once
 
 		testComputers = board.getPlayers();
