@@ -74,6 +74,74 @@ public class Board {
 	@SuppressWarnings("resource")
 	public void loadConfigFiles() throws BadConfigFormatException, IOException, IllegalAccessException, NoSuchFieldException, SecurityException {
 		
+		// create weapon, room, and player decks
+		createAllCards();
+				
+		Random rand = new Random();
+		
+		// Add 3 random cards into solution
+		
+		int randint1 = rand.nextInt(weaponDeck.size());
+		int randint2 = rand.nextInt(roomDeck.size());
+		int randint3 = rand.nextInt(playerDeck.size());
+		
+		solution.add(weaponDeck.get(randint1));
+		solution.add(roomDeck.get(randint1));
+		solution.add(playerDeck.get(randint1));
+		
+		int pW = rand.nextInt(weaponDeck.size());
+		int pR = rand.nextInt(roomDeck.size());
+		int pP = rand.nextInt(playerDeck.size());
+		
+		player.addCards(weaponDeck.get(pW));
+		cardDealt.add(weaponDeck.get(pW));
+
+		player.addCards(roomDeck.get(pR));
+		cardDealt.add(roomDeck.get(pR));
+
+		player.addCards(playerDeck.get(pP));
+		cardDealt.add(playerDeck.get(pP));
+		
+		// Create temporal arraylist so we can delete things
+		ArrayList<Card> tempWeaponDeck = new ArrayList<Card>(weaponDeck);
+		ArrayList<Card> tempRoomDeck = new ArrayList<Card>(roomDeck);
+		ArrayList<Card> tempPlayerDeck = new ArrayList<Card>(playerDeck);
+		
+		dealCards(rand, tempWeaponDeck, tempRoomDeck, tempPlayerDeck);
+	}
+
+	private void dealCards(Random rand, ArrayList<Card> tempWeaponDeck, ArrayList<Card> tempRoomDeck,
+			ArrayList<Card> tempPlayerDeck) {
+		for (Map.Entry<String, ComputerPlayer> entry : computers.entrySet()) {
+			
+			// Initialize random cards and make sure they are not in cardDealt
+			int cW = rand.nextInt(tempWeaponDeck.size());
+			while (cardDealt.contains(tempWeaponDeck.get(cW))) {
+				cW = rand.nextInt(tempWeaponDeck.size());
+			}
+			int cR = rand.nextInt(tempRoomDeck.size());
+			while (cardDealt.contains(tempRoomDeck.get(cR))) {
+				cR = rand.nextInt(tempRoomDeck.size());
+			}
+			int cP = rand.nextInt(tempPlayerDeck.size());
+			while (cardDealt.contains(tempPlayerDeck.get(cP)) ) {
+				cP = rand.nextInt(tempPlayerDeck.size());
+			}
+			
+			// Add/deal cards into players' hand
+			entry.getValue().addCards(tempWeaponDeck.get(cW));
+			entry.getValue().addCards(tempRoomDeck.get(cR));
+			entry.getValue().addCards(tempPlayerDeck.get(cP));
+			
+			// Add these cards into the cardDealt
+			cardDealt.add(tempWeaponDeck.get(cW));
+			cardDealt.add(tempRoomDeck.get(cR));
+			cardDealt.add(tempPlayerDeck.get(cP));
+		}
+	}
+
+	private void createAllCards() throws FileNotFoundException, IOException, BadConfigFormatException,
+			IllegalAccessException, NoSuchFieldException {
 		// The first reader reads in weapon cards
 		BufferedReader reader;
 		reader = new BufferedReader(new FileReader(weaponConfigFile));
@@ -127,63 +195,6 @@ public class Board {
 			tempLine11 = reader11.readLine();
 		}
 		reader11.close();
-				
-		Random rand = new Random();
-		
-		// Add 3 random cards into solution
-		
-		int randint1 = rand.nextInt(weaponDeck.size());
-		int randint2 = rand.nextInt(roomDeck.size());
-		int randint3 = rand.nextInt(playerDeck.size());
-		
-		solution.add(weaponDeck.get(randint1));
-		solution.add(roomDeck.get(randint1));
-		solution.add(playerDeck.get(randint1));
-		
-		int pW = rand.nextInt(weaponDeck.size());
-		int pR = rand.nextInt(roomDeck.size());
-		int pP = rand.nextInt(playerDeck.size());
-		
-		player.addCards(weaponDeck.get(pW));
-		cardDealt.add(weaponDeck.get(pW));
-
-		player.addCards(roomDeck.get(pR));
-		cardDealt.add(roomDeck.get(pR));
-
-		player.addCards(playerDeck.get(pP));
-		cardDealt.add(playerDeck.get(pP));
-		
-		// Create temporal arraylist so we can delete things
-		ArrayList<Card> tempWeaponDeck = new ArrayList<Card>(weaponDeck);
-		ArrayList<Card> tempRoomDeck = new ArrayList<Card>(roomDeck);
-		ArrayList<Card> tempPlayerDeck = new ArrayList<Card>(playerDeck);
-		
-		for (Map.Entry<String, ComputerPlayer> entry : computers.entrySet()) {
-			
-			// Initialize random cards and make sure they are not in cardDealt
-			int cW = rand.nextInt(tempWeaponDeck.size());
-			while (cardDealt.contains(tempWeaponDeck.get(cW))) {
-				cW = rand.nextInt(tempWeaponDeck.size());
-			}
-			int cR = rand.nextInt(tempRoomDeck.size());
-			while (cardDealt.contains(tempRoomDeck.get(cR))) {
-				cR = rand.nextInt(tempRoomDeck.size());
-			}
-			int cP = rand.nextInt(tempPlayerDeck.size());
-			while (cardDealt.contains(tempPlayerDeck.get(cP)) ) {
-				cP = rand.nextInt(tempPlayerDeck.size());
-			}
-			
-			// Add cards into players' hand
-			entry.getValue().addCards(tempWeaponDeck.get(cW));
-			entry.getValue().addCards(tempRoomDeck.get(cR));
-			entry.getValue().addCards(tempPlayerDeck.get(cP));
-			
-			// Add these cards into cardDealt
-			cardDealt.add(tempWeaponDeck.get(cW));
-			cardDealt.add(tempRoomDeck.get(cR));
-			cardDealt.add(tempPlayerDeck.get(cP));
-		}
 	}
 	
 	public void selectAnswer() {
@@ -352,6 +363,7 @@ public class Board {
 	}
 	
 	// calculates all possible adjacency cells on the board and stores it in the adjMatrix set
+	@SuppressWarnings({ "incomplete-switch", "incomplete-switch" })
 	public void calcAdjacencies() {
 		Set<BoardCell> tempSet;
 		BoardCell temp;
@@ -519,5 +531,4 @@ public class Board {
 	public void setCompleteDeck(ArrayList<Card> completeDeck) {
 		this.completeDeck = completeDeck;
 	}
-
 }

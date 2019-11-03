@@ -18,6 +18,7 @@ import clueGame.BoardCell;
 import clueGame.Card;
 import clueGame.ComputerPlayer;
 import clueGame.HumanPlayer;
+import clueGame.Solution;
 
 public class gameActionTests {
 	private static Board board;
@@ -29,6 +30,7 @@ public class gameActionTests {
 	private Map<String, ComputerPlayer> testComputers;
 	Set<BoardCell> testList;
 	private BoardCell temp;
+	private Solution answers;
 	
 	// set up everything for the tests as well as initialize everything
 	@BeforeClass
@@ -48,11 +50,13 @@ public class gameActionTests {
 		testList = board.getTargets();
 		temp = cTest.pickLocation(testList);
 		assertTrue(!temp.isDoorway());
+		
 		// make sure that the computer player does not go to a room if it can't reach that room
 		board.calcTargets(8, 0, 4);
 		testList = board.getTargets();
 		temp = cTest.pickLocation(testList);
 		assertTrue(!temp.isDoorway());
+		
 		// make sure that the computer player does not go to a room if it can't reach that room
 		board.calcTargets(3, 22, 4);
 		testList = board.getTargets();
@@ -84,9 +88,35 @@ public class gameActionTests {
 		assertTrue(!temp.getRoomType().equals("LL"));
 	}
 	
-	// make an accusation
+	// make an accusation tests
 	@Test
 	public void accusationTests() {
+		testDeck = board.getSolutionDeck();
+		Solution answers = new Solution(testDeck.get(0), testDeck.get(1),testDeck.get(2));
 		
+		// accusation solution that is correct:
+		cTest.makeAccusation(answers);
+		assertTrue(cTest.correctAccusation(answers));
+		
+		// accusation solution with wrong person:
+		Solution wrongPerson = new Solution(testDeck.get(1), testDeck.get(1),testDeck.get(2));
+		cTest.makeAccusation(wrongPerson);
+		assertTrue(!cTest.correctAccusation(answers));
+		
+		// accusation solution with wrong room:
+		Solution wrongRoom = new Solution(testDeck.get(0), testDeck.get(0),testDeck.get(2));
+		cTest.makeAccusation(wrongRoom);
+		assertTrue(!cTest.correctAccusation(answers));
+		
+		// accusation solution with wrong weapon:
+		Solution wrongWeapon = new Solution(testDeck.get(0), testDeck.get(1),testDeck.get(0));
+		cTest.makeAccusation(wrongWeapon);
+		assertTrue(!cTest.correctAccusation(answers));
 	}
+	
+	// make an accusation tests
 }
+
+
+
+
