@@ -5,12 +5,16 @@ import java.util.ArrayList;
 
 abstract class Player {
 
-	static  ArrayList<Card> seenCards = new ArrayList<Card>();
+	static  ArrayList<Card> seenWeapons = new ArrayList<Card>();
+	static  ArrayList<Card> seenPlayers = new ArrayList<Card>();
+	
 	private ArrayList<Card> myCards = new ArrayList<Card>();
 	private String playerName;
 	private int row;
 	private int column;
 	private Color color;
+	public final static int NUM_WEAPONS = 6;
+	public final static int NUM_PLAYERS = 6;
 	
 	abstract public Card disproveSuggestion(Solution suggection);
 	
@@ -42,12 +46,20 @@ abstract class Player {
 		return this.color;
 	}
 
-	public ArrayList<Card> getSeenCards() {
-		return seenCards;
+	public static ArrayList<Card> getSeenPlayers() {
+		return seenPlayers;
 	}
 
-	public static void addSeenCards(Card newCard) {
-		seenCards.add(newCard);
+	public static void setSeenPlayers(ArrayList<Card> seenPlayers) {
+		Player.seenPlayers = seenPlayers;
+	}
+	
+	public ArrayList<Card> getSeenWeapons() {
+		return seenWeapons;
+	}
+
+	public static void addSeenWeapons(Card newCard) {
+		seenWeapons.add(newCard);
 	}
 
 	public ArrayList<Card> getMyCards() {

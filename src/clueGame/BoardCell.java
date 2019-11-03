@@ -18,6 +18,14 @@ public class BoardCell {
 		this.row = row;
 		this.col = col;
 	}
+	
+	// additional constructor
+	public BoardCell(BoardCell cell) {
+		super();
+		this.row = cell.row;
+		this.col = cell.col;
+		this.roomType = cell.roomType;
+	}
 
 	// checks if a cell is a Doorway
 	public boolean isDoorway() {

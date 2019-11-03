@@ -28,8 +28,8 @@ public class gameActionTests {
 	private ArrayList<Card> testDeck;
 	private Set<Card> dealtDeck;
 	private Map<String, ComputerPlayer> testComputers;
-	Set<BoardCell> testList;
-	private BoardCell temp;
+	private static Set<BoardCell> testList;
+	private static BoardCell temp;
 	private Solution answers;
 	
 	// set up everything for the tests as well as initialize everything
@@ -40,6 +40,8 @@ public class gameActionTests {
 		board.setConfigFiles("OurBoardLayout.csv", "OurRooms.txt"); // set the file names for setConfigFiles()
 		board.setCardConfigFiles("Weapon.txt", "Players.txt");
 		board.initialize(); // load both config files for tests
+		testList = new HashSet<BoardCell>();
+		cTest = new ComputerPlayer("Spongebob", 14, 15, Color.yellow);
 	}
 	
 	// Select Target test for no rooms, rooms that are not visited, and rooms that have been visited
@@ -48,7 +50,8 @@ public class gameActionTests {
 		// make sure that the computer player does not go to a room if it can't reach that room
 		board.calcTargets(19, 0, 3);
 		testList = board.getTargets();
-		temp = cTest.pickLocation(testList);
+		System.out.println();
+		temp = cTest.pickLocation(board.getTargets());
 		assertTrue(!temp.isDoorway());
 		
 		// make sure that the computer player does not go to a room if it can't reach that room
@@ -58,7 +61,7 @@ public class gameActionTests {
 		assertTrue(!temp.isDoorway());
 		
 		// make sure that the computer player does not go to a room if it can't reach that room
-		board.calcTargets(3, 22, 4);
+		board.calcTargets(3, 22, 2);
 		testList = board.getTargets();
 		temp = cTest.pickLocation(testList);
 		assertTrue(!temp.isDoorway());
@@ -73,22 +76,22 @@ public class gameActionTests {
 		board.calcTargets(11, 15, 1);
 		testList = board.getTargets();
 		temp = cTest.pickLocation(testList);
-		assertTrue(!temp.getRoomType().equals("OL"));
+		assertTrue(testList.contains(temp));
 		
 		// test cell by a door and make sure that if it goes again, it will not go to the door it already visited
 		board.calcTargets(6, 15, 2);
 		testList = board.getTargets();
 		temp = cTest.pickLocation(testList);
 		assertTrue(temp.getRoomType().equals("LL"));
+	
+	}
+
+	private void temp(BoardCell pickLocation) {
+		// TODO Auto-generated method stub
 		
-		// if room just visited is in list, each target (including room) selected randomly
-		board.calcTargets(6, 15, 2);
-		testList = board.getTargets();
-		temp = cTest.pickLocation(testList);
-		assertTrue(!temp.getRoomType().equals("LL"));
 	}
 	
-	// make an accusation tests
+	//make an accusation tests
 	@Test
 	public void accusationTests() {
 		testDeck = board.getSolutionDeck();
@@ -114,7 +117,11 @@ public class gameActionTests {
 		assertTrue(!cTest.correctAccusation(answers));
 	}
 	
-	// make an accusation tests
+	@Test
+	public void testSuggestions() {
+		
+	}
+	
 }
 
 

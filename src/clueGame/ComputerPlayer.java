@@ -12,7 +12,6 @@ public class ComputerPlayer extends Player {
 	private Color color;
 	private Solution myAccusation;
 	
-
 	public ComputerPlayer(String name, int row, int col, Color color) {
 		super();
 		this.name = name;
@@ -58,7 +57,7 @@ public class ComputerPlayer extends Player {
 	}
 	
 	public BoardCell pickLocation(Set<BoardCell> targets) {
-		BoardCell temp = null;
+		BoardCell temp = new BoardCell(0,0);
 		int i = 0;
 		int index = new Random().nextInt(targets.size());
 		for(BoardCell point : targets) {
@@ -74,11 +73,12 @@ public class ComputerPlayer extends Player {
 	
 	public void makeAccusation(Solution accusation) {
 		myAccusation = accusation;
-		System.out.println(myAccusation);
+		//System.out.println(myAccusation);
 	}
 	
-	public void createSugguestion() {
-		
+	public void createSugguestion(Board board) {
+		String room = board.getCellAt(row, col).getRoomType();
+		//String name = 
 	}
 
 }
