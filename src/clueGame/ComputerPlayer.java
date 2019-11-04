@@ -76,9 +76,14 @@ public class ComputerPlayer extends Player {
 		//System.out.println(myAccusation);
 	}
 	
-	public void createSugguestion(Board board) {
-		String room = board.getCellAt(row, col).getRoomType();
+	public Solution createSuggestion(ArrayList<Card> weapons, ArrayList<Card> players) {
+		Random r = new Random();
+		Card loc = new Card("Bathroom");
+		Solution tempSuggestion = new Solution(players.get(r.nextInt(players.size())), loc, weapons.get(r.nextInt(weapons.size())));
+		//String room = board.getCellAt(row, col).getRoomType();
 		//String name = 
+		return tempSuggestion;
 	}
+
 
 }

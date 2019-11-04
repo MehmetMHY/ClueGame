@@ -86,11 +86,6 @@ public class gameActionTests {
 	
 	}
 
-	private void temp(BoardCell pickLocation) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	//make an accusation tests
 	@Test
 	public void accusationTests() {
@@ -117,9 +112,40 @@ public class gameActionTests {
 		assertTrue(!cTest.correctAccusation(answers));
 	}
 	
+	@SuppressWarnings({ "unlikely-arg-type", "static-access" })
 	@Test
 	public void testSuggestions() {
+		ComputerPlayer reed = new ComputerPlayer("Reed",3, 11, Color.cyan);
+		ComputerPlayer mehmet = new ComputerPlayer("Mehmet",18, 11, Color.green);
 		
+		// The suggested room must match the room where the player is at:
+		answers = reed.createSuggestion(board.getWeaponDeck(),board.getPlayerDeck());
+		assertTrue(answers.room.equals(board.getLegend().get(board.getCellAt(reed.getRow(), reed.getColumn()).getInitial())));
+		
+		answers = mehmet.createSuggestion(board.getWeaponDeck(),board.getPlayerDeck());
+		assertTrue(answers.room.equals(board.getLegend().get(board.getCellAt(mehmet.getRow(), mehmet.getColumn()).getInitial())));
+		
+		// Test for only not seen weapon and player card
+		for (int i = 1; i < board.getWeaponDeck().size(); i++) {
+			reed.addSeenWeapons(board.getWeaponDeck().get(i));
+		}
+		
+		for (int j = 0; j < board.getPlayerDeck().size() - 1; j++) {
+			reed.addSeenPlayers(board.getPlayerDeck().get(j));
+		}
+		
+		answers = reed.createSuggestion(board.getWeaponDeck(),board.getPlayerDeck());
+		assertTrue(answers.weapon.equals(board.getWeaponDeck().get(0)));
+		assertTrue(answers.person.equals(board.getPlayerDeck().get(board.getPlayerDeck().size() - 1)));
+		
+		// Test for randomly selected weapon suggestion
+		reed.getSeenWeapons().clear();
+		reed.getSeenPlayers().clear();
+		answers = reed.createSuggestion(board.getWeaponDeck(),board.getPlayerDeck());
+		assertTrue(!reed.getSeenWeapons().contains(answers.weapon));
+		
+		// Test for randomly selected player suggestion
+		assertTrue(!reed.getSeenPlayers().contains(answers.person));
 	}
 	
 }

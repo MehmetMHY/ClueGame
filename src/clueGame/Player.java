@@ -50,8 +50,8 @@ abstract class Player {
 		return seenPlayers;
 	}
 
-	public static void setSeenPlayers(ArrayList<Card> seenPlayers) {
-		Player.seenPlayers = seenPlayers;
+	public static void addSeenPlayers(Card player) {
+		seenPlayers.add(player);
 	}
 	
 	public ArrayList<Card> getSeenWeapons() {
