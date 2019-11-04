@@ -40,8 +40,8 @@ public class ComputerPlayer extends Player {
 
 	@Override
 	public Card disproveSuggestion(Solution suggection) {
-		// TODO Auto-generated method stub
-		return null;
+		Card temp = new Card("PlaceHolder");
+		return temp;
 	}
 	
 	public boolean correctAccusation(Solution answer) {

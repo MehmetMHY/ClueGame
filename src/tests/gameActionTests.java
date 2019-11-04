@@ -31,6 +31,8 @@ public class gameActionTests {
 	private static Set<BoardCell> testList;
 	private static BoardCell temp;
 	private Solution answers;
+	private ComputerPlayer reed;
+	private ComputerPlayer mehmet;
 	
 	// set up everything for the tests as well as initialize everything
 	@BeforeClass
@@ -115,8 +117,8 @@ public class gameActionTests {
 	@SuppressWarnings("unlikely-arg-type")
 	@Test
 	public void testSuggestions() {
-		ComputerPlayer reed = new ComputerPlayer("Reed", 3, 11, Color.cyan);
-		ComputerPlayer mehmet = new ComputerPlayer("Mehmet",18, 11, Color.green);
+		reed = new ComputerPlayer("Reed", 3, 11, Color.cyan);
+		mehmet = new ComputerPlayer("Mehmet",18, 11, Color.green);
 		
 		// The suggested room must match the room where the player is at:
 		answers = reed.createSuggestion(board);
@@ -149,6 +151,42 @@ public class gameActionTests {
 		assertTrue(!reed.getSeenPlayers().contains(answers.person));
 	}
 	
+	@Test 
+	public void testDisprove() {
+		mehmet = new ComputerPlayer("Mehmet",18, 11, Color.green);
+		Card location = new Card("Library");
+		Card myself = new Card("Reed");
+		Card myFriend = new Card("Alex");
+		Card weapon = new Card("soda");
+		Card betterWeapon = new Card("Nokia");
+		
+		// Return the one matching card if there is only one matching
+		mehmet.addCards(location);
+		mehmet.addCards(myFriend);
+		mehmet.addCards(betterWeapon);
+		answers = new Solution(myself, location,weapon);
+		assertTrue(location.equals(mehmet.disproveSuggestion(answers)));
+		
+		// Return a random matching card
+		mehmet.addCards(myself);
+		mehmet.addCards(weapon);
+		Set<Card> tempDeck = new HashSet<Card>();
+		tempDeck.add(location);
+		tempDeck.add(myself);
+		tempDeck.add(weapon);
+		assertTrue(tempDeck.contains(mehmet.disproveSuggestion(answers)));
+		
+		// Return null when there are no matching cards
+		mehmet.getMyCards().clear();
+		mehmet.addCards(myFriend);
+		mehmet.addCards(betterWeapon);
+		assertTrue(mehmet.disproveSuggestion(answers) == null);
+	}
+	
+//	@Test
+//	public void handleSuggestions() {
+//		
+//	}
 }
 
 

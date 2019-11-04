@@ -9,7 +9,7 @@ public class Card {
 	}
 
 	public boolean equals(Card temp) {
-		return this.cardName.equals(temp.cardName);
+		return this.cardName.equals(temp.getCardName());
 	}
 	
 	@Override
