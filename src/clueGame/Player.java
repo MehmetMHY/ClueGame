@@ -8,7 +8,7 @@ abstract class Player {
 	static  ArrayList<Card> seenWeapons = new ArrayList<Card>();
 	static  ArrayList<Card> seenPlayers = new ArrayList<Card>();
 	
-	private ArrayList<Card> myCards = new ArrayList<Card>();
+	protected ArrayList<Card> myCards = new ArrayList<Card>();
 	protected String playerName;
 	protected int row;
 	protected int column;
