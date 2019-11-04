@@ -6,28 +6,24 @@ import java.util.Set;
 import java.awt.Color;
 
 public class ComputerPlayer extends Player {
-	private String name;
-	private int row;
-	private int col;
-	private Color color;
 	private Solution myAccusation;
 	
 	public ComputerPlayer(String name, int row, int col, Color color) {
 		super();
-		this.name = name;
+		this.playerName = name;
 		this.row = row;
-		this.col = col;
+		this.column = col;
 		this.color = color;
 	}
 	
 	public boolean equals(ComputerPlayer temp) {
-		if(!temp.name.equals(this.name)) {
+		if(!temp.playerName.equals(this.playerName)) {
 			return false;
 		}
 		if(temp.row != (this.row)) {
 			return false;
 		}
-		if(temp.col != (this.col)) {
+		if(temp.column != (this.column)) {
 			return false;
 		}
 		if(!temp.color.equals(this.color)) {
@@ -38,7 +34,7 @@ public class ComputerPlayer extends Player {
 	
 	@Override
 	public String toString() {
-		return "ComputerPlayer [name=" + name + ", row=" + row + ", col=" + col + ", color=" + color + "]";
+		return "ComputerPlayer [name=" + playerName + ", row=" + row + ", col=" + column + ", color=" + color + "]";
 	}
 
 
@@ -76,13 +72,35 @@ public class ComputerPlayer extends Player {
 		//System.out.println(myAccusation);
 	}
 	
-	public Solution createSuggestion(ArrayList<Card> weapons, ArrayList<Card> players) {
-		Random r = new Random();
-		Card loc = new Card("Bathroom");
-		Solution tempSuggestion = new Solution(players.get(r.nextInt(players.size())), loc, weapons.get(r.nextInt(weapons.size())));
-		//String room = board.getCellAt(row, col).getRoomType();
-		//String name = 
-		return tempSuggestion;
+
+	public Solution createSuggestion(Board board) {
+		
+		Card player = new Card("temp");
+		for (Card c:board.getPlayerDeck()) {
+			if (!Player.getSeenPlayers().contains(c)) {
+				player.setCardName(c.getCardName());
+			}
+		}
+		
+		Card curLoc = new Card("temp");
+		String cardName = board.getLegend().get(board.getCellAt(row, column).getInitial());
+		for (Card c:board.getRoomDeck()) {
+			if (c.getCardName().equals(cardName)) {
+				curLoc.setCardName(c.getCardName());
+			}
+		}
+		
+		Card weapon = new Card("temp");
+		for (Card c:board.getWeaponDeck()) {
+			if (!this.getSeenWeapons().contains(c)) {
+				weapon.setCardName(c.getCardName());
+			}
+		}
+		
+
+		
+		Solution solution = new Solution(player, curLoc, weapon);
+		return solution;
 	}
 
 

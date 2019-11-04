@@ -112,17 +112,17 @@ public class gameActionTests {
 		assertTrue(!cTest.correctAccusation(answers));
 	}
 	
-	@SuppressWarnings({ "unlikely-arg-type", "static-access" })
+	@SuppressWarnings("unlikely-arg-type")
 	@Test
 	public void testSuggestions() {
-		ComputerPlayer reed = new ComputerPlayer("Reed",3, 11, Color.cyan);
+		ComputerPlayer reed = new ComputerPlayer("Reed", 3, 11, Color.cyan);
 		ComputerPlayer mehmet = new ComputerPlayer("Mehmet",18, 11, Color.green);
 		
 		// The suggested room must match the room where the player is at:
-		answers = reed.createSuggestion(board.getWeaponDeck(),board.getPlayerDeck());
+		answers = reed.createSuggestion(board);
 		assertTrue(answers.room.equals(board.getLegend().get(board.getCellAt(reed.getRow(), reed.getColumn()).getInitial())));
 		
-		answers = mehmet.createSuggestion(board.getWeaponDeck(),board.getPlayerDeck());
+		answers = mehmet.createSuggestion(board);
 		assertTrue(answers.room.equals(board.getLegend().get(board.getCellAt(mehmet.getRow(), mehmet.getColumn()).getInitial())));
 		
 		// Test for only not seen weapon and player card
@@ -134,14 +134,15 @@ public class gameActionTests {
 			reed.addSeenPlayers(board.getPlayerDeck().get(j));
 		}
 		
-		answers = reed.createSuggestion(board.getWeaponDeck(),board.getPlayerDeck());
-		assertTrue(answers.weapon.equals(board.getWeaponDeck().get(0)));
-		assertTrue(answers.person.equals(board.getPlayerDeck().get(board.getPlayerDeck().size() - 1)));
+		answers = reed.createSuggestion(board);
+		//System.out.println(board.getPlayerDeck().get(board.getPlayerDeck().size() - 1));
+		assertTrue(answers.weapon.equals(board.getWeaponDeck().get(0).getCardName()));
+		assertTrue(answers.person.equals(board.getPlayerDeck().get(board.getPlayerDeck().size() - 1).getCardName()));
 		
 		// Test for randomly selected weapon suggestion
 		reed.getSeenWeapons().clear();
 		reed.getSeenPlayers().clear();
-		answers = reed.createSuggestion(board.getWeaponDeck(),board.getPlayerDeck());
+		answers = reed.createSuggestion(board);
 		assertTrue(!reed.getSeenWeapons().contains(answers.weapon));
 		
 		// Test for randomly selected player suggestion

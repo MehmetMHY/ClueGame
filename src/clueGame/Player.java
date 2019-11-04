@@ -9,10 +9,10 @@ abstract class Player {
 	static  ArrayList<Card> seenPlayers = new ArrayList<Card>();
 	
 	private ArrayList<Card> myCards = new ArrayList<Card>();
-	private String playerName;
-	private int row;
-	private int column;
-	private Color color;
+	protected String playerName;
+	protected int row;
+	protected int column;
+	protected Color color;
 	public final static int NUM_WEAPONS = 6;
 	public final static int NUM_PLAYERS = 6;
 	

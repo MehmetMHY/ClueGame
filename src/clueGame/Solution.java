@@ -7,9 +7,9 @@ public class Solution {
 	
 	public Solution(Card who, Card where, Card what) {
 		super();
-		this.person = who.toString();
-		this.room = where.toString();
-		weapon = what.toString();
+		this.person = who.getCardName();
+		this.room = where.getCardName();
+		this.weapon = what.getCardName();
 	}
 	
 	public Solution(Solution s) {
