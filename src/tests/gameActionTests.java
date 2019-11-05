@@ -247,8 +247,8 @@ public class gameActionTests {
 		// suggestion only human can disprove return answer
 		assertEquals(locationT, board.handleSuggestion(reed, computers, hoff, accuse));
 		
-		// suggestion only human, the accuser, can disprove return answer
-		assertEquals(locationT, board.handleSuggestion(hoff, computers, hoff, accuse));
+		// suggestion only human, the accuser, can disprove return null
+		assertEquals(null, board.handleSuggestion(hoff, computers, hoff, accuse));
 		
 		hoff.getMyCards().clear();
 		hoff.addCards(locationF);

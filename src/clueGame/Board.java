@@ -485,7 +485,6 @@ public class Board {
 	
 	// method that handles the suggestion(s) from the players
 	public Card handleSuggestion(Player accuser, Map<String, ComputerPlayer> computers, HumanPlayer human, Solution guess) {
-		Card answer = new Card("tempAnswer");
 		Card playerDisprove = new Card("tempPlayerCard"); // stores the returned card from human
 		ArrayList<Card> computerDisprove = new ArrayList<Card>(); // arraylist of cards returned from computers
 		
@@ -507,7 +506,7 @@ public class Board {
 		if (computerDisprove.size() > 0) {
 			return computerDisprove.get(computerDisprove.size() - 1);
 		// if the human player disproved return the human player's card
-		} else if (!playerDisprove.getCardName().equals("tempPlayerCard")) {
+		} else if (!playerDisprove.getCardName().equals("tempPlayerCard") && accuser != human) {
 			return playerDisprove;
 		// else return null
 		} else {
