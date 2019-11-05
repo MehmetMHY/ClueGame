@@ -486,27 +486,27 @@ public class Board {
 	// method that handles the suggestion(s) from the players
 	public Card handleSuggestion(Player accuser, Map<String, ComputerPlayer> computers, HumanPlayer human, Solution guess) {
 		Card answer = new Card("tempAnswer");
-		Card playerDisprove = new Card("tempPlayerCard"); // stores how many players Disprove with the guess Solution
-		ArrayList<Card> computerDisprove = new ArrayList<Card>(); // arraylist of disproven sugguestions from the computers
+		Card playerDisprove = new Card("tempPlayerCard"); // stores the returned card from human
+		ArrayList<Card> computerDisprove = new ArrayList<Card>(); // arraylist of cards returned from computers
 		
-		// if the human does have a disproveSuggestion for guess, set playerDisprove equal to that
+		// if the human disprove, assign the card to playerDisprove
 		if (human.disproveSuggestion(guess) != null) {
 			playerDisprove = human.disproveSuggestion(guess);
 		}
 		
-		// loop though computer player set from the class
+		// loop though the map computers
 		for (Entry<String, ComputerPlayer> c : computers.entrySet()) {
-			// if the disproveSuggestion for guess by the computer players exists and this computer player is not the accuser,
-			// add that computer player to computerDisprove.
+			// if any computer disproves the suggestion and this computer player is not the accuser,
+			// add the returned card to computerDisprove.
 			if (c.getValue().disproveSuggestion(guess) != null && c.getValue() != accuser) {
 				computerDisprove.add(c.getValue().disproveSuggestion(guess));
 			}
 		}
 		
-		// if at least on computer player disproved, return that computer player's disapproval
+		// if at least on computer player disproved, return the last card
 		if (computerDisprove.size() > 0) {
 			return computerDisprove.get(computerDisprove.size() - 1);
-		// if the human player disproved return the human player's disapproval
+		// if the human player disproved return the human player's card
 		} else if (!playerDisprove.getCardName().equals("tempPlayerCard")) {
 			return playerDisprove;
 		// else return null

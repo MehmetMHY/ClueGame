@@ -41,7 +41,7 @@ public class gameActionTests {
 	private Map<String, ComputerPlayer> testComputers;
 	private static Set<BoardCell> testList;
 	private static BoardCell temp;
-	private Solution answers
+	private Solution answers;
 	private ComputerPlayer reed; // computer player
 	private ComputerPlayer mehmet; // computer player
 	private ComputerPlayer evan; // computer player
