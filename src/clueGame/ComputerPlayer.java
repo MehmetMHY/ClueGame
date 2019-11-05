@@ -38,28 +38,6 @@ public class ComputerPlayer extends Player {
 	}
 
 
-	@Override
-	public Card disproveSuggestion(Solution suggestion) {
-		ArrayList<Card> temp = new ArrayList<Card>();
-		for (Card c:myCards) {
-			if (c.getCardName().equals(suggestion.person)) {
-				temp.add(c);
-			} else if (c.getCardName().equals(suggestion.room)) {
-				temp.add(c);
-			} else if (c.getCardName().equals(suggestion.weapon)) {
-				temp.add(c);
-			}
-		}
-		if (temp.isEmpty()) {
-			return null;
-		} else if (temp.size() == 1) {
-			return temp.get(0);
-		} else {
-			Random r = new Random();
-			int num = r.nextInt(temp.size());
-			return temp.get(num);
-		}
-	}
 	
 //	public boolean correctAccusation(Solution answer) {
 //		if(this.myAccusation.equals(answer)) {

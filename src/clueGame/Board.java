@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
 
@@ -204,59 +205,7 @@ public class Board {
 	public void selectAnswer() {
 		// TODO
 	}
-		
-	public Card handleSuggestion(Player accuser, Map<String, ComputerPlayer> computers, HumanPlayer human, Solution guess) {
-		Card temp = new Card("PlaceHolder");
-		return temp;
-//		Card output = null;
-//		int counter = 0;
-//
-//		for(Map.Entry<String, ComputerPlayer> entry : computers.entrySet()) {
-//			//System.out.println(entry.getValue() + ": " + entry.getValue().disproveSuggestion(guess));
-//			
-//			if(entry.getValue().disproveSuggestion(guess) != null) {
-//				output = entry.getValue().disproveSuggestion(guess);
-//			}
-//			if(entry.getValue().disproveSuggestion(guess) == null) {
-//				counter++;
-//			}
-//			if(entry.getValue().disproveSuggestion(guess) != null && entry.getValue().equals(accuser)) {
-//				return null;
-//			}
-//	
-//		}
-//
-//		// if the guess can be disproved only by the accusing player, returns null
-//		if(player.disproveSuggestion(guess) == null) {
-//			counter++;
-//		}
-//		
-//		// if only the human can disprove the guess, returns answer
-//		if(player.disproveSuggestion(guess) != null) {
-//			return player.disproveSuggestion(guess);
-//		}
-//		
-//		// the guess only the human can disprove, but human is accuser, returns null
-//		if(player.disproveSuggestion(guess) != null && accuser.equals(player)) {
-//			return null;
-//		}
-//		
-//		// if no one can disprove, return null
-//		if(counter == computers.size()+1) {
-//			return null;
-//		}else {
-//			return output;
-//		}
-	}
-	
-	public boolean checkAccusation(Solution accusation) {
-		if(answer.equals(accusation)) {
-			return true;
-		}else {
-			return false;
-		}
-	}
-	
+				
 	// initialize boardConfigFile and roomConfigFile
 	public void setConfigFiles(String csvFile, String textFile) {
 		boardConfigFile = csvFile;
@@ -514,7 +463,39 @@ public class Board {
 			}
 		}
 	}
-
+	
+	public boolean checkAccusation(Solution accusation) {
+		if(answer.equals(accusation)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public Card handleSuggestion(Player accuser, Map<String, ComputerPlayer> computers, HumanPlayer human, Solution guess) {
+		Card answer = new Card("tempAnswer");
+		Card playerDisprove = new Card("tempPlayerCard");
+		ArrayList<Card> computerDisprove = new ArrayList<Card>();
+		
+		if (human.disproveSuggestion(guess) != null) {
+			playerDisprove = human.disproveSuggestion(guess);
+		}
+		
+		for (Entry<String, ComputerPlayer> c : computers.entrySet()) {
+			if (c.getValue().disproveSuggestion(guess) != null && c.getValue() != accuser) {
+				computerDisprove.add(c.getValue().disproveSuggestion(guess));
+			}
+		}
+		
+		if (computerDisprove.size() > 0) {
+			return computerDisprove.get(computerDisprove.size() - 1);
+		} else if (!playerDisprove.getCardName().equals("tempPlayerCard")) {
+			return playerDisprove;
+		} else {
+			return null;
+		}
+	}
+	
 	public Set<Card> getCardDealt() {
 		return cardDealt;
 	}

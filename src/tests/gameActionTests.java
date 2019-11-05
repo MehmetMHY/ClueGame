@@ -214,6 +214,7 @@ public class gameActionTests {
 		computers.put("Mehmet", mehmet);
 		computers.put("Evan", evan);
 		
+		//System.out.println(computers);
 		
 		// suggestion no one can disprove returns null from handleSuggestion
 		assertEquals(null, board.handleSuggestion(reed, computers, hoff, accuse));
@@ -245,16 +246,19 @@ public class gameActionTests {
 		mehmet.addCards(locationT);
 		
 		// Suggestion that two players can disprove, returns answer of last correct player
-		assertEquals(personT, board.handleSuggestion(hoff, computers, hoff, accuse));
+		assertEquals(locationT, board.handleSuggestion(evan, computers, hoff, accuse));
 		
 		reed.getMyCards().clear();
 		reed.addCards(personF);
+		
+		mehmet.getMyCards().clear();
+		mehmet.addCards(personT);
 		
 		hoff.getMyCards().clear();
 		hoff.addCards(locationT);
 		
 		// when both a player and a another computer can disprove, return answer of the computer
-		assertEquals(locationT, board.handleSuggestion(reed, computers, hoff, accuse));
+		assertEquals(personT, board.handleSuggestion(reed, computers, hoff, accuse));
 	}
 	
 }
