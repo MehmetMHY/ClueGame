@@ -1,3 +1,10 @@
+/**. 
+ * test the setup of the board and the set up of the players and cards
+ * 
+ * @author Mehmet Yilmaz
+ * @author Ruidi Huang
+ */
+
 package tests;
 
 import static org.junit.Assert.assertEquals;

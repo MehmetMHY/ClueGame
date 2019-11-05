@@ -1,13 +1,22 @@
+/**. 
+ * Card class for card (players, rooms, & weapons) objects for each player
+ * 
+ * @author Mehmet Yilmaz
+ * @author Ruidi Huang
+ */
+
 package clueGame;
 
 public class Card {
-	private CardType type;
-	private String cardName;
+	private CardType type; // stores the type of card
+	private String cardName; // stores the name of the card
 	
+	// constructor for Card class
 	public Card(String name) {
 		cardName = name;
 	}
 
+	// equal method for Cards, checks if Card objects are equal to one another
 	public boolean equals(Card temp) {
 		return this.cardName.equals(temp.getCardName());
 	}

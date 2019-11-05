@@ -91,18 +91,24 @@ public class Board {
 		solution.add(roomDeck.get(randint1));
 		solution.add(playerDeck.get(randint1));
 
-		
+		// create a random index value from the weapon, room, and player arraylists
 		int pW = rand.nextInt(weaponDeck.size());
 		int pR = rand.nextInt(roomDeck.size());
 		int pP = rand.nextInt(playerDeck.size());
 		
+		// add random weapon from weaponDeck to player
 		player.addCards(weaponDeck.get(pW));
+		// add dealt card to carDealt
 		cardDealt.add(weaponDeck.get(pW));
 
+		// add random room from roomDeck to player
 		player.addCards(roomDeck.get(pR));
+		// add dealt card to carDealt
 		cardDealt.add(roomDeck.get(pR));
 
+		// add random person from playerDeck to player
 		player.addCards(playerDeck.get(pP));
+		// add dealt card to carDealt
 		cardDealt.add(playerDeck.get(pP));
 		
 		// Create temporal arraylist so we can delete things
@@ -110,8 +116,10 @@ public class Board {
 		ArrayList<Card> tempRoomDeck = new ArrayList<Card>(roomDeck);
 		ArrayList<Card> tempPlayerDeck = new ArrayList<Card>(playerDeck);
 		
+		// deal the cards to the players
 		dealCards(rand, tempWeaponDeck, tempRoomDeck, tempPlayerDeck);
 		
+		// set the class's Solution object, answer,  equal to the values in the solution arraylist
 		answer = new Solution(solution.get(0), solution.get(1), solution.get(2));
 	}
 
@@ -145,9 +153,11 @@ public class Board {
 		}
 	}
 
+	// create the cards for weapons, person, and locations
 	private void createAllCards() throws FileNotFoundException, IOException, BadConfigFormatException,
 			IllegalAccessException, NoSuchFieldException {
-		// The first reader reads in weapon cards
+		
+		// The first reader reads in weapon cards from the weapons text file
 		BufferedReader reader;
 		reader = new BufferedReader(new FileReader(weaponConfigFile));
 		String tempLine = reader.readLine();
@@ -164,7 +174,7 @@ public class Board {
 		}
 		reader.close();
 		
-		// The second reader (reader1) reads in player cards
+		// The second reader (reader1) reads in player cards from the player text file
 		BufferedReader reader1;
 		reader1 = new BufferedReader(new FileReader(peopleConfigFile));
 		String tempLine1 = reader1.readLine();
@@ -177,7 +187,7 @@ public class Board {
 		}
 		reader1.close();
 		
-		// The third(reader11) reads in both human and computer players
+		// The third(reader11) reads in both human and computer players from ourRoom text file
 		BufferedReader reader11;
 		reader11 = new BufferedReader(new FileReader(peopleConfigFile));
 		String tempLine11 = reader11.readLine();
@@ -464,6 +474,7 @@ public class Board {
 		}
 	}
 	
+	// checks if the accusation is correct with the correct Solution Answer from the class
 	public boolean checkAccusation(Solution accusation) {
 		if(answer.equals(accusation)) {
 			return true;
@@ -472,25 +483,33 @@ public class Board {
 		}
 	}
 	
+	// method that handles the suggestion(s) from the players
 	public Card handleSuggestion(Player accuser, Map<String, ComputerPlayer> computers, HumanPlayer human, Solution guess) {
 		Card answer = new Card("tempAnswer");
-		Card playerDisprove = new Card("tempPlayerCard");
-		ArrayList<Card> computerDisprove = new ArrayList<Card>();
+		Card playerDisprove = new Card("tempPlayerCard"); // stores how many players Disprove with the guess Solution
+		ArrayList<Card> computerDisprove = new ArrayList<Card>(); // arraylist of disproven sugguestions from the computers
 		
+		// if the human does have a disproveSuggestion for guess, set playerDisprove equal to that
 		if (human.disproveSuggestion(guess) != null) {
 			playerDisprove = human.disproveSuggestion(guess);
 		}
 		
+		// loop though computer player set from the class
 		for (Entry<String, ComputerPlayer> c : computers.entrySet()) {
+			// if the disproveSuggestion for guess by the computer players exists and this computer player is not the accuser,
+			// add that computer player to computerDisprove.
 			if (c.getValue().disproveSuggestion(guess) != null && c.getValue() != accuser) {
 				computerDisprove.add(c.getValue().disproveSuggestion(guess));
 			}
 		}
 		
+		// if at least on computer player disproved, return that computer player's disapproval
 		if (computerDisprove.size() > 0) {
 			return computerDisprove.get(computerDisprove.size() - 1);
+		// if the human player disproved return the human player's disapproval
 		} else if (!playerDisprove.getCardName().equals("tempPlayerCard")) {
 			return playerDisprove;
+		// else return null
 		} else {
 			return null;
 		}

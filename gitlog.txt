@@ -1,3 +1,69 @@
+commit dd3dfa701246abcafe826a8051d3bd96cf9cab67
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Mon Nov 4 22:31:11 2019 -0700
+
+    Passed handleSuggestion test. Moved disproveSuggestion from ComputerPlayer to its parent class Player so both ComputerPlayer and HumanPlayer can access it.
+
+commit 800b32247486001567ab7b72e8a479ec9a4d0c24
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Mon Nov 4 22:06:01 2019 -0700
+
+    Redoed suggestion handling tests and getting ready to make the test pass
+
+commit 3b0b60f20b4042b63fcfa5b1c87d067c426826a0
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Mon Nov 4 18:08:28 2019 -0700
+
+    Created handleSuggestion tests as well as method. Got first test to wor, but I am struggling to get the rest to work.
+
+commit 411e655558c0477d97508a755f8f42bb8d2f4634
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Sun Nov 3 20:10:10 2019 -0700
+
+    passed testDisprove
+
+commit ce3dcd17daa8e981f548caf6f71fa55738c0885a
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Sun Nov 3 20:02:02 2019 -0700
+
+    Added testDisprove test
+
+commit 94dd255ffd4289f4853e1df0eff35214a61b8f03
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Sun Nov 3 19:36:09 2019 -0700
+
+    Passed testSuggestions test
+
+commit 3c1eff11273b4f5dcfd1c995f544e3c99487207b
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Sun Nov 3 17:26:43 2019 -0700
+
+    Added testSuggestions in gameActionTests
+
+commit 2ffc701b506ff01f1bfd84b789dc1b9dfbe3ae8e
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Sun Nov 3 16:34:27 2019 -0700
+
+    made testSelectedTargets and accusationTests in gameActionTests pass. getting ready to do suggestion tests
+
+commit 4db35c562cef05842b240cffe0e1d3866ca42999
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Sun Nov 3 14:58:38 2019 -0700
+
+    Added the accusation tests as well as create methods for pickLocation and makeAccusation methods. But I keep getting NullPointer errors so I will look into it
+
+commit 5727c1d70ed97802cfe3a17ab6df1239809c9327
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Thu Oct 31 12:11:21 2019 -0600
+
+    Added some tests for gameActionTests class
+
+commit 4c6767f5f0719652e082a75d9aaaf856826da12f
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Thu Oct 31 00:04:11 2019 -0600
+
+    Added more comments into the loadConfigFile function
+
 commit 09d752032157d2a2b5167d14760bb6dbafcc858f
 Author: MehmetMHY <mehmet.mhy@gmail.com>
 Date:   Wed Oct 30 23:55:09 2019 -0600

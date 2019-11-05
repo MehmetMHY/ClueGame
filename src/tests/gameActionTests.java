@@ -1,3 +1,12 @@
+/**. 
+ * tests the selection of a target location, the accusations of players,
+ * the disproving of suggestions, the handling of suggestions, and the
+ * creation of suggestions.
+ * 
+ * @author Mehmet Yilmaz
+ * @author Ruidi Huang
+ */
+
 package tests;
 
 import static org.junit.Assert.assertEquals;
@@ -32,11 +41,11 @@ public class gameActionTests {
 	private Map<String, ComputerPlayer> testComputers;
 	private static Set<BoardCell> testList;
 	private static BoardCell temp;
-	private Solution answers;
-	private ComputerPlayer reed;
-	private ComputerPlayer mehmet;
-	private ComputerPlayer evan;
-	private HumanPlayer hoff;
+	private Solution answers
+	private ComputerPlayer reed; // computer player
+	private ComputerPlayer mehmet; // computer player
+	private ComputerPlayer evan; // computer player
+	private HumanPlayer hoff; // human player
 	
 	
 	// set up everything for the tests as well as initialize everything
@@ -142,7 +151,6 @@ public class gameActionTests {
 		}
 		
 		answers = reed.createSuggestion(board);
-		//System.out.println(board.getPlayerDeck().get(board.getPlayerDeck().size() - 1));
 		assertTrue(answers.weapon.equals(board.getWeaponDeck().get(0).getCardName()));
 		assertTrue(answers.person.equals(board.getPlayerDeck().get(board.getPlayerDeck().size() - 1).getCardName()));
 		
@@ -189,12 +197,14 @@ public class gameActionTests {
 	}
 		
 	@Test
-	public void handleSuggestions() {		
+	public void handleSuggestions() {
+		// create players for test
 		mehmet = new ComputerPlayer("Mehmet",18, 11, Color.green);
 		reed = new ComputerPlayer("Reed", 3, 11, Color.cyan);
 		evan = new ComputerPlayer("Evan", 8, 0, Color.yellow);
 		hoff = new HumanPlayer("Prof. Hoff", 3, 7, Color.black);
 		
+		// set values for the player's cards
 		Card locationT = new Card("CTLM");
 		Card locationF = new Card("BB280");
 		Card personT = new Card("Reed");
@@ -202,14 +212,18 @@ public class gameActionTests {
 		Card weaponT = new Card("M&M");	
 		Card weaponF = new Card("Gravity");
 		
+		// create an accusation
 		Solution accuse = new Solution(personT, locationT, weaponT);
 		
+		// add cards to the players
 		mehmet.addCards(locationF);
 		hoff.addCards(personF);
 		evan.addCards(weaponF);
 		
+		// create new computers Map for test
 		Map<String, ComputerPlayer> computers = new HashMap<String, ComputerPlayer>();
 		
+		// add characters to computers map
 		computers.put("Reed", reed);
 		computers.put("Mehmet", mehmet);
 		computers.put("Evan", evan);
@@ -260,7 +274,6 @@ public class gameActionTests {
 		// when both a player and a another computer can disprove, return answer of the computer
 		assertEquals(personT, board.handleSuggestion(reed, computers, hoff, accuse));
 	}
-	
 }
 
 

@@ -1,3 +1,12 @@
+/**. 
+ * ComputerPlayer class which extends to Player class,
+ * its sued for determining the values and controlling,
+ * the actions of the computer/AI players
+ * 
+ * @author Mehmet Yilmaz
+ * @author Ruidi Huang
+ */
+
 package clueGame;
 
 import java.util.ArrayList;
@@ -8,6 +17,7 @@ import java.awt.Color;
 public class ComputerPlayer extends Player {
 	private Solution myAccusation;
 	
+	// constructor for ComputerPlayer class
 	public ComputerPlayer(String name, int row, int col, Color color) {
 		super();
 		this.playerName = name;
@@ -16,6 +26,7 @@ public class ComputerPlayer extends Player {
 		this.color = color;
 	}
 	
+	// equals method for ComputerPlayer to check if ComputerPlayer objects are equal to one another
 	public boolean equals(ComputerPlayer temp) {
 		if(!temp.playerName.equals(this.playerName)) {
 			return false;
@@ -36,9 +47,8 @@ public class ComputerPlayer extends Player {
 	public String toString() {
 		return "ComputerPlayer [name=" + playerName + ", row=" + row + ", col=" + column + ", color=" + color + "]";
 	}
-
-
 	
+//  // testing some code
 //	public boolean correctAccusation(Solution answer) {
 //		if(this.myAccusation.equals(answer)) {
 //			return true;
@@ -47,28 +57,30 @@ public class ComputerPlayer extends Player {
 //		}
 //	}
 	
+	// pickLocation method is used to pick a certain location for the computerPlayer based on targets BoardCell set
 	public BoardCell pickLocation(Set<BoardCell> targets) {
 		BoardCell temp = new BoardCell(0,0);
 		int i = 0;
-		int index = new Random().nextInt(targets.size());
+		int index = new Random().nextInt(targets.size()); // store random target cell
+		// loop though targets set
 		for(BoardCell point : targets) {
+			// if a target cell is a Door Way, set the new location for the computerPlayer to that Door Way cell
 			if(point.isDoorway()) {
 				return point;
+			// when the loop reaches the random determined index, set temp equal to that point
 			}else if(i == index){
 				temp = point;
 			}
 			i++;
 		}
+		// return a random target cell location for the computerPlayer if there are no Door Ways
 		return temp;
 	}
-	
-	public void makeAccusation(Solution accusation) {
-		setMyAccusation(accusation);
-	}
-	
 
+	// createSuggestion method creates Suggestions for the computerPlayer(s)
 	public Solution createSuggestion(Board board) {
 		
+		// if only one person is seen, that person is selected for the suggestion
 		Card player = new Card("temp");
 		for (Card c:board.getPlayerDeck()) {
 			if (!Player.getSeenPlayers().contains(c)) {
@@ -76,6 +88,7 @@ public class ComputerPlayer extends Player {
 			}
 		}
 		
+		// if only one room is seen, that room is selected for the suggestion
 		Card curLoc = new Card("temp");
 		String cardName = board.getLegend().get(board.getCellAt(row, column).getInitial());
 		for (Card c:board.getRoomDeck()) {
@@ -84,6 +97,7 @@ public class ComputerPlayer extends Player {
 			}
 		}
 		
+		// if only one weapon is seen, that weapon is selected for the suggestion
 		Card weapon = new Card("temp");
 		for (Card c:board.getWeaponDeck()) {
 			if (!this.getSeenWeapons().contains(c)) {
@@ -91,7 +105,10 @@ public class ComputerPlayer extends Player {
 			}
 		}
 		
+		// select a Solution object as the selected player, room, and weapon
 		Solution solution = new Solution(player, curLoc, weapon);
+		
+		// return that Solution object as theSuggestion
 		return solution;
 	}
 
@@ -103,5 +120,7 @@ public class ComputerPlayer extends Player {
 		this.myAccusation = myAccusation;
 	}
 
-
+	public void makeAccusation(Solution accusation) {
+		setMyAccusation(accusation);
+	}
 }
