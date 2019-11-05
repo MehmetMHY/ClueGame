@@ -61,13 +61,13 @@ public class ComputerPlayer extends Player {
 		}
 	}
 	
-	public boolean correctAccusation(Solution answer) {
-		if(this.myAccusation.equals(answer)) {
-			return true;
-		}else {
-			return false;
-		}
-	}
+//	public boolean correctAccusation(Solution answer) {
+//		if(this.myAccusation.equals(answer)) {
+//			return true;
+//		}else {
+//			return false;
+//		}
+//	}
 	
 	public BoardCell pickLocation(Set<BoardCell> targets) {
 		BoardCell temp = new BoardCell(0,0);
@@ -85,8 +85,7 @@ public class ComputerPlayer extends Player {
 	}
 	
 	public void makeAccusation(Solution accusation) {
-		myAccusation = accusation;
-		//System.out.println(myAccusation);
+		setMyAccusation(accusation);
 	}
 	
 
@@ -114,10 +113,16 @@ public class ComputerPlayer extends Player {
 			}
 		}
 		
-
-		
 		Solution solution = new Solution(player, curLoc, weapon);
 		return solution;
+	}
+
+	public Solution getMyAccusation() {
+		return myAccusation;
+	}
+
+	public void setMyAccusation(Solution myAccusation) {
+		this.myAccusation = myAccusation;
 	}
 
 

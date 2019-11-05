@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
+import java.awt.List;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
@@ -33,6 +34,7 @@ public class gameActionTests {
 	private Solution answers;
 	private ComputerPlayer reed;
 	private ComputerPlayer mehmet;
+	private ComputerPlayer same;
 	
 	// set up everything for the tests as well as initialize everything
 	@BeforeClass
@@ -96,22 +98,22 @@ public class gameActionTests {
 		
 		// accusation solution that is correct:
 		cTest.makeAccusation(answers);
-		assertTrue(cTest.correctAccusation(answers));
+		assertTrue(board.checkAccusation(answers));
 		
 		// accusation solution with wrong person:
 		Solution wrongPerson = new Solution(testDeck.get(1), testDeck.get(1),testDeck.get(2));
 		cTest.makeAccusation(wrongPerson);
-		assertTrue(!cTest.correctAccusation(answers));
+		assertTrue(!board.checkAccusation(wrongPerson));
 		
 		// accusation solution with wrong room:
 		Solution wrongRoom = new Solution(testDeck.get(0), testDeck.get(0),testDeck.get(2));
 		cTest.makeAccusation(wrongRoom);
-		assertTrue(!cTest.correctAccusation(answers));
+		assertTrue(!board.checkAccusation(wrongRoom ));
 		
 		// accusation solution with wrong weapon:
 		Solution wrongWeapon = new Solution(testDeck.get(0), testDeck.get(1),testDeck.get(0));
 		cTest.makeAccusation(wrongWeapon);
-		assertTrue(!cTest.correctAccusation(answers));
+		assertTrue(!board.checkAccusation(wrongWeapon));
 	}
 	
 	@SuppressWarnings("unlikely-arg-type")
@@ -164,7 +166,7 @@ public class gameActionTests {
 		mehmet.addCards(location);
 		mehmet.addCards(myFriend);
 		mehmet.addCards(betterWeapon);
-		answers = new Solution(myself, location,weapon);
+		answers = new Solution(myself, location, weapon);
 		assertTrue(location.equals(mehmet.disproveSuggestion(answers)));
 		
 		// Return a random matching card
@@ -185,8 +187,106 @@ public class gameActionTests {
 	
 //	@Test
 //	public void handleSuggestions() {
+//		mehmet = new ComputerPlayer("Mehmet",18, 11, Color.green);
+//		Card location = new Card("Basement");
+//		Card myself = new Card("Reed");
+//		Card myFriend = new Card("Alex");
+//		Card weapon = new Card("soda");
+//		Card betterWeapon = new Card("Nokia");
 //		
+//		// Return the one matching card if there is only one matching
+//		mehmet.addCards(location);
+//		mehmet.addCards(myFriend);
+//		mehmet.addCards(betterWeapon);
+//		answers = new Solution(myself, location, weapon);
+//		
+//		// Return null when there are no matching cards
+//		mehmet.getMyCards().clear();
+//		mehmet.addCards(myFriend);
+//		mehmet.addCards(betterWeapon);
+//		
+//		 //this works sometimes but fails other times, WTF!
+//		System.out.println(board.handleSuggestion(mehmet, answers));
+//		assertEquals(null, board.handleSuggestion(mehmet, answers));
+//		
+//		Map<String, ComputerPlayer> compPlayers = board.getPlayers();
+//		same = compPlayers.get("Mrs. White");
+//		same.makeAccusation(answers);
+//		
+//		assertEquals(null, board.handleSuggestion(same, answers));
 //	}
+	
+//	@Test
+//	public void handleSuggestions() {
+//		mehmet = new ComputerPlayer("Mehmet",18, 11, Color.green);
+//		Card location = new Card("x");
+//		Card myself = new Card("y");
+//		Card weapon = new Card("z");
+//		
+//		mehmet.addCards(location);
+//		mehmet.addCards(myself);
+//		mehmet.addCards(weapon);
+//		answers = new Solution(myself, location, weapon);
+//		
+//		// suggestion no one can disprove returns null from handleSuggestion
+//		assertEquals(null, board.handleSuggestion(mehmet, answers));
+//		
+////		Map<String, ComputerPlayer> compPlayers = board.getPlayers();
+////		same = compPlayers.get("Mrs. White");
+////		location = new Card("Kitchen");
+////		myself = new Card("Mrs. Peacock");
+////		weapon = new Card("Gravity Gun");
+////		
+////		answers = new Solution(myself, location, weapon);
+////		
+////		System.out.println(answers);
+////		
+////		same.makeAccusation(answers);
+////		ComputerPlayer me = board.getPlayers().get("Mrs. White");
+////		assertEquals(null, board.handleSuggestion(me, me.createSuggestion(board)));
+////	
+//	}
+	
+	@Test
+	public void handleSuggestions() {		
+		mehmet = new ComputerPlayer("Mehmet",18, 11, Color.green);
+		Card location = new Card("x");
+		Card person = new Card("y");
+		Card weapon = new Card("z");
+		
+		mehmet.addCards(location);
+		mehmet.addCards(person);
+		mehmet.addCards(weapon);
+		answers = new Solution(person, location, weapon);
+		
+		// suggestion no one can disprove returns null from handleSuggestion
+		assertEquals(null, board.handleSuggestion(mehmet, answers));
+		
+		Map<String, ComputerPlayer> compPlayers = board.getPlayers();
+		ComputerPlayer one = board.getPlayers().get("Colonel Mustard");
+		ComputerPlayer two = board.getPlayers().get("Mrs. Peacock");
+		
+		location = new Card("Kitchen");
+		person = new Card("Mr. Boddy");
+		weapon = new Card("Gravity Gun");
+		
+		one.addCards(location);
+		one.addCards(person);
+		one.addCards(weapon);
+		answers = new Solution(person, location, weapon);
+		assertEquals(null, board.handleSuggestion(one, answers));
+		
+		location = new Card("Library");
+		person = new Card("Professor Plum");
+		weapon = new Card("Cross Punisher");
+		
+		two.addCards(location);
+		two.addCards(person);
+		two.addCards(weapon);
+		
+		assertEquals(null, board.handleSuggestion(one, answers));
+	}
+	
 }
 
 
