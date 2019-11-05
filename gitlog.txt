@@ -1,3 +1,15 @@
+commit 6016ad794f0dd31b582fc6fa10eebcb0c6a87747
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Mon Nov 4 23:51:07 2019 -0700
+
+    corrected a few comments made by Mehmet who can't read.
+
+commit f6a011b20bb707042f2d1176b1e2f7daa1983156
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Mon Nov 4 23:34:46 2019 -0700
+
+    Added more comment to the classes to make it easier to understand. Also added an updated gitlog.txt
+
 commit dd3dfa701246abcafe826a8051d3bd96cf9cab67
 Author: RuidiH <ruidihuang@mymail.mines.edu>
 Date:   Mon Nov 4 22:31:11 2019 -0700

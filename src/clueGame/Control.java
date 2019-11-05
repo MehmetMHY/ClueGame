@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
@@ -9,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.EtchedBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 public class Control extends JFrame {
@@ -28,24 +30,24 @@ public class Control extends JFrame {
 			setLayout(new GridLayout(x,y));
 			setBorder(new TitledBorder(new EtchedBorder(), name));
 			JLabel displayLabel = new JLabel(label);
-			display = new JTextArea(2,10);
-			display.setLineWrap(true);
-			display.setWrapStyleWord(true);
+			JPanel panel = new JPanel();
+			panel.setBorder(new LineBorder(Color.blue));
 			//updateDisplay(content);
 			add(displayLabel);
-			add(display);
-		}
-		
-		public void updateDisplay(String content) {
-			display.setText(content);
+			add(panel);
+			//add(display);
 		}
 		
 	}
 	
 	public class Turn extends JPanel {
 		public Turn(String name) {
+			setLayout(new GridLayout(2,2));
 			JLabel turn = new JLabel(name);
+			JPanel panel = new JPanel();
 			add(turn);
+			panel.setBorder(new LineBorder(Color.blue));
+			add(panel);
 		}
 	}
 	
