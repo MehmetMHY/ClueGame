@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import java.awt.Color;
 import java.awt.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -34,7 +35,9 @@ public class gameActionTests {
 	private Solution answers;
 	private ComputerPlayer reed;
 	private ComputerPlayer mehmet;
-	private ComputerPlayer same;
+	private ComputerPlayer evan;
+	private HumanPlayer hoff;
+	
 	
 	// set up everything for the tests as well as initialize everything
 	@BeforeClass
@@ -184,107 +187,74 @@ public class gameActionTests {
 		mehmet.addCards(betterWeapon);
 		assertTrue(mehmet.disproveSuggestion(answers) == null);
 	}
-	
-//	@Test
-//	public void handleSuggestions() {
-//		mehmet = new ComputerPlayer("Mehmet",18, 11, Color.green);
-//		Card location = new Card("Basement");
-//		Card myself = new Card("Reed");
-//		Card myFriend = new Card("Alex");
-//		Card weapon = new Card("soda");
-//		Card betterWeapon = new Card("Nokia");
-//		
-//		// Return the one matching card if there is only one matching
-//		mehmet.addCards(location);
-//		mehmet.addCards(myFriend);
-//		mehmet.addCards(betterWeapon);
-//		answers = new Solution(myself, location, weapon);
-//		
-//		// Return null when there are no matching cards
-//		mehmet.getMyCards().clear();
-//		mehmet.addCards(myFriend);
-//		mehmet.addCards(betterWeapon);
-//		
-//		 //this works sometimes but fails other times, WTF!
-//		System.out.println(board.handleSuggestion(mehmet, answers));
-//		assertEquals(null, board.handleSuggestion(mehmet, answers));
-//		
-//		Map<String, ComputerPlayer> compPlayers = board.getPlayers();
-//		same = compPlayers.get("Mrs. White");
-//		same.makeAccusation(answers);
-//		
-//		assertEquals(null, board.handleSuggestion(same, answers));
-//	}
-	
-//	@Test
-//	public void handleSuggestions() {
-//		mehmet = new ComputerPlayer("Mehmet",18, 11, Color.green);
-//		Card location = new Card("x");
-//		Card myself = new Card("y");
-//		Card weapon = new Card("z");
-//		
-//		mehmet.addCards(location);
-//		mehmet.addCards(myself);
-//		mehmet.addCards(weapon);
-//		answers = new Solution(myself, location, weapon);
-//		
-//		// suggestion no one can disprove returns null from handleSuggestion
-//		assertEquals(null, board.handleSuggestion(mehmet, answers));
-//		
-////		Map<String, ComputerPlayer> compPlayers = board.getPlayers();
-////		same = compPlayers.get("Mrs. White");
-////		location = new Card("Kitchen");
-////		myself = new Card("Mrs. Peacock");
-////		weapon = new Card("Gravity Gun");
-////		
-////		answers = new Solution(myself, location, weapon);
-////		
-////		System.out.println(answers);
-////		
-////		same.makeAccusation(answers);
-////		ComputerPlayer me = board.getPlayers().get("Mrs. White");
-////		assertEquals(null, board.handleSuggestion(me, me.createSuggestion(board)));
-////	
-//	}
-	
+		
 	@Test
 	public void handleSuggestions() {		
 		mehmet = new ComputerPlayer("Mehmet",18, 11, Color.green);
-		Card location = new Card("x");
-		Card person = new Card("y");
-		Card weapon = new Card("z");
+		reed = new ComputerPlayer("Reed", 3, 11, Color.cyan);
+		evan = new ComputerPlayer("Evan", 8, 0, Color.yellow);
+		hoff = new HumanPlayer("Prof. Hoff", 3, 7, Color.black);
 		
-		mehmet.addCards(location);
-		mehmet.addCards(person);
-		mehmet.addCards(weapon);
-		answers = new Solution(person, location, weapon);
+		Card locationT = new Card("CTLM");
+		Card locationF = new Card("BB280");
+		Card personT = new Card("Reed");
+		Card personF = new Card("Mehmet");
+		Card weaponT = new Card("M&M");	
+		Card weaponF = new Card("Gravity");
+		
+		Solution accuse = new Solution(personT, locationT, weaponT);
+		
+		mehmet.addCards(locationF);
+		hoff.addCards(personF);
+		evan.addCards(weaponF);
+		
+		Map<String, ComputerPlayer> computers = new HashMap<String, ComputerPlayer>();
+		
+		computers.put("Reed", reed);
+		computers.put("Mehmet", mehmet);
+		computers.put("Evan", evan);
+		
 		
 		// suggestion no one can disprove returns null from handleSuggestion
-		assertEquals(null, board.handleSuggestion(mehmet, answers));
+		assertEquals(null, board.handleSuggestion(reed, computers, hoff, accuse));
 		
-		Map<String, ComputerPlayer> compPlayers = board.getPlayers();
-		ComputerPlayer one = board.getPlayers().get("Colonel Mustard");
-		ComputerPlayer two = board.getPlayers().get("Mrs. Peacock");
+		reed.addCards(locationT);
 		
-		location = new Card("Kitchen");
-		person = new Card("Mr. Boddy");
-		weapon = new Card("Gravity Gun");
+		// suggestion only accuser can disprove returns null
+		assertEquals(null, board.handleSuggestion(reed, computers, hoff, accuse));
 		
-		one.addCards(location);
-		one.addCards(person);
-		one.addCards(weapon);
-		answers = new Solution(person, location, weapon);
-		assertEquals(null, board.handleSuggestion(one, answers));
+		reed.getMyCards().clear();
+		reed.addCards(personF);
+
+		hoff.getMyCards().clear();
+		hoff.addCards(locationT);
 		
-		location = new Card("Library");
-		person = new Card("Professor Plum");
-		weapon = new Card("Cross Punisher");
+		// suggestion only human can disprove return answer
+		assertEquals(locationT, board.handleSuggestion(reed, computers, hoff, accuse));
 		
-		two.addCards(location);
-		two.addCards(person);
-		two.addCards(weapon);
+		// suggestion only human, the accuser, can disprove return answer
+		assertEquals(locationT, board.handleSuggestion(hoff, computers, hoff, accuse));
 		
-		assertEquals(null, board.handleSuggestion(one, answers));
+		hoff.getMyCards().clear();
+		hoff.addCards(locationF);
+		
+		reed.getMyCards().clear();
+		reed.addCards(personT);
+		
+		mehmet.getMyCards().clear();
+		mehmet.addCards(locationT);
+		
+		// Suggestion that two players can disprove, returns answer of last correct player
+		assertEquals(personT, board.handleSuggestion(hoff, computers, hoff, accuse));
+		
+		reed.getMyCards().clear();
+		reed.addCards(personF);
+		
+		hoff.getMyCards().clear();
+		hoff.addCards(locationT);
+		
+		// when both a player and a another computer can disprove, return answer of the computer
+		assertEquals(locationT, board.handleSuggestion(reed, computers, hoff, accuse));
 	}
 	
 }

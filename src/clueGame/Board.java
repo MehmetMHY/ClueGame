@@ -204,47 +204,49 @@ public class Board {
 	public void selectAnswer() {
 		// TODO
 	}
-	
-	public Card handleSuggestion(Player accuser, Solution guess) {
-		Card output = null;
-		int counter = 0;
-
-		for(Map.Entry<String, ComputerPlayer> entry : computers.entrySet()) {
-			System.out.println(entry.getValue() + ": " + entry.getValue().disproveSuggestion(guess));
-			
-			if(entry.getValue().disproveSuggestion(guess) != null) {
-				output = entry.getValue().disproveSuggestion(guess);
-			}
-			if(entry.getValue().disproveSuggestion(guess) == null) {
-				counter++;
-			}
-			if(entry.getValue().disproveSuggestion(guess) != null && entry.getValue().equals(accuser)) {
-				return null;
-			}
-	
-		}
-
-		// if the guess can be disproved only by the accusing player, returns null
-		if(player.disproveSuggestion(guess) == null) {
-			counter++;
-		}
 		
-		// if only the human can disprove the guess, returns answer
-		if(player.disproveSuggestion(guess) != null) {
-			return player.disproveSuggestion(guess);
-		}
-		
-		// the guess only the human can disprove, but human is accuser, returns null
-		if(player.disproveSuggestion(guess) != null && accuser.equals(player)) {
-			return null;
-		}
-		
-		// if no one can disprove, return null
-		if(counter == computers.size()+1) {
-			return null;
-		}else {
-			return output;
-		}
+	public Card handleSuggestion(Player accuser, Map<String, ComputerPlayer> computers, HumanPlayer human, Solution guess) {
+		Card temp = new Card("PlaceHolder");
+		return temp;
+//		Card output = null;
+//		int counter = 0;
+//
+//		for(Map.Entry<String, ComputerPlayer> entry : computers.entrySet()) {
+//			//System.out.println(entry.getValue() + ": " + entry.getValue().disproveSuggestion(guess));
+//			
+//			if(entry.getValue().disproveSuggestion(guess) != null) {
+//				output = entry.getValue().disproveSuggestion(guess);
+//			}
+//			if(entry.getValue().disproveSuggestion(guess) == null) {
+//				counter++;
+//			}
+//			if(entry.getValue().disproveSuggestion(guess) != null && entry.getValue().equals(accuser)) {
+//				return null;
+//			}
+//	
+//		}
+//
+//		// if the guess can be disproved only by the accusing player, returns null
+//		if(player.disproveSuggestion(guess) == null) {
+//			counter++;
+//		}
+//		
+//		// if only the human can disprove the guess, returns answer
+//		if(player.disproveSuggestion(guess) != null) {
+//			return player.disproveSuggestion(guess);
+//		}
+//		
+//		// the guess only the human can disprove, but human is accuser, returns null
+//		if(player.disproveSuggestion(guess) != null && accuser.equals(player)) {
+//			return null;
+//		}
+//		
+//		// if no one can disprove, return null
+//		if(counter == computers.size()+1) {
+//			return null;
+//		}else {
+//			return output;
+//		}
 	}
 	
 	public boolean checkAccusation(Solution accusation) {
@@ -576,4 +578,6 @@ public class Board {
 	public void setCompleteDeck(ArrayList<Card> completeDeck) {
 		this.completeDeck = completeDeck;
 	}
+
+
 }
