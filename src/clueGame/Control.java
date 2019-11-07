@@ -138,34 +138,38 @@ public class Control extends JFrame {
 			panel.setBorder(new LineBorder(color));
 			add(displayLabel);
 			add(panel);
+		
 		}
 	}
 	
 	// void class for creating the over all layout of the GUI
 	public void createLayout() {
-		// create "Whose Turn?" panel of the GUI with a blue bolder and a BorderLayout at the South
-		whoPlayer p = new whoPlayer(1, 5, Color.blue, false); // also make setEditable equal to false for whoPlayer
-		add(p, BorderLayout.SOUTH);
+//		// create "Whose Turn?" panel of the GUI with a blue bolder and a BorderLayout at the South
+//		whoPlayer p = new whoPlayer(1, 5, Color.blue, false); // also make setEditable equal to false for whoPlayer
+//		add(p, BorderLayout.SOUTH);
+//
+//		// create "Die" panel of the GUI with a red bolder and a BorderLayout at the South
+//		theDieRoll roll = new theDieRoll(2, 3, Color.red, false); // also make setEditable equal to false for theDieRoll
+//		add(roll, BorderLayout.SOUTH);
+//
+//		// create "Guess" panel of the GUI with a black bolder and a BorderLayout at the South
+//		theGuess guess = new theGuess(2 ,3, Color.black, false); // also make setEditable equal to false for theGuess
+//		add(guess, BorderLayout.SOUTH);
+//		
+//		// create "Response" panel of the GUI with a green bolder and a BorderLayout at the South
+//		theGuessResult results = new theGuessResult(2 , 3, Color.green, false); // also make setEditable equal to false for theGuessResult
+//		add(results, BorderLayout.SOUTH);
+//		
+//		// create both the Next and Accuse buttons on the GUI as well as create a BorderLayout at the South
+//		JButton next = new JButton("Next");
+//		JButton makeAccusation = new JButton("Accuse");
+//		setLayout(new GridLayout(6,6));
+//		add(next, BorderLayout.SOUTH);
+//		add(makeAccusation, BorderLayout.SOUTH);
 
-		// create "Die" panel of the GUI with a red bolder and a BorderLayout at the South
-		theDieRoll roll = new theDieRoll(2, 3, Color.red, false); // also make setEditable equal to false for theDieRoll
-		add(roll, BorderLayout.SOUTH);
-
-		// create "Guess" panel of the GUI with a black bolder and a BorderLayout at the South
-		theGuess guess = new theGuess(2 ,3, Color.black, false); // also make setEditable equal to false for theGuess
-		add(guess, BorderLayout.SOUTH);
-		
-		// create "Response" panel of the GUI with a green bolder and a BorderLayout at the South
-		theGuessResult results = new theGuessResult(2 , 3, Color.green, false); // also make setEditable equal to false for theGuessResult
-		add(results, BorderLayout.SOUTH);
-		
-		// create both the Next and Accuse buttons on the GUI as well as create a BorderLayout at the South
-		JButton next = new JButton("Next");
-		JButton makeAccusation = new JButton("Accuse");
-		setLayout(new GridLayout(6,6));
-		add(next, BorderLayout.SOUTH);
-		add(makeAccusation, BorderLayout.SOUTH);
-	
+		DrawBoard boardPanel = new DrawBoard();
+		//setLayout(new GridLayout(1,1));
+		add(boardPanel, BorderLayout.CENTER);
 	}
 	
 	// setters for the character, dieRoll, guess, and guessResult JTextField variable for the Control class
@@ -192,25 +196,25 @@ public class Control extends JFrame {
 	public static void main(String [] args) throws InterruptedException {
 		
 		// create Control object with a window size of 210 by 500
-		Control gui = new Control(210, 500);
-		gui.setResizable(false);
+		Control gui = new Control(600, 600);
+		//gui.setResizable(false);
 		
 		// set the "Whose Turn?", "Die", "Guess", and "Guess Result" values for the GUI
-		gui.setCharacter("Col. Mustard");
-		gui.setDieRoll("5");
-		gui.setGuess("My guess");
-		gui.setGuessResult("I guessed it!");
+//		gui.setCharacter("Col. Mustard");
+//		gui.setDieRoll("5");
+//		gui.setGuess("My guess");
+//		gui.setGuessResult("I guessed it!");
 		gui.setVisible(true);
 		
-		// 5 second delay
-		TimeUnit.SECONDS.sleep(5);
-		
-		// update the "Whose Turn?", "Die", "Guess", and "Guess Result" values for the GUI
-		gui.setCharacter("Mehmet");
-		gui.setDieRoll("1");
-		gui.setGuess("Ruidi");
-		gui.setGuessResult("Your Guess is Wrong!");
-		gui.setVisible(true);
+//		// 5 second delay
+//		TimeUnit.SECONDS.sleep(5);
+//		
+//		// update the "Whose Turn?", "Die", "Guess", and "Guess Result" values for the GUI
+//		gui.setCharacter("Mehmet");
+//		gui.setDieRoll("1");
+//		gui.setGuess("Ruidi");
+//		gui.setGuessResult("Your Guess is Wrong!");
+//		gui.setVisible(true);
 		
 	}
 }
