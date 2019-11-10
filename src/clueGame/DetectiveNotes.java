@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-public class DetectiveNotes extends JFrame {
+public class DetectiveNotes extends JDialog {
 	private static Board board;
 	
 	// initialize the board:
@@ -20,19 +20,14 @@ public class DetectiveNotes extends JFrame {
 		board.setCardConfigFiles("Weapon.txt", "Players.txt");
 		board.initialize();
 	}
-	
+
 	public DetectiveNotes(int x, int y) {
 		setup();
 		setTitle("Detective Notes");
 		setSize(x, y);
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
 		createLayout();
 	}
-	
-	public void viewIt() {
-		setVisible(true);
-	}
-	
 	
 	public void createLayout() {
 		setLayout(new BorderLayout());
@@ -63,13 +58,21 @@ public class DetectiveNotes extends JFrame {
 				boardPlayerArray[i] = boardPlayers.get(i).toString();
 			}
 			
-			JCheckBox n1 = new JCheckBox(boardPlayerArray[0]); JCheckBox n2 = new JCheckBox(boardPlayerArray[1]);
-			JCheckBox n3 = new JCheckBox(boardPlayerArray[2]); JCheckBox n4 = new JCheckBox(boardPlayerArray[3]);
-			JCheckBox n5 = new JCheckBox(boardPlayerArray[4]); JCheckBox n6 = new JCheckBox(boardPlayerArray[5]);
+			JCheckBox n1 = new JCheckBox(boardPlayerArray[0]);
+			JCheckBox n2 = new JCheckBox(boardPlayerArray[1]);
+			JCheckBox n3 = new JCheckBox(boardPlayerArray[2]);
+			JCheckBox n4 = new JCheckBox(boardPlayerArray[3]);
+			JCheckBox n5 = new JCheckBox(boardPlayerArray[4]);
+			JCheckBox n6 = new JCheckBox(boardPlayerArray[5]);
 			
 			setLayout(new GridLayout(1,3));
 			
-			checkBoxPanel.add(n1); checkBoxPanel.add(n2); checkBoxPanel.add(n3); checkBoxPanel.add(n4); checkBoxPanel.add(n5); checkBoxPanel.add(n6);
+			checkBoxPanel.add(n1);
+			checkBoxPanel.add(n2);
+			checkBoxPanel.add(n3);
+			checkBoxPanel.add(n4);
+			checkBoxPanel.add(n5);
+			checkBoxPanel.add(n6);
 
 			JPanel comboBoxPanel = new JPanel();
 			comboBoxPanel.setLayout(new GridLayout(2,2));
@@ -99,10 +102,14 @@ public class DetectiveNotes extends JFrame {
 				boardRoomsArray[i] = boardRooms.get(i).toString();
 			}
 			
-			JCheckBox n1 = new JCheckBox(boardRoomsArray[0]); JCheckBox n2 = new JCheckBox(boardRoomsArray[1]);
-			JCheckBox n3 = new JCheckBox(boardRoomsArray[2]); JCheckBox n4 = new JCheckBox(boardRoomsArray[3]);
-			JCheckBox n5 = new JCheckBox(boardRoomsArray[4]); JCheckBox n6 = new JCheckBox(boardRoomsArray[5]);
-			JCheckBox n7 = new JCheckBox(boardRoomsArray[6]); JCheckBox n8 = new JCheckBox(boardRoomsArray[7]);
+			JCheckBox n1 = new JCheckBox(boardRoomsArray[0]);
+			JCheckBox n2 = new JCheckBox(boardRoomsArray[1]);
+			JCheckBox n3 = new JCheckBox(boardRoomsArray[2]);
+			JCheckBox n4 = new JCheckBox(boardRoomsArray[3]);
+			JCheckBox n5 = new JCheckBox(boardRoomsArray[4]);
+			JCheckBox n6 = new JCheckBox(boardRoomsArray[5]);
+			JCheckBox n7 = new JCheckBox(boardRoomsArray[6]);
+			JCheckBox n8 = new JCheckBox(boardRoomsArray[7]);
 			JCheckBox n9 = new JCheckBox(boardRoomsArray[8]);
 			
 			setLayout(new GridLayout(1,3));
@@ -138,13 +145,21 @@ public class DetectiveNotes extends JFrame {
 				boardPlayerArray[i] = boardWeapons.get(i).toString();
 			}
 			
-			JCheckBox n1 = new JCheckBox(boardPlayerArray[0]); JCheckBox n2 = new JCheckBox(boardPlayerArray[1]);
-			JCheckBox n3 = new JCheckBox(boardPlayerArray[2]); JCheckBox n4 = new JCheckBox(boardPlayerArray[3]);
-			JCheckBox n5 = new JCheckBox(boardPlayerArray[4]); JCheckBox n6 = new JCheckBox(boardPlayerArray[5]);
+			JCheckBox n1 = new JCheckBox(boardPlayerArray[0]);
+			JCheckBox n2 = new JCheckBox(boardPlayerArray[1]);
+			JCheckBox n3 = new JCheckBox(boardPlayerArray[2]);
+			JCheckBox n4 = new JCheckBox(boardPlayerArray[3]);
+			JCheckBox n5 = new JCheckBox(boardPlayerArray[4]);
+			JCheckBox n6 = new JCheckBox(boardPlayerArray[5]);
 			
 			setLayout(new GridLayout(1,3));
 			
-			checkBoxPanel.add(n1); checkBoxPanel.add(n2); checkBoxPanel.add(n3); checkBoxPanel.add(n4); checkBoxPanel.add(n5); checkBoxPanel.add(n6);
+			checkBoxPanel.add(n1);
+			checkBoxPanel.add(n2);
+			checkBoxPanel.add(n3);
+			checkBoxPanel.add(n4);
+			checkBoxPanel.add(n5); 
+			checkBoxPanel.add(n6);
 
 			JPanel comboBoxPanel = new JPanel();
 			comboBoxPanel.setLayout(new GridLayout(2,2));
