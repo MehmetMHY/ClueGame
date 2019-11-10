@@ -14,8 +14,8 @@ public class Block {
 	static final int BORDER = 2;
 	static final int DOOR = 10;
 	public Block(int x, int y) {
-		this.x = x;
-		this.y = y;
+		this.x = y;
+		this.y = x;
 	}
 	
 	public void drawRoom(Graphics g) {
@@ -35,16 +35,17 @@ public class Block {
 		g.fillRect(x, y, WIDTH, HEIGHT);
 		if (d == DoorDirection.DOWN) {
 			g.setColor(doorColor);
-			g.fillRect(x + DOOR, y + HEIGHT, DOOR, HEIGHT);
+			g.fillRect(x, y + 3*DOOR/2, WIDTH, DOOR);
 		} else if (d == DoorDirection.UP) {
 			g.setColor(doorColor);
-			g.fillRect(x + HEIGHT - DOOR, y, WIDTH, DOOR);
+			g.fillRect(x , y, WIDTH, DOOR);
 		} else if (d == DoorDirection.LEFT) {
+			System.out.println("Left");
 			g.setColor(doorColor);
-			g.fillRect(x, y + DOOR, WIDTH, DOOR);	
-		} else {
+			g.fillRect(x, y, DOOR, HEIGHT);	
+		} else if (d == DoorDirection.RIGHT){
 			g.setColor(doorColor);
-			g.fillRect(x + WIDTH - DOOR, y, DOOR, HEIGHT);
+			g.fillRect(x + 3*DOOR/2, y, DOOR, HEIGHT);
 		}
 	}
 }

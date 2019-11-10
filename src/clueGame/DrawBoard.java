@@ -9,7 +9,7 @@ import java.util.List;
 import javax.swing.JPanel;
 
 public class DrawBoard extends JPanel {
-	 
+
 	private static Board board;
 	static int num_row;
 	static int num_col;
@@ -22,14 +22,14 @@ public class DrawBoard extends JPanel {
 		setPreferredSize(new Dimension(100*num_row, 100*num_col));
 		createBoard();
 	}
-	
+
 	public void initializeBoard() {
 		board = Board.getInstance(); // only set instance variable for Board
 		board.setConfigFiles("OurBoardLayout.csv", "OurRooms.txt"); // set the file names for setConfigFiles()
 		board.setCardConfigFiles("Weapon.txt", "Players.txt");
 		board.initialize(); // load both config files for tests
 	}
-	
+
 	public void createBoard() {
 		for (int i = 0; i < num_row; i++) {
 			ArrayList<Block> temp = new ArrayList<Block>();
@@ -39,19 +39,38 @@ public class DrawBoard extends JPanel {
 			drawBoard.add(temp);
 		}
 	}
-	
+
+	//	public void paintComponent(Graphics g) {
+	//		super.paintComponent(g);
+	//		for (int i = 0; i < num_row; i++) {
+	//			for (int j = 0; j < num_col; j++) {
+	//				if (board.getCellAt(i, j).isRoom()) {
+	//					drawBoard.get(i).get(j).drawRoom(g);
+	//				} else if (board.getCellAt(i, j).isDoorway()){
+	//					drawBoard.get(i).get(j).drawDoor(g, board.getCellAt(i, j).getDoorDirection());
+	//				} else {
+	//					drawBoard.get(i).get(j).drawWalkway(g);
+	//				}
+	//			}
+	//		}
+	//	}
+
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		for (int i = 0; i < num_row; i++) {
-			for (int j = 0; j < num_col; j++) {
+		int counter = 0;
+		for (int i = 0; i < drawBoard.size(); i++) {
+			for (int j = 0; j < drawBoard.get(i).size(); j++) {
 				if (board.getCellAt(i, j).isRoom()) {
 					drawBoard.get(i).get(j).drawRoom(g);
 				} else if (board.getCellAt(i, j).isDoorway()){
+					counter++;
 					drawBoard.get(i).get(j).drawDoor(g, board.getCellAt(i, j).getDoorDirection());
 				} else {
 					drawBoard.get(i).get(j).drawWalkway(g);
 				}
 			}
 		}
+		System.out.println(counter);
 	}
+
 }
