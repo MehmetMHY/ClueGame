@@ -1,3 +1,6 @@
+// [ This java file is just for TESTING, it will not be in the final ClueGame code!!! ]
+// [ 11-9-2019 ]
+
 package clueGame;
 
 import java.awt.BorderLayout;

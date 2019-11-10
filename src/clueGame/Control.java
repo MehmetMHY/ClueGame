@@ -260,16 +260,5 @@ public class Control extends JFrame {
 		gui.getSouth().setGuess("My guess");
 		gui.getSouth().setResult("I guessed it!");
 		gui.setVisible(true);
-		
-//		// 5 second delay
-//		TimeUnit.SECONDS.sleep(5);
-//		
-//		// update the "Whose Turn?", "Die", "Guess", and "Guess Result" values for the GUI
-//		gui.setCharacter("Mehmet");
-//		gui.setDieRoll("1");
-//		gui.setGuess("Ruidi");
-//		gui.setGuessResult("Your Guess is Wrong!");
-//		gui.setVisible(true);
-		
 	}
 }

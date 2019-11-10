@@ -40,21 +40,6 @@ public class DrawBoard extends JPanel {
 		}
 	}
 
-	//	public void paintComponent(Graphics g) {
-	//		super.paintComponent(g);
-	//		for (int i = 0; i < num_row; i++) {
-	//			for (int j = 0; j < num_col; j++) {
-	//				if (board.getCellAt(i, j).isRoom()) {
-	//					drawBoard.get(i).get(j).drawRoom(g);
-	//				} else if (board.getCellAt(i, j).isDoorway()){
-	//					drawBoard.get(i).get(j).drawDoor(g, board.getCellAt(i, j).getDoorDirection());
-	//				} else {
-	//					drawBoard.get(i).get(j).drawWalkway(g);
-	//				}
-	//			}
-	//		}
-	//	}
-
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		int counter = 0;
@@ -73,4 +58,18 @@ public class DrawBoard extends JPanel {
 		System.out.println(counter);
 	}
 
+//	public void paintComponent(Graphics g) {
+//		super.paintComponent(g);
+//		for (int i = 0; i < num_row; i++) {
+//			for (int j = 0; j < num_col; j++) {
+//				if (board.getCellAt(i, j).isRoom()) {
+//					drawBoard.get(i).get(j).drawRoom(g);
+//				} else if (board.getCellAt(i, j).isDoorway()){
+//					drawBoard.get(i).get(j).drawDoor(g, board.getCellAt(i, j).getDoorDirection());
+//				} else {
+//					drawBoard.get(i).get(j).drawWalkway(g);
+//				}
+//			}
+//		}
+//	}
 }
