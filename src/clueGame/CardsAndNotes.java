@@ -96,7 +96,7 @@ public class CardsAndNotes extends JFrame {
 		JMenuItem item = new JMenuItem("Show Notes");
 		class MenuItemListener implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
-				detectiveNotes.viewIt();
+				detectiveNotes.setVisible(true);
 			}
 		}
 		item.addActionListener(new MenuItemListener());
