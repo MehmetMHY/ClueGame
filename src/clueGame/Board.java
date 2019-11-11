@@ -41,12 +41,17 @@ public class Board {
 	private Set<BoardCell> visited;
 	private ArrayList<Card> weaponDeck;
 	private ArrayList<Card> playerDeck;
-	private ArrayList<Card> roomDeck;
+	private ArrayList<Card> roomDeck; // looking into
+	private ArrayList<String> roomID; // just added
 	private ArrayList<Card> solution;
 	private Map<String, ComputerPlayer> computers;
 	private HumanPlayer player;
 	private Solution answer;
 	
+	public BoardCell[][] getBoard() {
+		return board;
+	}
+
 	private Set<Card> cardDealt;
 	private ArrayList<Card> completeDeck;
 
@@ -65,6 +70,7 @@ public class Board {
 		computers = new HashMap<String, ComputerPlayer>();
 		cardDealt = new HashSet<Card> ();
 		solution = new ArrayList<Card>();
+		roomID = new ArrayList<String>();
 	}
 	
 	// this method returns the only Board
@@ -250,6 +256,12 @@ public class Board {
 			String[] line = tempLine.split(", ");
 			if (line[2].equals("Card") || line[2].equals("Other")) {
 				legend.put(line[0].charAt(0), line[1]);
+				
+				
+				//System.out.println(line[0] + " - " + line[1]);
+				roomID.add(line[0]);
+				
+				
 				if (line[2].equals("Card")) {
 					Card rCard = new Card(line[1]);
 					rCard.setType(CardType.ROOM);
@@ -291,6 +303,7 @@ public class Board {
 			textCol = 0;
 			String[] line = tempLine.split(",");
 			for (String i:line) {
+				
 				if (!legend.containsKey(i.charAt(0))) {
 					// throw exception if something is on the board that is not included in the legend
 					throw new BadConfigFormatException("Key " + i.charAt(0) + " doesn't exist");
@@ -577,6 +590,9 @@ public class Board {
 	public void setCompleteDeck(ArrayList<Card> completeDeck) {
 		this.completeDeck = completeDeck;
 	}
-
+	
+	public ArrayList<String> getRoomID() {
+		return roomID;
+	}
 
 }

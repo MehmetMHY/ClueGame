@@ -29,7 +29,7 @@ public class BoardCell {
 
 	// checks if a cell is a Doorway
 	public boolean isDoorway() {
-		if (roomType.length() == 2 && roomType.charAt(1) != 'N') {
+		if (roomType.length() == 2 && roomType.charAt(1) != 'N' && roomType.charAt(1) != 'X') {
 			return true;
 		}
 		return false;
@@ -38,6 +38,9 @@ public class BoardCell {
 	// checks if a cell is a Room
 	public boolean isRoom() {
 		if (roomType.charAt(0) != 'W' && roomType.length() == 1) {
+			return true;
+		}
+		if(roomType.length() == 2 && roomType.charAt(0) != 'W' && roomType.charAt(1) == 'X') {
 			return true;
 		}
 		return false;

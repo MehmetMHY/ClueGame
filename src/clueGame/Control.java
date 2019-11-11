@@ -146,15 +146,19 @@ public class Control extends JFrame {
 			add(next, BorderLayout.CENTER);
 			add(makeAccusation, BorderLayout.SOUTH);
 		}
+		
 		public void setRoll(int num) {
 			roll.text.setText(String.valueOf(num));
 		}
+		
 		public void setGuess(String g) {
 			guess.text.setText(g);
 		}
+		
 		public void setResult(String r) {
 			results.text.setText(r);
 		}
+		
 		public void setP(String c) {
 			p.character.setText(c);
 		}
@@ -256,6 +260,18 @@ public class Control extends JFrame {
 		item.addActionListener(new MenuItemListener());
 		return item;
 	}
+
+	public void setCardPerson(String cardPerson) {
+		this.cardPerson.setText(cardPerson);
+	}
+
+	public void setCardRooms(String cardRooms) {
+		this.cardRooms.setText(cardRooms);
+	}
+
+	public void setCardWeapons(String cardWeapons) {
+		this.cardWeapons.setText(cardWeapons);
+	}
 		
 	// Here is a test in main that shows the GUI working as well as the text values changing in the GUI without any errors
 	
@@ -270,6 +286,11 @@ public class Control extends JFrame {
 		gui.getSouth().setRoll(5);
 		gui.getSouth().setGuess("My guess");
 		gui.getSouth().setResult("I guessed it!");
+		
+		gui.setCardPerson("Mr. Green");
+		gui.setCardRooms("Dining room");
+		gui.setCardWeapons("Wrench");
+		
 		gui.setVisible(true);
 	}
 }

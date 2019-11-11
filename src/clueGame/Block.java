@@ -1,7 +1,10 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
+
+import javax.swing.JLabel;
 
 public class Block {
 	private int x;
