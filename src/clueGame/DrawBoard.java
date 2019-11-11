@@ -3,6 +3,7 @@ package clueGame;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,18 +15,20 @@ public class DrawBoard extends JPanel {
 
 	static int num_row;
 	static int num_col;
-
-	public static void setBoard(Board board) {
-		DrawBoard.board = board;
-	}
+		
+	static final int RADIUS = 24;
+	static final int HEIGHT = 25;
+	static final int WIDTH = 25;
 	
 	private List<List<Block>> drawBoard;
+	
+	
 	public DrawBoard(Board gameBoard) {
 		setBoard(gameBoard);
 		num_row = board.getNumRows();
 		num_col = board.getNumColumns();
 		drawBoard = new ArrayList<List<Block>>();
-		setPreferredSize(new Dimension(100*num_row, 100*num_col));
+		//setPreferredSize(new Dimension(100*num_row, 100*num_col));
 		createBoard();
 		labelBoardRooms();
 	}
@@ -34,30 +37,42 @@ public class DrawBoard extends JPanel {
 		for (int i = 0; i < num_row; i++) {
 			ArrayList<Block> temp = new ArrayList<Block>();
 			for (int j = 0; j < num_col; j++) {
-				temp.add(new Block(i*num_row,j*num_col));
+				temp.add(new Block(i*HEIGHT,j*WIDTH));
 			}
 			drawBoard.add(temp);
 		}
-		
 	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		int counter = 0;
 		for (int i = 0; i < drawBoard.size(); i++) {
 			for (int j = 0; j < drawBoard.get(i).size(); j++) {
 				if (board.getCellAt(i, j).isRoom()) {
 					drawBoard.get(i).get(j).drawRoom(g);
 				} else if (board.getCellAt(i, j).isDoorway()){
-					counter++;
 					drawBoard.get(i).get(j).drawDoor(g, board.getCellAt(i, j).getDoorDirection());
 				} else {
 					drawBoard.get(i).get(j).drawWalkway(g);
 				}
 			}
 		}
-		System.out.println(counter);
+		for (ComputerPlayer c:board.getPlayers().values()) {
+			g.setColor(c.getColor());
+			g.fillOval(c.getColumn()*HEIGHT, c.getRow()*WIDTH, RADIUS, RADIUS);
+		}
+		g.setColor(board.getP1().color);
+		g.fillOval(board.getP1().column*HEIGHT, board.getP1().row*WIDTH, RADIUS, RADIUS);
 	}
+	
+//	public void createPlayers() {
+//		for (ComputerPlayer c:board.getPlayers().values()) {
+//			drawPlayer tempDP = new drawPlayer(c.row*100,c.column*100, RADIUS, c.color);
+//			player.add(tempDP);
+//		}
+//		HumanPlayer tempH = board.getP1();
+//		drawPlayer humanP = new drawPlayer(tempH.row*100, tempH.column*100, RADIUS, tempH.color);
+//		player.add(humanP);
+//	}
 	
 	public void labelBoardRooms() {
 		setLayout(null);
@@ -107,19 +122,8 @@ public class DrawBoard extends JPanel {
 	    Dimension size9 = label9.getPreferredSize();
 	    label9.setBounds(450, 120, size9.width, size9.height);
 	}
-
-//	public void paintComponent(Graphics g) {
-//		super.paintComponent(g);
-//		for (int i = 0; i < num_row; i++) {
-//			for (int j = 0; j < num_col; j++) {
-//				if (board.getCellAt(i, j).isRoom()) {
-//					drawBoard.get(i).get(j).drawRoom(g);
-//				} else if (board.getCellAt(i, j).isDoorway()){
-//					drawBoard.get(i).get(j).drawDoor(g, board.getCellAt(i, j).getDoorDirection());
-//				} else {
-//					drawBoard.get(i).get(j).drawWalkway(g);
-//				}
-//			}
-//		}
-//	}
+	
+	public static void setBoard(Board board) {
+		DrawBoard.board = board;
+	}
 }
