@@ -11,6 +11,7 @@ package clueGame;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -28,9 +29,9 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import clueGame.CardsAndNotes.playersCards;
-
 public class Control extends JFrame {
+	private static Board board;
+	
 	private JTextField character; // stores text value for "Whose turn?" for the Control Panel GUI
 	private JTextField dieRoll; // stores text value for dice roll for the Control Panel GUI
 	private JTextField guess; // stores a character's guess as a text value for the Control Panel GUI
@@ -44,6 +45,13 @@ public class Control extends JFrame {
 	
 	public SouthPanel getSouth() {
 		return south;
+	}
+	
+	public void initializeBoard() {
+		board = Board.getInstance(); // only set instance variable for Board
+		board.setConfigFiles("OurBoardLayout.csv", "OurRooms.txt"); // set the file names for setConfigFiles()
+		board.setCardConfigFiles("Weapon.txt", "Players.txt");
+		board.initialize(); // load both config files for tests
 	}
 	
 	// setup title, window size, and enable EXIT for the Control Panel GUI window
@@ -154,7 +162,9 @@ public class Control extends JFrame {
 	
 	// void class for creating the over all layout of the GUI
 	public void createLayout() {
-		DrawBoard boardPanel = new DrawBoard();
+		initializeBoard();
+		
+		DrawBoard boardPanel = new DrawBoard(board);
 		//setLayout(new GridLayout(1,1));
 		add(boardPanel, BorderLayout.CENTER);
 		
@@ -165,10 +175,11 @@ public class Control extends JFrame {
 		setJMenuBar(menuBar);
 		menuBar.add(createFileMenu());
 
-		detectiveNotes = new DetectiveNotes(700, 500);
+		detectiveNotes = new DetectiveNotes(700, 500, board);
 		
 		playersCards tpc = new playersCards(3, 2, false, Color.green, Color.yellow, Color.red);
 		add(tpc, BorderLayout.EAST);
+		
 	}
 	
 	public class playersCards extends JPanel{
@@ -250,7 +261,7 @@ public class Control extends JFrame {
 	
 	// main method for the GUI in the Control class
 	public static void main(String [] args) throws InterruptedException {
-		
+
 		// create Control object with a window size of 210 by 500
 		Control gui = new Control(770, 770);
 		//gui.setResizable(false);

@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+import java.util.HashSet;
+
 import javax.swing.*; 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,17 +14,13 @@ import javax.swing.border.TitledBorder;
 
 public class DetectiveNotes extends JDialog {
 	private static Board board;
-	
-	// initialize the board:
-	public static void setup() {
-		board = Board.getInstance();
-		board.setConfigFiles("OurBoardLayout.csv", "OurRooms.txt");
-		board.setCardConfigFiles("Weapon.txt", "Players.txt");
-		board.initialize();
+
+	public static void setBoard(Board board) {
+		DetectiveNotes.board = board;
 	}
 
-	public DetectiveNotes(int x, int y) {
-		setup();
+	public DetectiveNotes(int x, int y, Board gameBoard) {
+		setBoard(gameBoard);
 		setTitle("Detective Notes");
 		setSize(x, y);
 		setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
@@ -77,7 +75,7 @@ public class DetectiveNotes extends JDialog {
 			JPanel comboBoxPanel = new JPanel();
 			comboBoxPanel.setLayout(new GridLayout(2,2));
 			comboBoxPanel.setBorder(new TitledBorder(new EtchedBorder(), "Person Guess"));
-			
+
 			JComboBox c1 = new JComboBox(boardPlayerArray);
 			
 			comboBoxPanel.add(c1);
