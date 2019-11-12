@@ -24,6 +24,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
@@ -271,7 +272,7 @@ public class Control extends JFrame {
 	
 	// main method for the ClueGame GUI
 	public static void main(String [] args) throws InterruptedException {
-
+		
 		// create Control object with a window size of 210 by 500
 		Control gui = new Control(735, 770);
 		
@@ -285,6 +286,10 @@ public class Control extends JFrame {
 		gui.setCardPerson("Mr. Green");
 		gui.setCardRooms("Dining room");
 		gui.setCardWeapons("Wrench");
+		
+		JFrame frame = new JFrame();
+		String playersCurrentCharacter = "Miss Scarlet";
+		JOptionPane.showMessageDialog(frame, "You are " + playersCurrentCharacter + ", press Next Player to begin play", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 		
 		// make GUI visible
 		gui.setVisible(true);
