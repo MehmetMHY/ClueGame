@@ -39,11 +39,13 @@ public class Board {
 	private String weaponConfigFile;
 	private String peopleConfigFile;
 	private Set<BoardCell> visited;
+	
 	private ArrayList<Card> weaponDeck;
 	private ArrayList<Card> playerDeck;
-	private ArrayList<Card> roomDeck; // looking into
-	private ArrayList<String> roomID; // just added
+	private ArrayList<Card> roomDeck;
+	private ArrayList<String> roomID; // store the Room Type from the text file
 	private ArrayList<Card> solution;
+	
 	private Map<String, ComputerPlayer> computers;
 	private HumanPlayer player;
 	private Solution answer;

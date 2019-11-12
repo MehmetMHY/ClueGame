@@ -1,7 +1,8 @@
 /**. 
- * Control Class is the GUI class for the control panel,
- * for the Clue Board Game. This is only one piece,
- * of the code's overall GUI structure.
+ * Control Class is the main GUI class for the over all,
+ * GUI for ClueGame. Here, the Player's cards, Control Panel,
+ * Player Icons, Menu, Detective Notes, the the board GUI,
+ * is initialize and/or built.
  * 
  * @author Mehmet Yilmaz
  * @author Ruidi Huang
@@ -30,23 +31,21 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 public class Control extends JFrame {
-	private static Board board;
+	private static Board board; // ClueGame board object
 	
 	private JTextField character; // stores text value for "Whose turn?" for the Control Panel GUI
 	private JTextField dieRoll; // stores text value for dice roll for the Control Panel GUI
 	private JTextField guess; // stores a character's guess as a text value for the Control Panel GUI
 	private JTextField guessResult; // stores result from guess as a text value for the Control Panel GUI
-	private SouthPanel south;
-	DetectiveNotes detectiveNotes;
+	private SouthPanel south; // control panel object for ClueGame GUI
 	
-	private JTextField cardPerson;
-	private JTextField cardRooms;
-	private JTextField cardWeapons;
+	DetectiveNotes detectiveNotes; // detectiveNotes object for ClueGame detective notes
 	
-	public SouthPanel getSouth() {
-		return south;
-	}
+	private JTextField cardPerson; // Person's name for People part of My Cards GUI
+	private JTextField cardRooms; // the room's name for Rooms part of My Cards GUI
+	private JTextField cardWeapons; // the Weapon's name for Weapons part of My Cards GUI
 	
+	// initialize board object from Board class
 	public void initializeBoard() {
 		board = Board.getInstance(); // only set instance variable for Board
 		board.setConfigFiles("OurBoardLayout.csv", "OurRooms.txt"); // set the file names for setConfigFiles()
@@ -63,12 +62,10 @@ public class Control extends JFrame {
 	}
 	
 	// class for "Whose Turn?" panels for the GUI
-	public class Control2 extends JPanel{
-		
+	public class ControlPlayer extends JPanel{
 		public JTextField character;
 		
-		
-		public Control2(int x, int y, Color color, boolean editP) {
+		public ControlPlayer(int x, int y, Color color, boolean editP) {
 			// set up grid layout and title border
 			setLayout(new GridLayout(x,y));
 			setBorder(new TitledBorder(new EtchedBorder(), "Whose Turn?"));
@@ -89,10 +86,10 @@ public class Control extends JFrame {
 		}
 	}
 	
-	// class for "Guess Result" panels for the GUI
-	public class Control1 extends JPanel{
+	// class for "Guess Result", "Die", and "Guess" panels for the GUI
+	public class ControlPanel extends JPanel{
 		public JTextField text;
-		public Control1(int x, int y, Color color, boolean editP, String one, String two) {
+		public ControlPanel(int x, int y, Color color, boolean editP, String one, String two) {
 			// set up grid layout and title border
 			setLayout(new GridLayout(x,y));
 			setBorder(new TitledBorder(new EtchedBorder(), one));
@@ -117,26 +114,28 @@ public class Control extends JFrame {
 		}
 	}
 	
+	// class for creating Control Panel GUI for the overall ClueGame GUI
 	public class SouthPanel extends JPanel{
-		public Control1 roll;
-		public Control1 guess;
-		public Control1 results;
-		public Control2 p;
+		public ControlPanel roll; // dice roll value for Control Panel ClueGame GUI
+		public ControlPanel guess; // guess value for Control Panel ClueGame GUI
+		public ControlPanel results; // guess result value for Control Panel ClueGame GUI
+		public ControlPlayer p; // "Whose's Turn" value for Control Panel ClueGame GUI
+		
 		public SouthPanel() {
 			// create "Whose Turn?" panel of the GUI with a blue bolder and a BorderLayout at the South
-			p = new Control2(1, 5, Color.blue, false); // also make setEditable equal to false for whoPlayer
+			p = new ControlPlayer(1, 5, Color.blue, false); // also make setEditable equal to false for whoPlayer
 			add(p, BorderLayout.CENTER);
 			
 			// create "Die" panel of the GUI with a red bolder and a BorderLayout at the South
-			roll = new Control1(2, 3, Color.red, false, "Die", "Roll"); // also make setEditable equal to false for theDieRoll
+			roll = new ControlPanel(2, 3, Color.red, false, "Die", "Roll"); // also make setEditable equal to false for theDieRoll
 			add(roll, BorderLayout.CENTER);
 
 			// create "Guess" panel of the GUI with a black bolder and a BorderLayout at the South
-			guess = new Control1(2 ,3, Color.black, false, "Guess", "Guess"); // also make setEditable equal to false for theGuess
+			guess = new ControlPanel(2 ,3, Color.black, false, "Guess", "Guess"); // also make setEditable equal to false for theGuess
 			add(guess, BorderLayout.CENTER);
 			
 			// create "Response" panel of the GUI with a green bolder and a BorderLayout at the South
-			results = new Control1(2 , 3, Color.green, false, "Guess Result", "Response"); // also make setEditable equal to false for theGuessResult
+			results = new ControlPanel(2 , 3, Color.green, false, "Guess Result", "Response"); // also make setEditable equal to false for theGuessResult
 			add(results, BorderLayout.CENTER);
 			
 			// create both the Next and Accuse buttons on the GUI as well as create a BorderLayout at the South
@@ -164,33 +163,42 @@ public class Control extends JFrame {
 		}
 	}
 	
-	// void class for creating the over all layout of the GUI
+	// void class for creating the over all layout of the ClueGame GUI
 	public void createLayout() {
+		// initialize board
 		initializeBoard();
 		
+		// create ClueGame board GUI
 		DrawBoard boardPanel = new DrawBoard(board);
-		//setLayout(new GridLayout(1,1));
 		add(boardPanel, BorderLayout.CENTER);
 		
+		// create control panel GUI
 		south = new SouthPanel();
 		add(south, BorderLayout.SOUTH);
 		
+		// create menuBar for GUI
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		menuBar.add(createFileMenu());
 
+		// create Detective Notes GUI for menuBar
 		detectiveNotes = new DetectiveNotes(700, 500, board);
 		
+		// create and place players' GUIs
 		playersCards tpc = new playersCards(3, 2, false, Color.green, Color.yellow, Color.red);
 		add(tpc, BorderLayout.EAST);
 		
 	}
-	
+
+	// class that creates the GUI for the Human Player's cards
 	public class playersCards extends JPanel{
 		public playersCards(int x, int y, boolean editP, Color pColor, Color rColor, Color wColor) {
 			setLayout(new GridLayout(x,y));
+			
+			// set main label for the Player's Card GUI
 			setBorder(new TitledBorder(new EtchedBorder(), "My Cards"));
 			
+			// create the Human Player's People Card GUI
 			JPanel aCard = new JPanel();
 			aCard.setLayout(new GridLayout(1,2));
 			aCard.setBorder(new TitledBorder(new EtchedBorder(), "People"));
@@ -199,8 +207,8 @@ public class Control extends JFrame {
 			cardPerson.setEditable(editP);
 			aCard.add(cardPerson);
 			aCard.setBackground(pColor);
-			//aCard.setBorder(new LineBorder(pColor));
 			
+			// create the Human Player's Rooms Card GUI
 			JPanel bCard = new JPanel();
 			bCard.setLayout(new GridLayout(1,2));
 			bCard.setBorder(new TitledBorder(new EtchedBorder(), "Rooms"));
@@ -209,8 +217,8 @@ public class Control extends JFrame {
 			cardRooms.setEditable(editP);
 			bCard.add(cardRooms);
 			bCard.setBackground(rColor);
-			//bCard.setBorder(new LineBorder(rColor));
 			
+			// create the Human Player's Weapons Card GUI
 			JPanel cCard = new JPanel();
 			cCard.setLayout(new GridLayout(1,2));
 			cCard.setBorder(new TitledBorder(new EtchedBorder(), "Weapons"));
@@ -219,27 +227,26 @@ public class Control extends JFrame {
 			cardWeapons.setEditable(editP);
 			cCard.add(cardWeapons);
 			cCard.setBackground(wColor);
-			//cCard.setBorder(new LineBorder(wColor));
 			
+			// add all the handed cards GUI to the overall GUI
 			setLayout(new GridLayout(3,1));
-			
 			add(aCard, BorderLayout.WEST);
-			
 			add(bCard, BorderLayout.WEST);
-			
 			add(cCard, BorderLayout.WEST);
 
 		}
 	}
 	
+	// creates GUI Menu named "File" with tabs for "Show Notes" and "Exit"
 	private JMenu createFileMenu() {
 		JMenu menu = new JMenu("File");
-		menu.add(createFileShowNotesItem());
-		menu.add(createFileExitItem());
+		menu.add(showDetectiveNotes());
+		menu.add(exitProgram());
 		return menu;
 	}
 	
-	private JMenuItem createFileShowNotesItem() {
+	// creates GUI Menu Tab "Show Notes" which displays the detective notes GUI when pressed
+	private JMenuItem showDetectiveNotes() {
 		JMenuItem item = new JMenuItem("Show Notes");
 		class MenuItemListener implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
@@ -250,7 +257,8 @@ public class Control extends JFrame {
 		return item;
 	}
 	
-	private JMenuItem createFileExitItem() {
+	// create GUI Menu Tab "Exit" which closes the program when pressed
+	private JMenuItem exitProgram() {
 		JMenuItem item = new JMenuItem("Exit");
 		class MenuItemListener implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
@@ -260,7 +268,28 @@ public class Control extends JFrame {
 		item.addActionListener(new MenuItemListener());
 		return item;
 	}
+	
+	// main method for the ClueGame GUI
+	public static void main(String [] args) throws InterruptedException {
 
+		// create Control object with a window size of 210 by 500
+		Control gui = new Control(735, 770);
+		
+		// set Control Panel: "Whose Turn?", "Die", "Guess", and "Guess Result" values for the GUI
+		gui.getSouth().setP("Col. Mustard");
+		gui.getSouth().setRoll(5);
+		gui.getSouth().setGuess("My guess");
+		gui.getSouth().setResult("I guessed it!");
+		
+		// set My Cards: "People", "Rooms", and "Weapons" values for the GUI
+		gui.setCardPerson("Mr. Green");
+		gui.setCardRooms("Dining room");
+		gui.setCardWeapons("Wrench");
+		
+		// make GUI visible
+		gui.setVisible(true);
+	}
+	
 	public void setCardPerson(String cardPerson) {
 		this.cardPerson.setText(cardPerson);
 	}
@@ -272,25 +301,8 @@ public class Control extends JFrame {
 	public void setCardWeapons(String cardWeapons) {
 		this.cardWeapons.setText(cardWeapons);
 	}
-		
-	// Here is a test in main that shows the GUI working as well as the text values changing in the GUI without any errors
 	
-	// main method for the GUI in the Control class
-	public static void main(String [] args) throws InterruptedException {
-
-		// create Control object with a window size of 210 by 500
-		Control gui = new Control(770, 770);
-		//gui.setResizable(false);
-		// set the "Whose Turn?", "Die", "Guess", and "Guess Result" values for the GUI
-		gui.getSouth().setP("Col. Mustard");
-		gui.getSouth().setRoll(5);
-		gui.getSouth().setGuess("My guess");
-		gui.getSouth().setResult("I guessed it!");
-		
-		gui.setCardPerson("Mr. Green");
-		gui.setCardRooms("Dining room");
-		gui.setCardWeapons("Wrench");
-		
-		gui.setVisible(true);
+	public SouthPanel getSouth() {
+		return south;
 	}
 }

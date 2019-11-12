@@ -1,39 +1,50 @@
+/**. 
+ * Block class that acts as an object for the BoardCell elements,
+ * for the game board GUI
+ * 
+ * @author Mehmet Yilmaz
+ * @author Ruidi Huang
+ */
+
 package clueGame;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-
 import javax.swing.JLabel;
 
 public class Block {
 	private int x;
 	private int y;
-	private Color roomColor = new Color(0,204,102);
-	private Color walkWayColor = new Color(204,255,255);
-	private Color doorColor = Color.blue;
+	private Color roomColor = new Color(0,204,102); // color for the room GUI elements
+	private Color walkWayColor = new Color(204,255,255); // color for the walkway GUI elements
+	private Color doorColor = Color.blue; // color for the door way GUI elements
 	static final int HEIGHT = 25;
 	static final int WIDTH = 25;
 	static final int BORDER = 2;
 	static final int DOOR = 10;
 	
+	// constructor for the Block class
 	public Block(int x, int y) {
 		this.x = y;
 		this.y = x;
 	}
 	
+	// draw over all background for the game board GUI
 	public void drawRoom(Graphics g) {
 		g.setColor(roomColor);
 		g.fillRect(x, y, WIDTH, HEIGHT);
 	}
 	
+	// draw walkways for the game board GUI based on the positioning
 	public void drawWalkway(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(x, y, WIDTH, HEIGHT);
 		g.setColor(walkWayColor);
-		g.fillRect(x + BORDER, y + BORDER, WIDTH - 2*BORDER, HEIGHT - 2*BORDER);
+		g.fillRect(x + BORDER, y + BORDER, WIDTH - 2 * BORDER, HEIGHT - 2 * BORDER);
 	}
 	
+	// draw the doorways for the game board GUI based on the position of the doorway and its entrance direction
 	public void drawDoor(Graphics g, DoorDirection d) {
 		g.setColor(roomColor);
 		g.fillRect(x, y, WIDTH, HEIGHT);

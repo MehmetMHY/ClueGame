@@ -40,6 +40,7 @@ public class BoardCell {
 		if (roomType.charAt(0) != 'W' && roomType.length() == 1) {
 			return true;
 		}
+		// if the roomType is a location marker for the GUI's room labeling, still return true
 		if(roomType.length() == 2 && roomType.charAt(0) != 'W' && roomType.charAt(1) == 'X') {
 			return true;
 		}
