@@ -272,23 +272,34 @@ public class Control extends JFrame {
 	
 	// main method for the ClueGame GUI
 	public static void main(String [] args) throws InterruptedException {
+		String playersCurrentCharacter = null;
 		
 		// create Control object with a window size of 210 by 500
 		Control gui = new Control(735, 770);
+		
+		// set My Cards: "People", "Rooms", and "Weapons" values for the GUI
+		HumanPlayer temp = board.getP1();
+		for(int i = 0; i < temp.getMyCards().size(); i++) {
+			if(temp.getMyCards().get(i).getType() == CardType.PERSON) {
+				gui.setCardPerson(temp.getMyCards().get(i).toString());
+				playersCurrentCharacter = temp.getMyCards().get(i).toString();
+			}
+			if(temp.getMyCards().get(i).getType() == CardType.ROOM) {
+				gui.setCardRooms(temp.getMyCards().get(i).toString());
+			}
+			if(temp.getMyCards().get(i).getType() == CardType.WEAPON) {
+				gui.setCardWeapons(temp.getMyCards().get(i).toString());
+			}
+		}
 		
 		// set Control Panel: "Whose Turn?", "Die", "Guess", and "Guess Result" values for the GUI
 		gui.getSouth().setP("Col. Mustard");
 		gui.getSouth().setRoll(5);
 		gui.getSouth().setGuess("My guess");
 		gui.getSouth().setResult("I guessed it!");
-		
-		// set My Cards: "People", "Rooms", and "Weapons" values for the GUI
-		gui.setCardPerson("Mr. Green");
-		gui.setCardRooms("Dining room");
-		gui.setCardWeapons("Wrench");
-		
+
+		// Splash Screen for the Start of the Game
 		JFrame frame = new JFrame();
-		String playersCurrentCharacter = "Miss Scarlet";
 		JOptionPane.showMessageDialog(frame, "You are " + playersCurrentCharacter + ", press Next Player to begin play", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 		
 		// make GUI visible
