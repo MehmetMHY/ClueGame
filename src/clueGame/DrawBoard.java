@@ -74,6 +74,7 @@ public class DrawBoard extends JPanel {
 		}
 		g.setColor(board.getP1().color);
 		g.fillOval(board.getP1().column*HEIGHT, board.getP1().row*WIDTH, RADIUS, RADIUS);
+		repaint();
 	}
 	
 	// method that labels each room on the game board GUI

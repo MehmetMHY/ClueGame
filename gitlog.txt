@@ -1,0 +1,501 @@
+commit afe19fc68c4b25f56b14bea131aa52a026ca17a9
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Tue Nov 12 11:49:39 2019 -0700
+
+    Fixed up the Splash Screen as well as make the dealt cards to the human the correct values rather then some dumbey values
+
+commit fb4e1aa32156d9b95bc73ad7138b2e34afefcf1c
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Tue Nov 12 11:16:31 2019 -0700
+
+    Added MessageDialog for ClueGame
+
+commit b507bbd3ef6d51406a890288d04647335e63ae89
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Mon Nov 11 23:26:29 2019 -0700
+
+    Commented everything. Reduced the number of methods used in DetectiveNotes. renamed and moved some things to fit Coding Standard.
+
+commit 4a5ce479751acf10184d7634a52a8c414c139134
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Mon Nov 11 13:05:26 2019 -0700
+
+    At first he room labeling was hard-coded but I made it label the room based on were your label X on the csv file.
+
+commit c9d3f7f39f9b279fca66284b5bb5fb94c3a79b2f
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Sun Nov 10 21:35:15 2019 -0700
+
+    Drawed player, changed colors of rooms and hallways
+
+commit 8202c53a5081682738522c4674887173bb3980ce
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Sun Nov 10 18:39:19 2019 -0700
+
+    Removed CardsAndNotes.java, fixed object error in Detective Notes, started making the over all look of the GUI in Control, and created room labels in DrawBoard
+
+commit f8a6c79b7895383fd199e82bb531198f26e9ca0d
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Sat Nov 9 21:19:35 2019 -0700
+
+    Did some minior changes
+
+commit 11deffdab763f6bd63846e8c00658436614b248a
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Sat Nov 9 21:11:07 2019 -0700
+
+    Added more to Control, the GUI is really taking shape
+
+commit 675114eae4e20d948021662838153e9dce5d7b5f
+Merge: da43bcc de7e025
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Sat Nov 9 20:40:35 2019 -0700
+
+    Merging with mehmet's code, sinc we are working on different functions.
+    If anything goes wrong, I will blame mehmet.
+    Merge branch 'master' of https://github.com/MehmetMHY/ClueGame
+
+commit da43bccd527bc6806e283edddc0af3d946b86d54
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Sat Nov 9 20:40:29 2019 -0700
+
+    made drawboard and changed structures of control
+
+commit de7e0252d23bcebed5a7053e380e11a031c19b6c
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Sat Nov 9 20:35:31 2019 -0700
+
+    Fixed the JDialog issues with DetectiveNotes
+
+commit 9788c75cc1819be17cafec597d5d5131bb2746df
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Sat Nov 9 19:11:19 2019 -0700
+
+    I fixed up the errors for for the Dective Notes. Basically the GUIs for the Detective notes and player's card is done
+
+commit e641c698ec1d89e9f57d6131621ff010620531fe
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Sat Nov 9 17:13:24 2019 -0700
+
+    Added the Player's Cards and Detective Notes GUI. There are some small errors but it works over all. I will fix those errors with the next push
+
+commit 73fbe55a0f571938fbe8bd185814a9d9d7e9afe9
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Thu Nov 7 16:25:43 2019 -0700
+
+    Working on drawing grid, need to fix the grid
+
+commit ac8180df0f173a276d3c82b14951d193b0bfc7f2
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Wed Nov 6 23:01:56 2019 -0700
+
+    Added elements and completed the Control Panel GUI. Added setters for certain varaibles and some colors to panel borders
+
+commit 174a89a6f16306a8a0ef58e2b92a707e7752527f
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Tue Nov 5 13:44:42 2019 -0700
+
+    make control panel layout
+
+commit 7bcd32b456ec9930b177a2643822e3d56bd8e12e
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Tue Nov 5 12:18:03 2019 -0700
+
+    Added Basic Panel
+
+commit 6016ad794f0dd31b582fc6fa10eebcb0c6a87747
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Mon Nov 4 23:51:07 2019 -0700
+
+    corrected a few comments made by Mehmet who can't read.
+
+commit f6a011b20bb707042f2d1176b1e2f7daa1983156
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Mon Nov 4 23:34:46 2019 -0700
+
+    Added more comment to the classes to make it easier to understand. Also added an updated gitlog.txt
+
+commit dd3dfa701246abcafe826a8051d3bd96cf9cab67
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Mon Nov 4 22:31:11 2019 -0700
+
+    Passed handleSuggestion test. Moved disproveSuggestion from ComputerPlayer to its parent class Player so both ComputerPlayer and HumanPlayer can access it.
+
+commit 800b32247486001567ab7b72e8a479ec9a4d0c24
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Mon Nov 4 22:06:01 2019 -0700
+
+    Redoed suggestion handling tests and getting ready to make the test pass
+
+commit 3b0b60f20b4042b63fcfa5b1c87d067c426826a0
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Mon Nov 4 18:08:28 2019 -0700
+
+    Created handleSuggestion tests as well as method. Got first test to wor, but I am struggling to get the rest to work.
+
+commit 411e655558c0477d97508a755f8f42bb8d2f4634
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Sun Nov 3 20:10:10 2019 -0700
+
+    passed testDisprove
+
+commit ce3dcd17daa8e981f548caf6f71fa55738c0885a
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Sun Nov 3 20:02:02 2019 -0700
+
+    Added testDisprove test
+
+commit 94dd255ffd4289f4853e1df0eff35214a61b8f03
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Sun Nov 3 19:36:09 2019 -0700
+
+    Passed testSuggestions test
+
+commit 3c1eff11273b4f5dcfd1c995f544e3c99487207b
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Sun Nov 3 17:26:43 2019 -0700
+
+    Added testSuggestions in gameActionTests
+
+commit 2ffc701b506ff01f1bfd84b789dc1b9dfbe3ae8e
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Sun Nov 3 16:34:27 2019 -0700
+
+    made testSelectedTargets and accusationTests in gameActionTests pass. getting ready to do suggestion tests
+
+commit 4db35c562cef05842b240cffe0e1d3866ca42999
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Sun Nov 3 14:58:38 2019 -0700
+
+    Added the accusation tests as well as create methods for pickLocation and makeAccusation methods. But I keep getting NullPointer errors so I will look into it
+
+commit 5727c1d70ed97802cfe3a17ab6df1239809c9327
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Thu Oct 31 12:11:21 2019 -0600
+
+    Added some tests for gameActionTests class
+
+commit 4c6767f5f0719652e082a75d9aaaf856826da12f
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Thu Oct 31 00:04:11 2019 -0600
+
+    Added more comments into the loadConfigFile function
+
+commit 09d752032157d2a2b5167d14760bb6dbafcc858f
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Wed Oct 30 23:55:09 2019 -0600
+
+    Added some comment to the gameSetupTests to make it easier to understand the tests
+
+commit 537ede40796bf612b309afeedb3e686b4a9d674f
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Wed Oct 30 23:42:52 2019 -0600
+
+    Passed all tests for gameSetup
+
+commit 0ac06d5d5b7cb3c63a9dd4684a04489074206475
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Wed Oct 30 22:13:10 2019 -0600
+
+    Got more tests to work but I am having issues with the dealing tests
+
+commit ab7e817b268d0eeace3c3994e5d37ab46ef22689
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Wed Oct 30 19:10:11 2019 -0600
+
+    finishing codes for loadFileConfig function and try to make the tests pass
+
+commit c8ca30b803211d77fae2130cf4a40f46eca59a47
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Wed Oct 30 17:59:40 2019 -0600
+
+    Added the Deal-Card-Tests also started getting the tests to pass
+
+commit 05b99e8cf1750806da92c064a70b4d9396f3efd8
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Wed Oct 30 17:28:54 2019 -0600
+
+    Created failling tests for player objectst and make data structures for 3 decks, solution, computers, and players
+
+commit 74fa5d94af41bb2c9016d72900582a2b090a4556
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Wed Oct 30 15:03:10 2019 -0600
+
+    added setFileConfig and made some changes to the card tests.
+
+commit 0f10d103f64b01285e6af668d72cef66459770c6
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Tue Oct 29 12:12:06 2019 -0600
+
+    Initialized tests for cards and players before we do the functions
+
+commit 38cabf60dc0aa16a897a98e847276fcf35ff7972
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Mon Oct 28 16:55:15 2019 -0600
+
+    We added the following classes: Card, CardType, ComputerPlayer, HumanPlayer, Player, Soltuion, gameSetupTests. We also initilized everything for gameSetupTests
+
+commit 047cc228c39a98a2b3ce48cd9df1c5a4221c917e
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Thu Oct 24 21:59:04 2019 -0600
+
+    Added a gitlog file and finished all the commpenting up to Part IV of ClueGame
+
+commit 7bafe3cb824f3d16f02809611c680a11fb181d7c
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Thu Oct 24 21:38:07 2019 -0600
+
+    Removed some unneeded files and Refactored the calcAdjacencies() method into two methods: calcAdjacencies() and checkDirections(). To make the method cleaner and easier to read
+
+commit 7e3e46b500b7914a8733a5d5fea57307b2305fd8
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Thu Oct 24 21:33:53 2019 -0600
+
+    Added more comments as well as fix some of the tests to work with the new rules that were not on canvas
+
+commit 8ce8d9bc5a96b7c6144367c96fbce79d46232107
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Thu Oct 24 21:32:47 2019 -0600
+
+    Re-organized the layout as well as comment somethings to make it easier to udnerstand the code
+
+commit f671d49bf4785d28de8fa4b2b5554d549bf68481
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Thu Oct 24 20:25:52 2019 -0600
+
+    Maded changes to the TEST excel sheet to make it easier to read and know what tests the MyAdjacencyTest JUnit file is doing
+
+commit 4092faf90d97726088b18b067829ba6e973d5db2
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Thu Oct 24 20:23:08 2019 -0600
+
+    Added some comments to the MyAdjacencyTest for our board layout to explain what each text was doing as well as what each point represents
+
+commit 0de2a0268a00a851f067326d0683245d5a5e047f
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Thu Oct 24 12:14:54 2019 -0600
+
+    Refactored by changing numRow and numCol to textRow and textCol to make it easier to read. Also split the loadBoardConfig() method into 3 methods to make it easier to read and track
+
+commit af39f343d8f36bb68cb8e5c78c3cada1165c8ba6
+Author: Mehmet Yilmaz <mehmetyilmaz@mines.edu>
+Date:   Wed Oct 23 23:50:12 2019 -0600
+
+    Added some comments for Part IV assignment
+
+commit e43468c233283efc118eea04b0945466f1719da3
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Wed Oct 23 23:36:25 2019 -0600
+
+    Finished testing ex
+
+commit a368b51ff13a3a7796f5588744287b82d9cd9409
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Wed Oct 23 23:12:10 2019 -0600
+
+    Changed calcTargets
+
+commit 71e95cd1cfa2bc5d11e666e155181a3b176c11af
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Wed Oct 23 19:10:35 2019 -0600
+
+    Halfway done with testing
+
+commit 3860c1ecfe1d6deb23b22ea20724fa32c4c2877c
+Author: Mehmet Yilmaz <mehmetyilmaz@mines.edu>
+Date:   Wed Oct 23 14:55:47 2019 -0600
+
+    Started working on part IV
+
+commit add7d0f19a82e696e21fca88ff501ca80a6b0fd0
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Tue Oct 22 18:42:02 2019 -0600
+
+    Finished the MyAdjacencyTests as well as cleaned up the Excel file showing our tests
+
+commit fcca236a19ffeecc36555055dfd7afded9da6333
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Tue Oct 22 15:41:04 2019 -0600
+
+    Updating Excel sheet
+
+commit b55a595c02864d5429ce92fb00de0f45c626a181
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Tue Oct 22 03:54:35 2019 -0600
+
+    Updated OurBoardLayout - Test csv file as well as added some tests
+
+commit 420b0f7606d3600e26d1aedfe46eceddb1b81192
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Fri Oct 18 11:32:41 2019 -0600
+
+    Changed board layout
+
+commit 62dca931e85683afc1cc5ad413586d0dab1c5754
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Wed Oct 16 22:28:54 2019 -0600
+
+    Making a backup for finished work
+
+commit bcf2f56cfafa1d3a072500c47fc1d33cf49fa103
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Wed Oct 16 21:15:16 2019 -0600
+
+    Developed some exceptions for the code
+
+commit 9e06ec665cf30752f286147c0b5de7afeba1d689
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Wed Oct 16 19:45:24 2019 -0600
+
+    Added some comments to the code as well as added some throws to myTest class
+
+commit 9007fc9b59d7f1f86a14fd3e05fd7e515a44a48b
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Wed Oct 16 19:39:36 2019 -0600
+
+    Passed all sample tests
+
+commit de7edb08fdd38d78467bdd9e2fe255e65b531358
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Wed Oct 16 18:47:15 2019 -0600
+
+    Fixed BadConfigFormatException class git error
+
+commit ec48416fa8add5c9095f59a973fecab5246c8b96
+Merge: 4c88ee2 e6a2be4
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Wed Oct 16 18:45:40 2019 -0600
+
+    Fixing git
+
+commit 4c88ee281d0a21a045d9a00b2c10916a9ee781bd
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Wed Oct 16 18:44:16 2019 -0600
+
+    Modified code to work with tests
+
+commit e6a2be440b10fb8f9fc1d2defd612ff754e781ad
+Author: Mehmet <mehmet.mhy@gmail.com>
+Date:   Wed Oct 16 18:40:41 2019 -0600
+
+    Update BadConfigFormatException.java
+
+commit 8135e6095074c78d59ac97449b04a47533306ab7
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Wed Oct 16 18:08:45 2019 -0600
+
+    Added some files and finished up tests for now
+
+commit 2e2c6df400003e5e367f7c10ddac52296b01f699
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Wed Oct 16 18:04:33 2019 -0600
+
+    Passed all tests in CTest_FileInitTests
+
+commit 37134902a4e4f42603fb2f228b9c217032f73a02
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Wed Oct 16 16:50:54 2019 -0600
+
+    Finished the tests cases
+
+commit c0156cbb0da44d652c3dd726174227951d68693d
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Wed Oct 16 14:32:29 2019 -0600
+
+    Corrected some small things
+
+commit b9917c7098005d0f8efecb5999b52dbb70d3addb
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Tue Oct 15 19:42:06 2019 -0600
+
+    Changed some small things
+
+commit 1a1e5b93c8b06daa517787357b41f55c8ec8397d
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Tue Oct 15 19:37:56 2019 -0600
+
+    Added test for room
+
+commit 84005db180f7d9bb3fbc92775a833e0d5718c8a9
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Tue Oct 15 19:07:16 2019 -0600
+
+    Removed old zip file
+
+commit 3414cbd7d1e19651edbdbd096e9ca846f422ae70
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Tue Oct 15 19:01:56 2019 -0600
+
+    Added skeleton
+
+commit da1836151643a939df45b51d2d608a17ca6e29d8
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Sat Oct 5 23:18:20 2019 -0600
+
+    Created more comments
+
+commit a13259883dcc31a616a1e6e094a3604500f9db8c
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Sat Oct 5 22:45:18 2019 -0600
+
+    Updated the log.txt
+
+commit d5b4ada41d2286f9ff32df689a8f0c6523bdea89
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Sat Oct 5 22:44:41 2019 -0600
+
+    Removed some unneeded code
+
+commit d7490edfd3c5345fb14ecf127a27f6d964b44314
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Sat Oct 5 22:41:39 2019 -0600
+
+    Commented the code, fixed parts of the code, and fixed up Part I of this assginment
+
+commit 556dee0cfd919d75da41f5068f1f5f96a4cc4a6a
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Sat Oct 5 19:30:02 2019 -0600
+
+    This is stuff for part II, but I need to add part I stuff so this is a backup of the code just incase if I mess something up
+
+commit 6057211434508eee8a8bfc3c693097985ad72b8c
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Fri Oct 4 17:53:19 2019 -0600
+
+    Added some more code
+
+commit 5766e6a997378bf0a19704916f190066e3478a05
+Author: Mehmet Yilmaz <mehmetyilmaz@mines.edu>
+Date:   Fri Oct 4 17:18:36 2019 -0600
+
+    Added some jUnit tests, this is our first attempt
+
+commit 68f44f9905852747fb56cb8887fe5bbe22d0e947
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Thu Oct 3 12:16:13 2019 -0600
+
+    Added some functions to BoardCell and InBoard classes
+
+commit a3f40730bbcf49ba0f2dcca9c28e0ff5b24d3d71
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Thu Oct 3 11:57:00 2019 -0600
+
+    Worked on some of the classes
+
+commit 0255581f450b1040bffbe6e881f9dabd0fce6734
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Thu Oct 3 11:17:45 2019 -0600
+
+    Testing some stuff
+
+commit d7862a344aa28669f4ee7580b3c3e932cff4b9df
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Thu Oct 3 11:09:31 2019 -0600
+
+    Added some packages
+
+commit 6a5ec170830a2aaa303dcd34b72c0d74a5044d74
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Thu Oct 3 11:07:14 2019 -0600
+
+    First commit

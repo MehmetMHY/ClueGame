@@ -304,6 +304,12 @@ public class Control extends JFrame {
 		
 		// make GUI visible
 		gui.setVisible(true);
+		
+		Thread.sleep(2000);
+		
+		board.getP1().row -= 1;
+		board.getP1().column -=1;
+		
 	}
 	
 	public void setCardPerson(String cardPerson) {
