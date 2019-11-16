@@ -48,15 +48,6 @@ public class ComputerPlayer extends Player {
 		return "ComputerPlayer [name=" + playerName + ", row=" + row + ", col=" + column + ", color=" + color + "]";
 	}
 	
-//  // testing some code
-//	public boolean correctAccusation(Solution answer) {
-//		if(this.myAccusation.equals(answer)) {
-//			return true;
-//		}else {
-//			return false;
-//		}
-//	}
-	
 	// pickLocation method is used to pick a certain location for the computerPlayer based on targets BoardCell set
 	public BoardCell pickLocation(Set<BoardCell> targets) {
 		BoardCell temp = new BoardCell(0,0);
@@ -112,6 +103,35 @@ public class ComputerPlayer extends Player {
 		return solution;
 	}
 
+	// method for disproving suggestions by the player
+	public Card disproveSuggestion(Solution suggestion) {
+		ArrayList<Card> temp = new ArrayList<Card>();
+		for (Card c:myCards) {
+			// if the suggestion contains a card with the right person, add it to temp
+			if (c.getCardName().equals(suggestion.person)) {
+				temp.add(c);
+			// if the suggestion contains a card with the right room, add it to temp
+			} else if (c.getCardName().equals(suggestion.room)) {
+				temp.add(c);
+			// if the suggestion contains a card with the right weapon, add it to temp
+			} else if (c.getCardName().equals(suggestion.weapon)) {
+				temp.add(c);
+			}
+		}
+		// if the created temp is empty, return null
+		if (temp.isEmpty()) {
+			return null;
+		// if the created temp is of size 1, return the first index of temp
+		} else if (temp.size() == 1) {
+			return temp.get(0);
+		// else (if temp is larger then 1), return a random index element of temp
+		} else {
+			Random r = new Random();
+			int num = r.nextInt(temp.size());
+			return temp.get(num);
+		}
+	}
+	
 	public Solution getMyAccusation() {
 		return myAccusation;
 	}

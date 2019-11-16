@@ -19,7 +19,7 @@ public class HumanPlayer extends Player {
 		this.column = col;
 		this.color = color;
 	}
-	
+		
 	// equals method for comparing HumanPlayer objects
 	public boolean equals(HumanPlayer temp) {
 		if(!temp.playerName.equals(this.playerName)) {
@@ -35,5 +35,11 @@ public class HumanPlayer extends Player {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public Card disproveSuggestion(Solution suggestion) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

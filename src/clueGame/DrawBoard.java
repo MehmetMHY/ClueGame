@@ -28,6 +28,8 @@ public class DrawBoard extends JPanel {
 	static final int RADIUS = 24; // radius for the GUI's player icons
 	static final int HEIGHT = 25; // height for GUI's BoardCell
 	static final int WIDTH = 25; // width for GUI's BoardCell
+	private int boarderWidth;
+	private int boarderHeight;
 	
 	private List<List<Block>> drawBoard;
 	
@@ -39,8 +41,11 @@ public class DrawBoard extends JPanel {
 		drawBoard = new ArrayList<List<Block>>();
 		createBoard();
 		labelBoardRooms();
+		boarderWidth = num_row * WIDTH;
+		boarderHeight = num_col * HEIGHT;
+		this.setSize(boarderWidth, boarderHeight);
 	}
-
+	
 	// creates game board's GUI layout
 	public void createBoard() {
 		for (int i = 0; i < num_row; i++) {
@@ -105,4 +110,13 @@ public class DrawBoard extends JPanel {
 			}
 		}
 	}
+	
+	public int getBoarderWidth() {
+		return boarderWidth;
+	}
+
+	public int getBoarderHeight() {
+		return boarderHeight;
+	}
+
 }

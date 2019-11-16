@@ -17,6 +17,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.util.concurrent.TimeUnit;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -45,6 +46,9 @@ public class Control extends JFrame {
 	private JTextField cardPerson; // Person's name for People part of My Cards GUI
 	private JTextField cardRooms; // the room's name for Rooms part of My Cards GUI
 	private JTextField cardWeapons; // the Weapon's name for Weapons part of My Cards GUI
+	
+	private static int centerWidth;
+	private static int centerHeight;
 	
 	// initialize board object from Board class
 	public void initializeBoard() {
@@ -116,7 +120,7 @@ public class Control extends JFrame {
 	}
 	
 	// class for creating Control Panel GUI for the overall ClueGame GUI
-	public class SouthPanel extends JPanel{
+	public class SouthPanel extends JPanel {
 		public ControlPanel roll; // dice roll value for Control Panel ClueGame GUI
 		public ControlPanel guess; // guess value for Control Panel ClueGame GUI
 		public ControlPanel results; // guess result value for Control Panel ClueGame GUI
@@ -145,6 +149,7 @@ public class Control extends JFrame {
 			setLayout(new GridLayout(2,2));
 			add(next, BorderLayout.CENTER);
 			add(makeAccusation, BorderLayout.SOUTH);
+			
 		}
 		
 		public void setRoll(int num) {
@@ -171,6 +176,8 @@ public class Control extends JFrame {
 		
 		// create ClueGame board GUI
 		DrawBoard boardPanel = new DrawBoard(board);
+		centerHeight = boardPanel.getBoarderHeight();
+		centerWidth = boardPanel.getBoarderWidth();
 		add(boardPanel, BorderLayout.CENTER);
 		
 		// create control panel GUI
@@ -278,17 +285,22 @@ public class Control extends JFrame {
 		Control gui = new Control(735, 770);
 		
 		// set My Cards: "People", "Rooms", and "Weapons" values for the GUI
+	
 		HumanPlayer temp = board.getP1();
+//		for (Card c:board.getPlayerDeck()) {
+//			if (c.getCardName().equals(board.getP1().playerName)) {
+//				gui.setCardPerson(c);
+//			}
+//		}
 		for(int i = 0; i < temp.getMyCards().size(); i++) {
 			if(temp.getMyCards().get(i).getType() == CardType.PERSON) {
-				gui.setCardPerson(temp.getMyCards().get(i).toString());
-				playersCurrentCharacter = temp.getMyCards().get(i).toString();
+				gui.setCardPerson(temp.getMyCards().get(i));
 			}
 			if(temp.getMyCards().get(i).getType() == CardType.ROOM) {
-				gui.setCardRooms(temp.getMyCards().get(i).toString());
+				gui.setCardRooms(temp.getMyCards().get(i));
 			}
 			if(temp.getMyCards().get(i).getType() == CardType.WEAPON) {
-				gui.setCardWeapons(temp.getMyCards().get(i).toString());
+				gui.setCardWeapons(temp.getMyCards().get(i));
 			}
 		}
 		
@@ -300,28 +312,30 @@ public class Control extends JFrame {
 
 		// Splash Screen for the Start of the Game
 		JFrame frame = new JFrame();
-		JOptionPane.showMessageDialog(frame, "You are " + playersCurrentCharacter + ", press Next Player to begin play", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(frame, "You are " + board.getP1().playerName + ", press Next Player to begin play", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 		
 		// make GUI visible
 		gui.setVisible(true);
 		
-		Thread.sleep(2000);
+//		Thread.sleep(2000);
+//		
+//		board.getP1().row -= 1;
+//		board.getP1().column -=1;
 		
-		board.getP1().row -= 1;
-		board.getP1().column -=1;
+		gui.getContentPane().addMouseListener(new ClickLocation(centerWidth, centerHeight, board.getNumRows(),board.getNumColumns()));
 		
 	}
 	
-	public void setCardPerson(String cardPerson) {
-		this.cardPerson.setText(cardPerson);
+	public void setCardPerson(Card cardPerson) {
+		this.cardPerson.setText(cardPerson.getCardName());
 	}
 
-	public void setCardRooms(String cardRooms) {
-		this.cardRooms.setText(cardRooms);
+	public void setCardRooms(Card cardRooms) {
+		this.cardRooms.setText(cardRooms.getCardName());
 	}
 
-	public void setCardWeapons(String cardWeapons) {
-		this.cardWeapons.setText(cardWeapons);
+	public void setCardWeapons(Card cardWeapons) {
+		this.cardWeapons.setText(cardWeapons.getCardName());
 	}
 	
 	public SouthPanel getSouth() {
