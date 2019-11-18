@@ -14,9 +14,15 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
+
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class DrawBoard extends JPanel {
@@ -24,7 +30,7 @@ public class DrawBoard extends JPanel {
 
 	static int num_row;
 	static int num_col;
-		
+
 	static final int RADIUS = 24; // radius for the GUI's player icons
 	static final int HEIGHT = 25; // height for GUI's BoardCell
 	static final int WIDTH = 25; // width for GUI's BoardCell
@@ -32,6 +38,11 @@ public class DrawBoard extends JPanel {
 	private int boarderHeight;
 	
 	private List<List<Block>> drawBoard;
+	
+	private static BoardCell clickedCell;
+	
+	private static boolean moved;
+	private static Stack<String> turn;
 	
 	// constructor for DrawBoard class
 	public DrawBoard(Board gameBoard) {
@@ -44,6 +55,10 @@ public class DrawBoard extends JPanel {
 		boarderWidth = num_row * WIDTH;
 		boarderHeight = num_col * HEIGHT;
 		this.setSize(boarderWidth, boarderHeight);
+		this.addMouseListener(new ClickLocation(boarderWidth, boarderHeight, num_row, num_col));
+		moved = true;
+		turn = new Stack<String>();
+		clickedCell = new BoardCell(-1,-1);
 	}
 	
 	// creates game board's GUI layout
@@ -59,7 +74,8 @@ public class DrawBoard extends JPanel {
 
 	// method that paints the game board's GUI layout based on isRoom, isDoorway, and isWalkWay
 	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
+		super.paintComponent(g);		
+
 		for (int i = 0; i < drawBoard.size(); i++) {
 			for (int j = 0; j < drawBoard.get(i).size(); j++) {
 				if (board.getCellAt(i, j).isRoom()) {
@@ -78,10 +94,26 @@ public class DrawBoard extends JPanel {
 			g.fillOval(c.getColumn()*HEIGHT, c.getRow()*WIDTH, RADIUS, RADIUS);
 		}
 		g.setColor(board.getP1().color);
-		g.fillOval(board.getP1().column*HEIGHT, board.getP1().row*WIDTH, RADIUS, RADIUS);
+		g.fillOval(board.getP1().column*HEIGHT, board.getP1().row*WIDTH, RADIUS, RADIUS);		
 		repaint();
-	}
 	
+		//Check for location mouse clicked
+		if (turn.size() == 0 && board.getTargets().contains(clickedCell)) {
+			board.getP1().setRow(getClickedCell().getRow());
+			board.getP1().setColumn(getClickedCell().getCol());
+			for (BoardCell c:board.getTargets()) {
+				getDrawBoard().get(c.getRow()).get(c.getCol()).setTarget(false);
+			}
+			turn.add(board.getP1().playerName);
+			moved = true;
+			clickedCell = new BoardCell(-1,-1);
+		} else if (clickedCell.getCol() != -1) {
+			clickedCell = new BoardCell(-1,-1);
+			JFrame badTarget = new JFrame();
+			JOptionPane.showMessageDialog(badTarget, "Invalid target selected. Please select again!","Message", JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+		
 	// method that labels each room on the game board GUI
 	public void labelBoardRooms() {
 		List<String> roomIDList = board.getRoomID();
@@ -110,13 +142,63 @@ public class DrawBoard extends JPanel {
 			}
 		}
 	}
+
+	public class ClickLocation extends MouseAdapter {
+		
+		private int width;
+		private int height;
+		private int row;
+		private int col;
+		private int boxD;
+		
+		public ClickLocation(int width, int height, int row, int col) {
+			this.width = width;
+			this.height = height;
+//			this.row = row;
+//			this.col = col;		
+			boxD = this.width/row;
+		}
+		
+		@Override
+		public void mouseClicked(MouseEvent t) {
+			if (t.getX() <= height && t.getY() <= width) {
+				System.out.println(t.getX()/boxD + ", " + t.getY()/boxD);
+				clickedCell = board.getCellAt(t.getY()/boxD, t.getX()/boxD);
+			}
+		}
+		
+		public int getRow() {
+			return row;
+		}
+
+		public int getCol() {
+			return col;
+		}
+
+	}
 	
-	public int getBoarderWidth() {
-		return boarderWidth;
+	public BoardCell getClickedCell() {
+		return clickedCell;
 	}
 
-	public int getBoarderHeight() {
-		return boarderHeight;
+	public List<List<Block>> getDrawBoard() {
+		return drawBoard;
+	}
+
+	public static boolean isMoved() {
+		return moved;
+	}
+
+	public static void setMoved(boolean moved) {
+		DrawBoard.moved = moved;
+	}
+	
+	public static Stack<String> getTurn() {
+		return turn;
+	}
+
+	public static void setTurn(Stack<String> turn) {
+		DrawBoard.turn = turn;
 	}
 
 }

@@ -19,6 +19,9 @@ public class Block {
 	private Color roomColor = new Color(0,204,102); // color for the room GUI elements
 	private Color walkWayColor = new Color(204,255,255); // color for the walkway GUI elements
 	private Color doorColor = Color.blue; // color for the door way GUI elements
+	private Color targetColor = Color.yellow;
+	private boolean isTarget = false;
+	
 	static final int HEIGHT = 25;
 	static final int WIDTH = 25;
 	static final int BORDER = 2;
@@ -40,13 +43,21 @@ public class Block {
 	public void drawWalkway(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(x, y, WIDTH, HEIGHT);
-		g.setColor(walkWayColor);
+		if (isTarget) {
+			g.setColor(targetColor);
+		} else {
+			g.setColor(walkWayColor);
+		}
 		g.fillRect(x + BORDER, y + BORDER, WIDTH - 2 * BORDER, HEIGHT - 2 * BORDER);
 	}
 	
 	// draw the doorways for the game board GUI based on the position of the doorway and its entrance direction
 	public void drawDoor(Graphics g, DoorDirection d) {
-		g.setColor(roomColor);
+		if (isTarget) {
+			g.setColor(targetColor);
+		} else {
+			g.setColor(roomColor);
+		}
 		g.fillRect(x, y, WIDTH, HEIGHT);
 		if (d == DoorDirection.DOWN) {
 			g.setColor(doorColor);
@@ -62,4 +73,9 @@ public class Block {
 			g.fillRect(x + 3*DOOR/2, y, DOOR, HEIGHT);
 		}
 	}
+	
+	public void setTarget(boolean isTarget) {
+		this.isTarget = isTarget;
+	}
+
 }
