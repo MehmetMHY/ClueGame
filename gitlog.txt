@@ -1,3 +1,27 @@
+commit 075ae3fa107df4f54bb62b4ba7343dd05593d070
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Mon Nov 18 21:21:51 2019 -0700
+
+    fixed test error in GameActionTests JUnit test. Also commented any new code as well as make everything fit the Coding Standards for CSCI306
+
+commit e55c25c35cf0bd5c5f32dbf0df13bf3b48d09187
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Mon Nov 18 03:58:02 2019 -0700
+
+    Made both human and computer pieces be able to move according to the rules as player presses 'next' button. There is a minor error for showing invalid selected target.
+
+commit 603186e3db69a16458e3cea131af135dcc0471c9
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Sat Nov 16 15:37:59 2019 -0700
+
+    fixed the start splash display; made a mouse listener which print the location of the mouseclick in as cell index.
+
+commit ae686d99eb364375b17fe8686bfb34d8ea9e8c4f
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Thu Nov 14 12:08:16 2019 -0700
+
+    added repaint function for drawBoard, made a small test in control
+
 commit afe19fc68c4b25f56b14bea131aa52a026ca17a9
 Author: Ruidi Huang <ruidihuang@mines.edu>
 Date:   Tue Nov 12 11:49:39 2019 -0700

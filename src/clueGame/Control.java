@@ -209,7 +209,7 @@ public class Control extends JFrame {
 			} else if (!boardPanel.isMoved()) {
 				// displays dialog message telling the human player to make a move on the board before continuing with the game
 				JFrame notMoved = new JFrame();
-				JOptionPane.showMessageDialog(notMoved, "You need to make a move before you can go next!","Message", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(notMoved, "You need to make a move to continue the game","Message", JOptionPane.INFORMATION_MESSAGE);
 			
 			// if its the player's turn
 			} else if (boardPanel.getTurn().size() == 0) {
