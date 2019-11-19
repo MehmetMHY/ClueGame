@@ -3,7 +3,8 @@
  * initialize visited set, create targets set for the character(s),
  * as well as set up BoardCell object. This is the main class for,
  * setting up the grid for the game as well as determine all,
- * targeted and adjacency cells on the grid.
+ * targeted and adjacency cells on the grid. It also deals the,
+ * cards to all players.
  * 
  * @author Mehmet Yilmaz
  * @author Ruidi Huang
@@ -27,32 +28,30 @@ import java.util.Random;
 import java.util.Set;
 
 public class Board {
-	private int numRows;
-	private int numColumns;
-	public final int MAX_BOARD_SIZE = 50;
-	private BoardCell board[][];
-	private Map<Character, String> legend;
-	private Map<BoardCell, Set<BoardCell>> adjMatrix;
-	private Set<BoardCell> targets;
+	private int numRows; // number of rows from csv file, for overall board
+	private int numColumns; // number of columns from csv file, for overall board
+	public final int MAX_BOARD_SIZE = 50; // max board size
+	private BoardCell board[][]; // board for ClueGame
+	private Map<Character, String> legend; // legend for ClueGame were the key is the Character for a room and the value is the room name
+	private Map<BoardCell, Set<BoardCell>> adjMatrix; // map for all adjacent cells on the game board
+	private Set<BoardCell> targets; // set of all targets on a board cell based on the board cell and value from a dice roll
+	private Set<BoardCell> visited; // set of all visited board cells
+	
+	// string variables for reading the csv file and the text files
 	private String boardConfigFile;
 	private String roomConfigFile;
 	private String weaponConfigFile;
 	private String peopleConfigFile;
-	private Set<BoardCell> visited;
 	
-	private ArrayList<Card> weaponDeck;
-	private ArrayList<Card> playerDeck;
-	private ArrayList<Card> roomDeck;
+	private ArrayList<Card> weaponDeck; // list for weapon deck
+	private ArrayList<Card> playerDeck; // list for player deck
+	private ArrayList<Card> roomDeck; // list for room deck
 	private ArrayList<String> roomID; // store the Room Type from the text file
-	private ArrayList<Card> solution;
+	private ArrayList<Card> solution; // list of the solutions for a game (one random weapon, player, and room card)
 	
-	private Map<String, ComputerPlayer> computers;
-	private HumanPlayer player;
-	private Solution answer;
-	
-	public BoardCell[][] getBoard() {
-		return board;
-	}
+	private Map<String, ComputerPlayer> computers; // map of all the computer player objects
+	private HumanPlayer player; // human player object for ClueGame
+	private Solution answer; // solution object for ClueGame
 
 	private Set<Card> cardDealt;
 	private ArrayList<Card> completeDeck;
@@ -219,10 +218,6 @@ public class Board {
 		}
 		reader11.close();
 	}
-	
-	public void selectAnswer() {
-		// TODO
-	}
 				
 	// initialize boardConfigFile and roomConfigFile
 	public void setConfigFiles(String csvFile, String textFile) {
@@ -258,11 +253,7 @@ public class Board {
 			String[] line = tempLine.split(", ");
 			if (line[2].equals("Card") || line[2].equals("Other")) {
 				legend.put(line[0].charAt(0), line[1]);
-				
-				
-				//System.out.println(line[0] + " - " + line[1]);
 				roomID.add(line[0]);
-				
 				
 				if (line[2].equals("Card")) {
 					Card rCard = new Card(line[1]);
@@ -527,6 +518,10 @@ public class Board {
 		} else {
 			return null;
 		}
+	}
+	
+	public BoardCell[][] getBoard() {
+		return board;
 	}
 	
 	public Set<Card> getCardDealt() {

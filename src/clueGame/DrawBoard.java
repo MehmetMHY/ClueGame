@@ -2,7 +2,7 @@
  * DrawBoard is the class that builds the GUI for ClueGame's game board,
  * player's Icons on the board, as well as label all the Rooms on the,
  * game board. This class extends to JPanel and is part of ClueGame's,
- * GUI structure.
+ * GUI structure. It also acts the the mouse listener for the GUI.
  * 
  * @author Mehmet Yilmaz
  * @author Ruidi Huang
@@ -26,14 +26,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class DrawBoard extends JPanel {
-	private static Board board;
+	private static Board board; // ClueGame board object for DrawBoard class
+	
+	static final int RADIUS = 24; // radius for the GUI's player icons
+	static final int HEIGHT = 25; // height for GUI's BoardCell
+	static final int WIDTH = 25; // width for GUI's BoardCell
 
 	static int num_row;
 	static int num_col;
 
-	static final int RADIUS = 24; // radius for the GUI's player icons
-	static final int HEIGHT = 25; // height for GUI's BoardCell
-	static final int WIDTH = 25; // width for GUI's BoardCell
 	private int boarderWidth;
 	private int boarderHeight;
 	
@@ -121,7 +122,7 @@ public class DrawBoard extends JPanel {
 		BoardCell boardCopy[][] = board.getBoard();
 
 		/**. 
-		 * loop though each sell on the ClueGame board, if a cell contains a RoomType with "X" in is,
+		 * loop though each sell on the ClueGame board, if a cell contains a RoomType with "X" in it,
 		 * place a JLabel panel at that BoardCell with a correct Room name based on the roomType for,
 		 * that BoardCell. The location of that panel is scaled by the HEIGHT and WIDTH int values. 
 		 */
@@ -143,26 +144,30 @@ public class DrawBoard extends JPanel {
 		}
 	}
 
+	// method for mouse and MouseListener element of the GUI
 	public class ClickLocation extends MouseAdapter {
 		
-		private int width;
-		private int height;
-		private int row;
-		private int col;
-		private int boxD;
+		private int width; // mouse listener's width range on GUI
+		private int height; // mouse listener's height range on GUI
+		private int row; // ClueGame board row size
+		private int col; // ClueGame board column size
+		private int boxD; // dimension for the boardCells on the GUI
 		
 		public ClickLocation(int width, int height, int row, int col) {
 			this.width = width;
-			this.height = height;
-//			this.row = row;
-//			this.col = col;		
+			this.height = height;		
 			boxD = this.width/row;
 		}
 		
+		// mouse listener for GUI
 		@Override
 		public void mouseClicked(MouseEvent t) {
+			/**. 
+			 * if where the mouse clicks is within the ClueGame board GUI's dimensions,
+			 * set clickedCell to the boardCell the user clicked on
+			 */
 			if (t.getX() <= height && t.getY() <= width) {
-				System.out.println(t.getX()/boxD + ", " + t.getY()/boxD);
+				//System.out.println(t.getX()/boxD + ", " + t.getY()/boxD);
 				clickedCell = board.getCellAt(t.getY()/boxD, t.getX()/boxD);
 			}
 		}
@@ -200,5 +205,4 @@ public class DrawBoard extends JPanel {
 	public static void setTurn(Stack<String> turn) {
 		DrawBoard.turn = turn;
 	}
-
 }

@@ -9,6 +9,8 @@
 package clueGame;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class HumanPlayer extends Player {
 	// constructor of for HumanPlayer
@@ -39,7 +41,30 @@ public class HumanPlayer extends Player {
 
 	@Override
 	public Card disproveSuggestion(Solution suggestion) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Card> temp = new ArrayList<Card>();
+		for (Card c:myCards) {
+			// if the suggestion contains a card with the right person, add it to temp
+			if (c.getCardName().equals(suggestion.person)) {
+				temp.add(c);
+			// if the suggestion contains a card with the right room, add it to temp
+			} else if (c.getCardName().equals(suggestion.room)) {
+				temp.add(c);
+			// if the suggestion contains a card with the right weapon, add it to temp
+			} else if (c.getCardName().equals(suggestion.weapon)) {
+				temp.add(c);
+			}
+		}
+		// if the created temp is empty, return null
+		if (temp.isEmpty()) {
+			return null;
+		// if the created temp is of size 1, return the first index of temp
+		} else if (temp.size() == 1) {
+			return temp.get(0);
+		// else (if temp is larger then 1), return a random index element of temp
+		} else {
+			Random r = new Random();
+			int num = r.nextInt(temp.size());
+			return temp.get(num);
+		}
 	}
 }

@@ -49,6 +49,4 @@ public class Solution {
 	public String toString() {
 		return "Solution [person=" + person + ", room=" + room + ", Weapon=" + weapon + "]";
 	}
-	
-	
 }

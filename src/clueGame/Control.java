@@ -48,10 +48,9 @@ public class Control extends JFrame {
 	private JTextField cardRooms; // the room's name for Rooms part of My Cards GUI
 	private JTextField cardWeapons; // the Weapon's name for Weapons part of My Cards GUI
 
+	private static int diceNum; // stores rolled dice value
 
-	private static int diceNum;
-
-	private static DrawBoard boardPanel;
+	private static DrawBoard boardPanel; // object for drawing the board cell for the GUI
 
 	// initialize board object from Board class
 	public void initializeBoard() {
@@ -128,8 +127,8 @@ public class Control extends JFrame {
 		private ControlPanel guess; // guess value for Control Panel ClueGame GUI
 		private ControlPanel results; // guess result value for Control Panel ClueGame GUI
 		private ControlPlayer p; // "Whose's Turn" value for Control Panel ClueGame GUI
-		private JButton next;
-		private JButton makeAccusation;
+		private JButton next; // JButton for Next button
+		private JButton makeAccusation; // JButton for Accuse button
 
 		public SouthPanel() {
 			// create "Whose Turn?" panel of the GUI with a blue bolder and a BorderLayout at the South
@@ -148,54 +147,94 @@ public class Control extends JFrame {
 			results = new ControlPanel(2 , 3, Color.green, false, "Guess Result", "Response"); // also make setEditable equal to false for theGuessResult
 			add(results, BorderLayout.CENTER);
 
-
-
-			// create both the Next and Accuse buttons on the GUI as well as create a BorderLayout at the South
+			// create the Next button on the GUI as well as the button's listener that reacts to the button being pressed
 			next = new JButton("Next");
-			
-			//Add button listener that react to button press
 			next.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					Random randInt = new Random();
-					diceNum = randInt.nextInt(6) + 1;
-					if (boardPanel.getTurn().size() > 0) {	
-						String currentPlayerName = new String("");
-						for (String s:board.getPlayers().keySet()) {
-							if (!boardPanel.getTurn().contains(s)) {
-								currentPlayerName = new String(s);
-								break;
-							}
-						}
-						board.getTargets().clear();
-						board.calcTargets(board.getPlayers().get(currentPlayerName).row, board.getPlayers().get(currentPlayerName).column, diceNum);
-						setRoll(diceNum);
-						setP(currentPlayerName);
-						BoardCell temp = board.getPlayers().get(currentPlayerName).pickLocation(board.getTargets());
-						board.getPlayers().get(currentPlayerName).setColumn(temp.getCol());
-						board.getPlayers().get(currentPlayerName).setRow(temp.getRow());
-						boardPanel.getTurn().add(currentPlayerName);
-						if (boardPanel.getTurn().size() == 6) {
-							boardPanel.getTurn().clear();
-						}
-						
-					} else if (!boardPanel.isMoved()) {
-						JFrame notMoved = new JFrame();
-						JOptionPane.showMessageDialog(notMoved, "You need to make a move before you can go next!","Message", JOptionPane.INFORMATION_MESSAGE);
-					} else if (boardPanel.getTurn().size() == 0) {
-						board.calcTargets(board.getP1().row, board.getP1().column, diceNum);
-						setRoll(diceNum);
-						setP(board.getP1().playerName);
-						for (BoardCell c:board.getTargets()) {
-							boardPanel.getDrawBoard().get(c.getRow()).get(c.getCol()).setTarget(true);
-						}
-						boardPanel.setMoved(false);
-					}
+					nextButtonPressed();
 				}
 			});
+			
+			// create the Accuse button on the GUI as well as the button's listener that reacts to the button being pressed
 			makeAccusation = new JButton("Accuse");
+			makeAccusation.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					accuseButtonPressed();
+				}
+			});
+			
+			// place buttons on overall ClueGame GUI
 			setLayout(new GridLayout(2,2));
 			add(next, BorderLayout.CENTER);
 			add(makeAccusation, BorderLayout.SOUTH);
+		}
+		
+		// method that runs when next button is pressed
+		private void nextButtonPressed() {
+			// create random number between 1-6 for dice roll
+			Random randInt = new Random();
+			diceNum = randInt.nextInt(6) + 1;
+			
+			// if its the computer players' turn(s)
+			if (boardPanel.getTurn().size() > 0) {	
+				// find a computer play that has not moved yet and set that player as the currentPlayer to move on the board
+				String currentPlayerName = new String("");
+				for (String s:board.getPlayers().keySet()) {
+					if (!boardPanel.getTurn().contains(s)) {
+						currentPlayerName = new String(s);
+						break;
+					}
+				}
+				// clear and generate a new target cells for the computer play based on the dice roll and the computer play's board cell location
+				board.getTargets().clear();
+				board.calcTargets(board.getPlayers().get(currentPlayerName).row, board.getPlayers().get(currentPlayerName).column, diceNum);
+				
+				setRoll(diceNum); // roll the dice again for the next player
+				setP(currentPlayerName); // set GUI text for "Whose Turn?" to that of the current computer player's name
+				
+				// move the computer player on the GUI to the new Board Cell on the GUI based on pickLocation(), which is just a random position from the targets board cells
+				BoardCell temp = board.getPlayers().get(currentPlayerName).pickLocation(board.getTargets());
+				board.getPlayers().get(currentPlayerName).setColumn(temp.getCol());
+				board.getPlayers().get(currentPlayerName).setRow(temp.getRow());
+				
+				// add computer player to turn to know if how many players have moved already during a certain period in ClueGame
+				boardPanel.getTurn().add(currentPlayerName);
+				
+				// when all the players has moved, including the human player, restart it so that it starts wit the human player again and the cycle continues until the game ends
+				if (boardPanel.getTurn().size() == 6) {
+					boardPanel.getTurn().clear();
+				}
+				
+			// if the human player has not moved yet and has already hit the next button
+			} else if (!boardPanel.isMoved()) {
+				// displays dialog message telling the human player to make a move on the board before continuing with the game
+				JFrame notMoved = new JFrame();
+				JOptionPane.showMessageDialog(notMoved, "You need to make a move before you can go next!","Message", JOptionPane.INFORMATION_MESSAGE);
+			
+			// if its the player's turn
+			} else if (boardPanel.getTurn().size() == 0) {
+				// generate target cells for the human player based on the dice roll and the human player's current board cell position
+				board.calcTargets(board.getP1().row, board.getP1().column, diceNum);
+				
+				setRoll(diceNum); // roll the dice again for the next player
+				setP(board.getP1().playerName); // set GUI text for "Whose Turn?" to that of the human player's name
+				
+				// based on the target board cells, the GUI will highlight all of those target cells
+				for (BoardCell c:board.getTargets()) {
+					boardPanel.getDrawBoard().get(c.getRow()).get(c.getCol()).setTarget(true);
+				}
+				
+				/**. 
+				 * if the player clicks the correct target cell on the GUI the player will move to that board cell, 
+				 * otherwise an error dialog will appear and the player will have to try again.
+				 */
+				boardPanel.setMoved(false);
+			}
+		}
+		
+		// method that runs when accuse button is pressed
+		private void accuseButtonPressed() {
+			System.out.println("Accuse Button Pressed"); // TODO
 		}
 
 		public JButton getNext() {
@@ -230,8 +269,6 @@ public class Control extends JFrame {
 
 		// create ClueGame board GUI
 		boardPanel = new DrawBoard(board);
-		//		mouseClick = new ClickLocation(centerWidth, centerHeight, board.getNumRows(),board.getNumColumns());
-		//		boardPanel.addMouseListener(mouseClick);
 		add(boardPanel, BorderLayout.CENTER);
 
 		// create control panel GUI
@@ -334,17 +371,11 @@ public class Control extends JFrame {
 	// main method for the ClueGame GUI
 	public static void main(String [] args) {
 
-		// create Control object with a window size of 210 by 500
+		// create Control object with a window size of 735 by 770
 		Control gui = new Control(735, 770);
 
 		// set My Cards: "People", "Rooms", and "Weapons" values for the GUI
-
 		HumanPlayer temp = board.getP1();
-		//		for (Card c:board.getPlayerDeck()) {
-		//			if (c.getCardName().equals(board.getP1().playerName)) {
-		//				gui.setCardPerson(c);
-		//			}
-		//		}
 		for(int i = 0; i < temp.getMyCards().size(); i++) {
 			if(temp.getMyCards().get(i).getType() == CardType.PERSON) {
 				gui.setCardPerson(temp.getMyCards().get(i));
@@ -360,12 +391,6 @@ public class Control extends JFrame {
 		// Splash Screen for the Start of the Game
 		JFrame startScreen = new JFrame();
 		JOptionPane.showMessageDialog(startScreen, "You are " + board.getP1().playerName + ", press Next Player to begin play", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
-
-		// Take care of player movements
-		//gui.getSouth().setP("Col. Mustard");
-		//gui.getSouth().setRoll(5);
-		//gui.getSouth().setGuess("My guess");
-		//gui.getSouth().setResult("I guessed it!");
 
 		// make GUI visible
 		gui.setVisible(true);

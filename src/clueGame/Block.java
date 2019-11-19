@@ -1,6 +1,7 @@
 /**. 
  * Block class that acts as an object for the BoardCell elements,
- * for the game board GUI
+ * for the game board GUI. Its used to draw and color the grid and
+ * board cells.
  * 
  * @author Mehmet Yilmaz
  * @author Ruidi Huang
@@ -19,13 +20,14 @@ public class Block {
 	private Color roomColor = new Color(0,204,102); // color for the room GUI elements
 	private Color walkWayColor = new Color(204,255,255); // color for the walkway GUI elements
 	private Color doorColor = Color.blue; // color for the door way GUI elements
-	private Color targetColor = Color.yellow;
-	private boolean isTarget = false;
+	private Color targetColor = Color.yellow; // color for walkway paths the human player can go too
 	
 	static final int HEIGHT = 25;
 	static final int WIDTH = 25;
 	static final int BORDER = 2;
 	static final int DOOR = 10;
+	
+	private boolean isTarget = false; // boolean value for weather or not to color target board cells during human player's turn
 	
 	// constructor for the Block class
 	public Block(int x, int y) {
@@ -39,7 +41,7 @@ public class Block {
 		g.fillRect(x, y, WIDTH, HEIGHT);
 	}
 	
-	// draw walkways for the game board GUI based on the positioning
+	// draw walkways for the game board GUI based on the positioning as well as the targeted cells for human player based on is Target bool
 	public void drawWalkway(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(x, y, WIDTH, HEIGHT);
