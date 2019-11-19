@@ -43,6 +43,7 @@ public class Control extends JFrame {
 	private SouthPanel south; // control panel object for ClueGame GUI
 
 	DetectiveNotes detectiveNotes; // detectiveNotes object for ClueGame detective notes
+	GuessDialog guessDialog;
 
 	private JTextField cardPerson; // Person's name for People part of My Cards GUI
 	private JTextField cardRooms; // the room's name for Rooms part of My Cards GUI
@@ -282,6 +283,8 @@ public class Control extends JFrame {
 
 		// create Detective Notes GUI for menuBar
 		detectiveNotes = new DetectiveNotes(700, 500, board);
+		
+		guessDialog = new GuessDialog(300, 300, board);
 
 		// create and place players' GUIs
 		playersCards tpc = new playersCards(3, 2, false, Color.green, Color.yellow, Color.red);
@@ -350,6 +353,7 @@ public class Control extends JFrame {
 		class MenuItemListener implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
 				detectiveNotes.setVisible(true);
+				guessDialog.setVisible(true);
 			}
 		}
 		item.addActionListener(new MenuItemListener());

@@ -19,6 +19,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -75,8 +76,7 @@ public class DrawBoard extends JPanel {
 
 	// method that paints the game board's GUI layout based on isRoom, isDoorway, and isWalkWay
 	public void paintComponent(Graphics g) {
-		super.paintComponent(g);		
-
+		super.paintComponent(g);
 		for (int i = 0; i < drawBoard.size(); i++) {
 			for (int j = 0; j < drawBoard.get(i).size(); j++) {
 				if (board.getCellAt(i, j).isRoom()) {
@@ -88,16 +88,14 @@ public class DrawBoard extends JPanel {
 				}
 			}
 		}
-		
 		// draw and paint players' GUI on top of game board GUI
 		for (ComputerPlayer c:board.getPlayers().values()) {
 			g.setColor(c.getColor());
 			g.fillOval(c.getColumn()*HEIGHT, c.getRow()*WIDTH, RADIUS, RADIUS);
 		}
 		g.setColor(board.getP1().color);
-		g.fillOval(board.getP1().column*HEIGHT, board.getP1().row*WIDTH, RADIUS, RADIUS);		
+		g.fillOval(board.getP1().column*HEIGHT, board.getP1().row*WIDTH, RADIUS, RADIUS);
 		repaint();
-	
 		//Check for location mouse clicked
 		if (turn.size() == 0 && board.getTargets().contains(clickedCell)) {
 			board.getP1().setRow(getClickedCell().getRow());
