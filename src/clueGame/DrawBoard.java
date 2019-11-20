@@ -25,6 +25,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 public class DrawBoard extends JPanel {
 	private static Board board; // ClueGame board object for DrawBoard class
@@ -114,13 +115,18 @@ public class DrawBoard extends JPanel {
 		
 		} else if (clickedCell.getCol() != -1 && playersTurn) {
 			clickedCell = new BoardCell(-1,-1);
-			JFrame badTarget = new JFrame();
-			JOptionPane.showMessageDialog(badTarget, "Invalid target selected. Please select again!","Message", JOptionPane.INFORMATION_MESSAGE);
-			System.out.println("Try Again!");
+		
+			// ***There is an error with the Dialog, for now we will just print the error message in the terminal:
+			//JFrame badTarget = new JFrame();
+			//JOptionPane.showMessageDialog(badTarget, "Invalid target selected. Please select again!","Message", JOptionPane.INFORMATION_MESSAGE);			
+			System.out.println("Invalid target selected. Please select again!");
+			
 			restartMouse();
+			repaint();
+			update(g);
 		}
 	}
-		
+
 	// method that labels each room on the game board GUI
 	public void labelBoardRooms() {
 		List<String> roomIDList = board.getRoomID();

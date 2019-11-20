@@ -213,11 +213,11 @@ public class Control extends JFrame {
 				// displays dialog message telling the human player to make a move on the board before continuing with the game
 				JFrame notMoved = new JFrame();
 				JOptionPane.showMessageDialog(notMoved, "You need to make a move to continue the game","Message", JOptionPane.INFORMATION_MESSAGE);
-				
 			// if its the player's turn
 			} else if (boardPanel.getTurn().size() == 0) {
 				DrawBoard.restartMouse();
 				DrawBoard.playersTurn = true;
+				
 				// generate target cells for the human player based on the dice roll and the human player's current board cell position
 				board.calcTargets(board.getP1().row, board.getP1().column, diceNum);
 				
