@@ -46,6 +46,8 @@ public class DrawBoard extends JPanel {
 	private static boolean moved;
 	private static Stack<String> turn;
 	
+	public static boolean playersTurn = false;
+	
 	// constructor for DrawBoard class
 	public DrawBoard(Board gameBoard) {
 		DrawBoard.board = gameBoard;
@@ -77,6 +79,7 @@ public class DrawBoard extends JPanel {
 	// method that paints the game board's GUI layout based on isRoom, isDoorway, and isWalkWay
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		
 		for (int i = 0; i < drawBoard.size(); i++) {
 			for (int j = 0; j < drawBoard.get(i).size(); j++) {
 				if (board.getCellAt(i, j).isRoom()) {
@@ -88,6 +91,7 @@ public class DrawBoard extends JPanel {
 				}
 			}
 		}
+		
 		// draw and paint players' GUI on top of game board GUI
 		for (ComputerPlayer c:board.getPlayers().values()) {
 			g.setColor(c.getColor());
@@ -96,6 +100,7 @@ public class DrawBoard extends JPanel {
 		g.setColor(board.getP1().color);
 		g.fillOval(board.getP1().column*HEIGHT, board.getP1().row*WIDTH, RADIUS, RADIUS);
 		repaint();
+		
 		//Check for location mouse clicked
 		if (turn.size() == 0 && board.getTargets().contains(clickedCell)) {
 			board.getP1().setRow(getClickedCell().getRow());
@@ -106,10 +111,13 @@ public class DrawBoard extends JPanel {
 			turn.add(board.getP1().playerName);
 			moved = true;
 			clickedCell = new BoardCell(-1,-1);
-		} else if (clickedCell.getCol() != -1) {
+		
+		} else if (clickedCell.getCol() != -1 && playersTurn) {
 			clickedCell = new BoardCell(-1,-1);
 			JFrame badTarget = new JFrame();
 			JOptionPane.showMessageDialog(badTarget, "Invalid target selected. Please select again!","Message", JOptionPane.INFORMATION_MESSAGE);
+			System.out.println("Try Again!");
+			restartMouse();
 		}
 	}
 		
@@ -141,6 +149,10 @@ public class DrawBoard extends JPanel {
 			}
 		}
 	}
+	public static void restartMouse() {
+		clickedCell.setCol(-1);
+		clickedCell.setRow(-1);
+	}
 
 	// method for mouse and MouseListener element of the GUI
 	public class ClickLocation extends MouseAdapter {
@@ -165,7 +177,7 @@ public class DrawBoard extends JPanel {
 			 * set clickedCell to the boardCell the user clicked on
 			 */
 			if (t.getX() <= height && t.getY() <= width) {
-				//System.out.println(t.getX()/boxD + ", " + t.getY()/boxD);
+				//System.out.println(t.getX()/boxD + ", " + t.getY()/boxD + " ---> " + playersTurn);
 				clickedCell = board.getCellAt(t.getY()/boxD, t.getX()/boxD);
 			}
 		}

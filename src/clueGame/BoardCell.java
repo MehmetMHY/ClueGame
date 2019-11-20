@@ -11,7 +11,7 @@ public class BoardCell {
 	private String roomType; // holds what the cell type of a cell
 	private int row; // row value for BoardCell object
 	private int col; // col value for BoardCell object
-	
+
 	// constructor for BoardCell that sets the row and col for the BoardCell object
 	public BoardCell(int row, int col) {
 		super();
@@ -85,5 +85,13 @@ public class BoardCell {
 
 	public String getRoomType() {
 		return roomType;
+	}
+	
+	public void setRow(int row) {
+		this.row = row;
+	}
+	
+	public void setCol(int col) {
+		this.col = col;
 	}
 }

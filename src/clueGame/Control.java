@@ -175,9 +175,11 @@ public class Control extends JFrame {
 			// create random number between 1-6 for dice roll
 			Random randInt = new Random();
 			diceNum = randInt.nextInt(6) + 1;
-			
+
 			// if its the computer players' turn(s)
-			if (boardPanel.getTurn().size() > 0) {	
+			if (boardPanel.getTurn().size() > 0) {
+				DrawBoard.playersTurn = false;
+				
 				// find a computer play that has not moved yet and set that player as the currentPlayer to move on the board
 				String currentPlayerName = new String("");
 				for (String s:board.getPlayers().keySet()) {
@@ -211,9 +213,11 @@ public class Control extends JFrame {
 				// displays dialog message telling the human player to make a move on the board before continuing with the game
 				JFrame notMoved = new JFrame();
 				JOptionPane.showMessageDialog(notMoved, "You need to make a move to continue the game","Message", JOptionPane.INFORMATION_MESSAGE);
-			
+				
 			// if its the player's turn
 			} else if (boardPanel.getTurn().size() == 0) {
+				DrawBoard.restartMouse();
+				DrawBoard.playersTurn = true;
 				// generate target cells for the human player based on the dice roll and the human player's current board cell position
 				board.calcTargets(board.getP1().row, board.getP1().column, diceNum);
 				
@@ -231,6 +235,7 @@ public class Control extends JFrame {
 				 */
 				boardPanel.setMoved(false);
 			}
+			boardPanel.repaint();
 		}
 		
 		// method that runs when accuse button is pressed
