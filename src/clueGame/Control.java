@@ -240,8 +240,10 @@ public class Control extends JFrame {
 		
 		// method that runs when accuse button is pressed
 		private void accuseButtonPressed() {
-			guessDialog = new GuessDialog(board, false, "");
-			guessDialog.setVisible(true);
+			if(DrawBoard.playersTurn) {
+				guessDialog = new GuessDialog(board, false, "");
+				guessDialog.setVisible(true);
+			}
 		}
 
 		public JButton getNext() {
