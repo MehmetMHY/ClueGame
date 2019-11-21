@@ -1,4 +1,5 @@
-# Colorado School of Mines CSCI 306 ClueGame Project (Fall 2019)
+# Colorado School of Mines CSCI 306 ClueGame Project
+- Year: Fall 2019
 
 ## About:
 - This is a Java based Clue Board Game with its own GUI which uses Java's JFrame.
