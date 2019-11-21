@@ -1,4 +1,10 @@
 /**. 
+ * GuessDialog is the class that builds the Make-a-Guess,
+ * GUI for ClueGame. It extends to JFrame and allows to,
+ * human player to input a guess for the ClueGame. This,
+ * works for both when the Player hits the Accuse button,
+ * and when the player enters into a room.
+ * 
  * @author Mehmet Yilmaz
  * @author Ruidi Huang
  */
@@ -7,66 +13,94 @@ package clueGame;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import javax.swing.*; 
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-public class GuessDialog extends JDialog {
+public class GuessDialog extends JFrame {
 	private static Board board;
+	private boolean inRoom;
+	private String theRoomsName;
 
-	// constructor for DectiveNotes Class
-	public GuessDialog(int x, int y, Board gameBoard) {
+	// constructor for GuessDialog Class
+	public GuessDialog(Board gameBoard, boolean isInRoom, String roomName) {
 		GuessDialog.board = gameBoard;
+		inRoom = isInRoom;
+		theRoomsName = roomName;
 		setTitle("Make a Guess");
-		setSize(x, y);
-		setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+		setSize(350, 150);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		createLayout();
 	}
 	
-	// creates the overall Detective Notes GUI panels layout
+	// creates overall layout for GuessDialog GUI
 	public void createLayout() {
 		setLayout(new BorderLayout());
-		setLayout(new GridLayout(3,2));
+		setLayout(new GridLayout(4,1));
 		
-		// creates the Detective Note GUI's People Notes element
-		detectiveNotes peopleNotes = new detectiveNotes(1, 1, false, "People", "Person Guess", board.getPlayerDeck(), 1, 1);
-		add(peopleNotes);
+		// create label and ComboBox/label GUI element for Rooms on the GuessDialog GUI
+		guessingOptions roomOptions = new guessingOptions("		Your Room", board.getRoomDeck(), inRoom);
+		add(roomOptions);
 		
-		// creates the Detective Note GUI's People Notes element
-		detectiveNotes peoplelotes = new detectiveNotes(3, 2, false, "People", "Person Guess", board.getPlayerDeck(), 1, 1);
-		add(peoplelotes);
+		// create label and ComboBox GUI element for Players on the GuessDialog GUI
+		guessingOptions personOptions = new guessingOptions("		Person", board.getPlayerDeck(), false);
+		add(personOptions);
+		
+		// create label and ComboBox GUI element for Weapons on the GuessDialog GUI
+		guessingOptions weaponOptions = new guessingOptions("		Weapon", board.getWeaponDeck(), false);
+		add(weaponOptions);
+		
+		// creates Submit and Cancel buttons for GuessDialog GUI
+		JPanel buttons = new JPanel();
+		buttons.setLayout(new GridLayout(1,2));
+		JButton submit = new JButton("Submit");
+		JButton cancel = new JButton("Cancel");
+		buttons.add(submit);
+		buttons.add(cancel);
+		add(buttons);
+		
+		// Submit and Cancel buttons listeners
+		submit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Submit Button Pressed!"); // TODO
+			}
+		});
+		
+		cancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 	}
 
-	// method to create Detective Note's check box and combo box GUI elements for People, Rooms, and Weapons
-	public class detectiveNotes extends JPanel{
-		public detectiveNotes(int x, int y, boolean editP, String labelTile1, String labelTitle2, ArrayList<Card> theDeck, int panelX, int panelY) {
-			setLayout(new GridLayout(x,y));
+	// main method for creating Label and ComboBox/Label for Rooms, Players, and Weapons
+	public class guessingOptions extends JPanel{
+		public guessingOptions(String labelTile1, ArrayList<Card> theDeck, boolean disPlayRooms) {
+			setLayout(new BorderLayout());
+			setLayout(new GridLayout(1,2));
 			
-			// set up and label the check box panel
-			JPanel checkBoxPanel = new JPanel();
-			checkBoxPanel.setLayout(new GridLayout(panelX,panelY));
-			JLabel l1 = new JLabel(labelTile1);
-
-			setLayout(new GridLayout(1,3));
-			
-			// convert ArrayList of Card objects into one String array as well as add checkBox GUI elements for each index of this String array
 			String boardNewArray[] = new String[theDeck.size()];
 			for(int i = 0; i < theDeck.size(); i++) {
 				boardNewArray[i] = theDeck.get(i).toString();
 			}
-
-			// create combo box element for the GUI
-			JPanel comboBoxPanel = new JPanel();
-			comboBoxPanel.setLayout(new GridLayout(2,2));
-			//comboBoxPanel.setBorder(new TitledBorder(new EtchedBorder(), labelTitle2));
-			JComboBox comboBox = new JComboBox(boardNewArray);
 			
-			// add everything for the overall Detective Note GUI Section
-			comboBoxPanel.add(comboBox);
-			add(l1);
-			add(comboBoxPanel);
+			JComboBox comboBox = new JComboBox(boardNewArray);
+
+			JLabel label1 = new JLabel(labelTile1);
+
+			add(label1);
+			
+			if(disPlayRooms) {
+				JLabel label2 = new JLabel("	" + theRoomsName);
+				add(label2);
+			}else {
+				add(comboBox);
+			}
 		}
 	}
+	
+	
 }

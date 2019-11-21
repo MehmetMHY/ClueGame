@@ -240,7 +240,8 @@ public class Control extends JFrame {
 		
 		// method that runs when accuse button is pressed
 		private void accuseButtonPressed() {
-			System.out.println("Accuse Button Pressed"); // TODO
+			guessDialog = new GuessDialog(board, false, "");
+			guessDialog.setVisible(true);
 		}
 
 		public JButton getNext() {
@@ -288,8 +289,6 @@ public class Control extends JFrame {
 
 		// create Detective Notes GUI for menuBar
 		detectiveNotes = new DetectiveNotes(700, 500, board);
-		
-		guessDialog = new GuessDialog(300, 300, board);
 
 		// create and place players' GUIs
 		playersCards tpc = new playersCards(3, 2, false, Color.green, Color.yellow, Color.red);
@@ -358,7 +357,6 @@ public class Control extends JFrame {
 		class MenuItemListener implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
 				detectiveNotes.setVisible(true);
-				guessDialog.setVisible(true);
 			}
 		}
 		item.addActionListener(new MenuItemListener());

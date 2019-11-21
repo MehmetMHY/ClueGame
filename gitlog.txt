@@ -1,8 +1,32 @@
+commit 217ce6381e435bbff3910bcb7ef3de58f82ee943
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Tue Nov 19 22:49:23 2019 -0700
+
+    we found a bug where If you click on an invalid board cell target then click on any other valid or invalid target, sometimes you have to manually change the size of the window a bit for it to respond. we will fix this soon
+
+commit 01a8fb988ee143481e8d3cd5021950a78d747337
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Tue Nov 19 22:00:40 2019 -0700
+
+    Fixed a bug were an error message for an invalid cell selection would appear during a computer player's turn if the player clicked on a cell on the board
+
+commit e305f4093f2eed4cb62e62c0126aa2fc5b935bb8
+Author: Ruidi Huang <ruidihuang@mines.edu>
+Date:   Tue Nov 19 12:09:10 2019 -0700
+
+    Started GuessPanel GUI also found bug with mouse listener
+
+commit aac361551ade0628045c48eafdc401962e4725f4
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Mon Nov 18 21:49:03 2019 -0700
+
+    Fixed some minor things
+
 commit 075ae3fa107df4f54bb62b4ba7343dd05593d070
 Author: MehmetMHY <mehmet.mhy@gmail.com>
 Date:   Mon Nov 18 21:21:51 2019 -0700
 
-    fixed test error in GameActionTests JUnit test. Also commented any new code as well as make everything fit the Coding Standards for CSCI306
+    fixed test error in GameActionTests JUnit test. Also commented any new code as well as make everything git the Coding Standards for CSCI306
 
 commit e55c25c35cf0bd5c5f32dbf0df13bf3b48d09187
 Author: RuidiH <ruidihuang@mymail.mines.edu>
