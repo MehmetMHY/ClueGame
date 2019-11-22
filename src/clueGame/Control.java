@@ -52,6 +52,7 @@ public class Control extends JFrame {
 	private static int diceNum; // stores rolled dice value
 
 	private static DrawBoard boardPanel; // object for drawing the board cell for the GUI
+	public static boolean accuseActive = false;
 
 	// initialize board object from Board class
 	public void initializeBoard() {
@@ -152,7 +153,9 @@ public class Control extends JFrame {
 			next = new JButton("Next");
 			next.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					nextButtonPressed();
+					if(!accuseActive) {
+						nextButtonPressed();	
+					}
 				}
 			});
 			
@@ -160,7 +163,9 @@ public class Control extends JFrame {
 			makeAccusation = new JButton("Accuse");
 			makeAccusation.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					accuseButtonPressed();
+					if(!accuseActive) {
+						accuseButtonPressed();
+					}
 				}
 			});
 			
@@ -241,6 +246,7 @@ public class Control extends JFrame {
 		// method that runs when accuse button is pressed
 		private void accuseButtonPressed() {
 			if(DrawBoard.playersTurn) {
+				accuseActive = true;
 				guessDialog = new GuessDialog(board, false, "");
 				guessDialog.setVisible(true);
 			}

@@ -121,9 +121,17 @@ public class DrawBoard extends JPanel {
 			//JOptionPane.showMessageDialog(badTarget, "Invalid target selected. Please select again!","Message", JOptionPane.INFORMATION_MESSAGE);			
 			System.out.println("Invalid target selected. Please select again!");
 			
+			if(!Control.accuseActive) {
+				Control.accuseActive = true;
+				
+				TargetError guessDialog;
+				guessDialog = new TargetError(board);
+				guessDialog.setVisible(true);
+			}
+			
 			restartMouse();
 			repaint();
-			update(g);
+			//update(g);
 		}
 	}
 
@@ -183,8 +191,10 @@ public class DrawBoard extends JPanel {
 			 * set clickedCell to the boardCell the user clicked on
 			 */
 			if (t.getX() <= height && t.getY() <= width) {
-				//System.out.println(t.getX()/boxD + ", " + t.getY()/boxD + " ---> " + playersTurn);
-				clickedCell = board.getCellAt(t.getY()/boxD, t.getX()/boxD);
+				//System.out.println(t.getX()/boxD + ", " + t.getY()/boxD + " ---> " + playersTurn); System.out.println(Control.accuseActive + " " + playersTurn); System.out.println(" ");
+				if(!Control.accuseActive && playersTurn) {
+					clickedCell = board.getCellAt(t.getY()/boxD, t.getX()/boxD);
+				}
 			}
 		}
 		

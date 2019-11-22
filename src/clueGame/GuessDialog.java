@@ -32,7 +32,7 @@ public class GuessDialog extends JFrame {
 		theRoomsName = roomName;
 		setTitle("Make a Guess");
 		setSize(350, 150);
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		createLayout();
 	}
 	
@@ -65,12 +65,20 @@ public class GuessDialog extends JFrame {
 		// Submit and Cancel buttons listeners
 		submit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Submit Button Pressed!"); // TODO
+				String selectedRoom = "";
+				if(!inRoom) {
+					selectedRoom = roomOptions.comboBox.getSelectedItem().toString();
+				}
+				String selectedPlayer = personOptions.comboBox.getSelectedItem().toString();
+				String selectedWeapon = weaponOptions.comboBox.getSelectedItem().toString();
+				
+				System.out.println("SELECTED: " + selectedRoom + ", " + selectedPlayer + ", " + selectedWeapon);
 			}
 		});
 		
 		cancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Control.accuseActive = false;
 				dispose();
 			}
 		});
@@ -78,6 +86,8 @@ public class GuessDialog extends JFrame {
 
 	// main method for creating Label and ComboBox/Label for Rooms, Players, and Weapons
 	public class guessingOptions extends JPanel{
+		private JComboBox comboBox;
+		
 		public guessingOptions(String labelTile1, ArrayList<Card> theDeck, boolean disPlayRooms) {
 			setLayout(new BorderLayout());
 			setLayout(new GridLayout(1,2));
@@ -87,7 +97,7 @@ public class GuessDialog extends JFrame {
 				boardNewArray[i] = theDeck.get(i).toString();
 			}
 			
-			JComboBox comboBox = new JComboBox(boardNewArray);
+			comboBox = new JComboBox(boardNewArray);
 
 			JLabel label1 = new JLabel(labelTile1);
 
