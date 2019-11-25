@@ -73,6 +73,7 @@ public class GuessDialog extends JFrame {
 				String selectedWeapon = weaponOptions.comboBox.getSelectedItem().toString();
 				
 				System.out.println("SELECTED: " + selectedRoom + ", " + selectedPlayer + ", " + selectedWeapon);
+				dispose();
 			}
 		});
 		

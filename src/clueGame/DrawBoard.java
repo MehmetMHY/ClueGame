@@ -111,7 +111,28 @@ public class DrawBoard extends JPanel {
 			}
 			turn.add(board.getP1().playerName);
 			moved = true;
-			clickedCell = new BoardCell(-1,-1);
+			
+			int tempRoom = clickedCell.getRoomType().length();
+			if(tempRoom == 2) {
+				Control.accuseActive = true;
+				GuessDialog guessDialog;
+				
+				String inRoomName = "";
+				List<Card> roomsList = board.getRoomDeck();
+				for(int i = 0; i < board.getRoomID().size(); i++) {
+					if(clickedCell.getRoomType().charAt(0) == board.getRoomID().get(i).charAt(0)) {
+						inRoomName = roomsList.get(i).toString();
+					}
+				}
+				
+				
+				guessDialog = new GuessDialog(board, true, inRoomName);
+				guessDialog.setVisible(true);
+			}
+			
+			//clickedCell = new BoardCell(-1,-1);
+			restartMouse();
+			
 		
 		} else if (clickedCell.getCol() != -1 && playersTurn) {
 			clickedCell = new BoardCell(-1,-1);
@@ -119,13 +140,13 @@ public class DrawBoard extends JPanel {
 			// ***There is an error with the Dialog, for now we will just print the error message in the terminal:
 			//JFrame badTarget = new JFrame();
 			//JOptionPane.showMessageDialog(badTarget, "Invalid target selected. Please select again!","Message", JOptionPane.INFORMATION_MESSAGE);			
-			System.out.println("Invalid target selected. Please select again!");
+			//System.out.println("Invalid target selected. Please select again!");
 			
 			if(!Control.accuseActive) {
 				Control.accuseActive = true;
 				
-				TargetError guessDialog;
-				guessDialog = new TargetError(board);
+				errorMessage guessDialog;
+				guessDialog = new errorMessage(board, "Invalid target selected. Please select again!");
 				guessDialog.setVisible(true);
 			}
 			
@@ -164,8 +185,9 @@ public class DrawBoard extends JPanel {
 		}
 	}
 	public static void restartMouse() {
-		clickedCell.setCol(-1);
-		clickedCell.setRow(-1);
+//		clickedCell.setCol(-1);
+//		clickedCell.setRow(-1);
+		clickedCell = new BoardCell(-1,-1);
 	}
 
 	// method for mouse and MouseListener element of the GUI
@@ -191,9 +213,10 @@ public class DrawBoard extends JPanel {
 			 * set clickedCell to the boardCell the user clicked on
 			 */
 			if (t.getX() <= height && t.getY() <= width) {
-				//System.out.println(t.getX()/boxD + ", " + t.getY()/boxD + " ---> " + playersTurn); System.out.println(Control.accuseActive + " " + playersTurn); System.out.println(" ");
+				System.out.println(t.getX()/boxD + ", " + t.getY()/boxD + " ---> " + playersTurn); System.out.println(Control.accuseActive + " " + playersTurn); System.out.println(" ");
 				if(!Control.accuseActive && playersTurn) {
 					clickedCell = board.getCellAt(t.getY()/boxD, t.getX()/boxD);
+					
 				}
 			}
 		}

@@ -249,6 +249,9 @@ public class Control extends JFrame {
 				accuseActive = true;
 				guessDialog = new GuessDialog(board, false, "");
 				guessDialog.setVisible(true);
+			}else {
+				JFrame noAccusingAllowed = new JFrame();
+				JOptionPane.showMessageDialog(noAccusingAllowed, "Its not your turn, you can't make an Accusation","Message", JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
 
