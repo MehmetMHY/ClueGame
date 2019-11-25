@@ -104,6 +104,7 @@ public class DrawBoard extends JPanel {
 		
 		//Check for location mouse clicked
 		if (turn.size() == 0 && board.getTargets().contains(clickedCell)) {
+			playersTurn = false;
 			board.getP1().setRow(getClickedCell().getRow());
 			board.getP1().setColumn(getClickedCell().getCol());
 			for (BoardCell c:board.getTargets()) {
@@ -213,7 +214,7 @@ public class DrawBoard extends JPanel {
 			 * set clickedCell to the boardCell the user clicked on
 			 */
 			if (t.getX() <= height && t.getY() <= width) {
-				System.out.println(t.getX()/boxD + ", " + t.getY()/boxD + " ---> " + playersTurn); System.out.println(Control.accuseActive + " " + playersTurn); System.out.println(" ");
+				//System.out.println(t.getX()/boxD + ", " + t.getY()/boxD + " ---> " + playersTurn); System.out.println(Control.accuseActive + " " + playersTurn); System.out.println(" ");
 				if(!Control.accuseActive && playersTurn) {
 					clickedCell = board.getCellAt(t.getY()/boxD, t.getX()/boxD);
 					
