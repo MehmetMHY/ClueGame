@@ -34,12 +34,15 @@ public class Solution {
 	// object is equal to another desired object:
 	public boolean equals(Solution answer) {
 		if(!answer.person.equals(this.person)) {
+			//System.out.println(answer.person.toString() + " " + this.person.toString());
 			return false;
 		}
 		if(!answer.room.equals(this.room)) {
+			System.out.println("room");
 			return false;
 		}
 		if(!answer.weapon.equals(this.weapon)) {
+			System.out.println("weapon");
 			return false;
 		}
 		return true;
@@ -47,7 +50,18 @@ public class Solution {
 
 	@Override
 	public String toString() {
-		//return "Solution [person=" + person + ", room=" + room + ", Weapon=" + weapon + "]";
-		return person + ", " + room + ", " + weapon;
+		return "Solution [person=" + person + ", room=" + room + ", Weapon=" + weapon + "]";
 	}
+	public String getPerson() {
+		return person;
+	}
+
+	public String getRoom() {
+		return room;
+	}
+
+	public String getWeapon() {
+		return weapon;
+	}
+
 }

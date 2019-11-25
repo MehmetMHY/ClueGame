@@ -113,25 +113,17 @@ public class DrawBoard extends JPanel {
 			turn.add(board.getP1().playerName);
 			moved = true;
 			
-			int tempRoom = clickedCell.getRoomType().length();
-			if(tempRoom == 2) {
+			if(clickedCell.isDoorway()) {
 				Control.accuseActive = true;
 				GuessDialog guessDialog;
 				
-				String inRoomName = "";
-				List<Card> roomsList = board.getRoomDeck();
-				for(int i = 0; i < board.getRoomID().size(); i++) {
-					if(clickedCell.getRoomType().charAt(0) == board.getRoomID().get(i).charAt(0)) {
-						inRoomName = roomsList.get(i).toString();
-					}
-				}
-				
+				String inRoomName = board.getLegend().get(clickedCell.getInitial());				
 				guessDialog = new GuessDialog(board, true, inRoomName);
 				guessDialog.setVisible(true);
 			}
 			
-			//clickedCell = new BoardCell(-1,-1);
-			restartMouse();
+			clickedCell = new BoardCell(-1,-1);
+			//restartMouse();
 			
 		
 		} else if (clickedCell.getCol() != -1 && playersTurn) {
@@ -152,6 +144,7 @@ public class DrawBoard extends JPanel {
 			
 			restartMouse();
 			repaint();
+			
 			//update(g);
 		}
 	}

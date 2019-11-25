@@ -16,6 +16,7 @@ import java.awt.Color;
 
 public class ComputerPlayer extends Player {
 	private Solution myAccusation;
+	private boolean makeAccusation;
 	
 	// constructor for ComputerPlayer class
 	public ComputerPlayer(String name, int row, int col, Color color) {
@@ -24,6 +25,7 @@ public class ComputerPlayer extends Player {
 		this.row = row;
 		this.column = col;
 		this.color = color;
+		makeAccusation = false;
 	}
 	
 	// equals method for ComputerPlayer to check if ComputerPlayer objects are equal to one another
@@ -130,6 +132,14 @@ public class ComputerPlayer extends Player {
 			int num = r.nextInt(temp.size());
 			return temp.get(num);
 		}
+	}
+	
+	public boolean isMakeAccusation() {
+		return makeAccusation;
+	}
+
+	public void setMakeAccusation(boolean makeAccusation) {
+		this.makeAccusation = makeAccusation;
 	}
 	
 	public Solution getMyAccusation() {

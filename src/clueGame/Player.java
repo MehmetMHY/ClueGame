@@ -16,6 +16,7 @@ abstract class Player {
 
 	static  ArrayList<Card> seenWeapons = new ArrayList<Card>(); // stores all the seen Weapons by the player
 	static  ArrayList<Card> seenPlayers = new ArrayList<Card>(); // stores all the seen Players by the player
+	static  ArrayList<Card> seenRooms = new ArrayList<Card>(); // stores all the seen Players by the player
 	
 	protected ArrayList<Card> myCards = new ArrayList<Card>(); // stores the cards the player has
 	protected String playerName; // stores the player's name
@@ -69,6 +70,10 @@ abstract class Player {
 
 	public static void addSeenWeapons(Card newCard) {
 		seenWeapons.add(newCard);
+	}
+	
+	public static void addSeenRooms(Card newCard) {
+		seenRooms.add(newCard);
 	}
 
 	public ArrayList<Card> getMyCards() {

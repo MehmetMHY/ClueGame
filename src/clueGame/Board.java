@@ -97,6 +97,10 @@ public class Board {
 		solution.add(weaponDeck.get(randint1));
 		solution.add(roomDeck.get(randint1));
 		solution.add(playerDeck.get(randint1));
+		
+		// set the class's Solution object, answer,  equal to the values in the solution arraylist
+		System.out.println(solution.get(0).getCardName() + " " + solution.get(1).getCardName() + " " + solution.get(2).getCardName());
+		answer = new Solution(playerDeck.get(randint1),roomDeck.get(randint1), weaponDeck.get(randint1));
 
 		// create a random index value from the weapon, room, and player arraylists
 		int pW = rand.nextInt(weaponDeck.size());
@@ -125,9 +129,6 @@ public class Board {
 		
 		// deal the cards to the players
 		dealCards(rand, tempWeaponDeck, tempRoomDeck, tempPlayerDeck);
-		
-		// set the class's Solution object, answer,  equal to the values in the solution arraylist
-		answer = new Solution(solution.get(0), solution.get(1), solution.get(2));
 	}
 
 	private void dealCards(Random rand, ArrayList<Card> tempWeaponDeck, ArrayList<Card> tempRoomDeck,
@@ -590,6 +591,10 @@ public class Board {
 	
 	public ArrayList<String> getRoomID() {
 		return roomID;
+	}
+	
+	public Solution getAnswer() {
+		return answer;
 	}
 
 }
