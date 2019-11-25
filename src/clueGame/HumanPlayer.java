@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class HumanPlayer extends Player {
+	// TESTING - TODO
+	private Solution humanSolution;
+	
 	// constructor of for HumanPlayer
 	public HumanPlayer(String name, int row, int col, Color color) {
 		super();
@@ -66,5 +69,13 @@ public class HumanPlayer extends Player {
 			int num = r.nextInt(temp.size());
 			return temp.get(num);
 		}
+	}
+
+	public Solution getHumanSolution() {
+		return humanSolution;
+	}
+
+	public void setHumanSolution(Solution humanSolution) {
+		this.humanSolution = humanSolution;
 	}
 }

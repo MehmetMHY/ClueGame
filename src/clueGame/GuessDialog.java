@@ -66,13 +66,29 @@ public class GuessDialog extends JFrame {
 		submit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String selectedRoom = "";
+				
 				if(!inRoom) {
 					selectedRoom = roomOptions.comboBox.getSelectedItem().toString();
+				}else {
+					selectedRoom = theRoomsName;
 				}
+				
 				String selectedPlayer = personOptions.comboBox.getSelectedItem().toString();
 				String selectedWeapon = weaponOptions.comboBox.getSelectedItem().toString();
 				
-				System.out.println("SELECTED: " + selectedRoom + ", " + selectedPlayer + ", " + selectedWeapon);
+				//System.out.println("SELECTED: " + selectedRoom + ", " + selectedPlayer + ", " + selectedWeapon);
+				
+				Card cRoom = new Card(selectedRoom);
+				Card cPlayer = new Card(selectedPlayer);
+				Card cWeapon = new Card(selectedWeapon);
+				
+				Solution temp = new Solution(cPlayer, cRoom, cWeapon);
+				
+				board.getP1().setHumanSolution(temp);
+				
+				//System.out.println(temp.toString());
+				
+				Control.accuseActive = false;
 				dispose();
 			}
 		});

@@ -218,7 +218,8 @@ public class Control extends JFrame {
 				// displays dialog message telling the human player to make a move on the board before continuing with the game
 				JFrame notMoved = new JFrame();
 				JOptionPane.showMessageDialog(notMoved, "You need to make a move to continue the game","Message", JOptionPane.INFORMATION_MESSAGE);
-			// if its the player's turn
+			
+				// if its the player's turn
 			} else if (boardPanel.getTurn().size() == 0) {
 				DrawBoard.restartMouse();
 				DrawBoard.playersTurn = true;
@@ -239,6 +240,7 @@ public class Control extends JFrame {
 				 * otherwise an error dialog will appear and the player will have to try again.
 				 */
 				boardPanel.setMoved(false);
+				
 			}
 			boardPanel.repaint();
 		}
@@ -248,7 +250,7 @@ public class Control extends JFrame {
 			if(DrawBoard.playersTurn) {
 				accuseActive = true;
 				guessDialog = new GuessDialog(board, false, "");
-				guessDialog.setVisible(true);
+				guessDialog.setVisible(true);				
 			}else {
 				JFrame noAccusingAllowed = new JFrame();
 				JOptionPane.showMessageDialog(noAccusingAllowed, "Its not your turn, you can't make an Accusation","Message", JOptionPane.INFORMATION_MESSAGE);

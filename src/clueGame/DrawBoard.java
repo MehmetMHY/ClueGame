@@ -126,7 +126,6 @@ public class DrawBoard extends JPanel {
 					}
 				}
 				
-				
 				guessDialog = new GuessDialog(board, true, inRoomName);
 				guessDialog.setVisible(true);
 			}
