@@ -114,6 +114,7 @@ public class GuessDialog extends JFrame {
  				
 				// if the submit button is pressed
 				if (submited) {
+					board.setTurnPass(true);	//Player's movement option is passed
 					// handle all the suggestion and disproving for the human player relative to the computer players
 					suggested = new Solution(personT, roomT, weaponT);
 					// case if the human player is in a room

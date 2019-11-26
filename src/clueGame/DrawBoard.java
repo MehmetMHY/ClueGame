@@ -102,9 +102,15 @@ public class DrawBoard extends JPanel {
 		g.fillOval(board.getP1().column*HEIGHT, board.getP1().row*WIDTH, RADIUS, RADIUS);
 		repaint();
 		
-		//Check for location mouse clicked
-		if (turn.size() == 0 && board.getTargets().contains(clickedCell)) {
-			//playersTurn = false;
+		
+		if (board.isTurnPass()) {	//Check if the player's movement option is skipped (by making accusation) or not
+			for (BoardCell c:board.getTargets()) {
+				getDrawBoard().get(c.getRow()).get(c.getCol()).setTarget(false);
+			}
+			turn.add(board.getP1().playerName);
+			moved = true;
+			board.setTurnPass(false);
+		} else if (turn.size() == 0 && board.getTargets().contains(clickedCell)) { //Check for location mouse clicked
 			board.getP1().setRow(getClickedCell().getRow());
 			board.getP1().setColumn(getClickedCell().getCol());
 			for (BoardCell c:board.getTargets()) {

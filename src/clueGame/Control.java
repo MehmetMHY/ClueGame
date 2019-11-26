@@ -309,7 +309,6 @@ public class Control extends JFrame {
 			} else if (getBoardPanel().getTurn().size() == 0) {
 				DrawBoard.playersTurn = true;
 				allowGuessing = true;
-				
 				// generate target cells for the human player based on the dice roll and the human player's current board cell position
 				board.calcTargets(board.getP1().row, board.getP1().column, diceNum);
 				
@@ -327,7 +326,7 @@ public class Control extends JFrame {
 				 */
 				getBoardPanel().setMoved(false);
 			}
-			getBoardPanel().repaint();
+			//getBoardPanel().repaint();
 		}
 		
 		// method that runs when accuse button is pressed

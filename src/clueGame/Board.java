@@ -56,25 +56,10 @@ public class Board {
 	private Set<Card> cardDealt;
 	private ArrayList<Card> completeDeck;
 	
-	private String guess;
-	
-	public String getGuess() {
-		return guess;
-	}
 
-	public void setGuess(String guess) {
-		this.guess = guess;
-	}
-
-	private String respond;
-
-	public String getRespond() {
-		return respond;
-	}
-
-	public void setRespond(String respond) {
-		this.respond = respond;
-	}
+	private String guess;	//Send the guess of a player to the control
+	private String respond; //Send the disprove card(if any) to the control
+	private boolean turnPass = false;	//Help control decide if a turn should be skipped or not
 
 	// variable used for singleton pattern
 	private static Board theInstance = new Board();
@@ -616,5 +601,31 @@ public class Board {
 	public Solution getAnswer() {
 		return answer;
 	}
+	
 
+	public String getRespond() {
+		return respond;
+	}
+
+	public void setRespond(String respond) {
+		this.respond = respond;
+	}
+	
+	public String getGuess() {
+		return guess;
+	}
+
+	public void setGuess(String guess) {
+		this.guess = guess;
+	}
+
+	public boolean isTurnPass() {
+		return turnPass;
+	}
+
+	public void setTurnPass(boolean turnPass) {
+		this.turnPass = turnPass;
+	}
+
+	
 }
