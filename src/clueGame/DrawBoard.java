@@ -104,7 +104,7 @@ public class DrawBoard extends JPanel {
 		
 		//Check for location mouse clicked
 		if (turn.size() == 0 && board.getTargets().contains(clickedCell)) {
-			playersTurn = false;
+			//playersTurn = false;
 			board.getP1().setRow(getClickedCell().getRow());
 			board.getP1().setColumn(getClickedCell().getCol());
 			for (BoardCell c:board.getTargets()) {
@@ -136,7 +136,6 @@ public class DrawBoard extends JPanel {
 			
 			if(!Control.accuseActive) {
 				Control.accuseActive = true;
-				
 				errorMessage guessDialog;
 				guessDialog = new errorMessage(board, "Invalid target selected. Please select again!");
 				guessDialog.setVisible(true);
@@ -144,8 +143,6 @@ public class DrawBoard extends JPanel {
 			
 			restartMouse();
 			repaint();
-			
-			//update(g);
 		}
 	}
 
@@ -178,8 +175,6 @@ public class DrawBoard extends JPanel {
 		}
 	}
 	public static void restartMouse() {
-//		clickedCell.setCol(-1);
-//		clickedCell.setRow(-1);
 		clickedCell = new BoardCell(-1,-1);
 	}
 

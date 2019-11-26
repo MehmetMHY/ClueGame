@@ -75,12 +75,14 @@ public class GuessDialog extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String selectedRoom = "";
 				
+				// determines state of the submit button (pressed or not)
 				if (e.getSource() == submit) {
 					submited = true;
 				} else {
 					submited = false;
 				}
 				
+				// if the human player is not the in a room, the guess dialog GUI has a combobox for all the room 
 				if(!inRoom) {
 					selectedRoom = roomOptions.comboBox.getSelectedItem().toString();
 				}
@@ -91,7 +93,7 @@ public class GuessDialog extends JFrame {
 				Card weaponT = null;
 				Card roomT = null;
 				
-				
+				// set up all the combo boxes for guess dialog GUI
 				for (Card i:board.getPlayerDeck()) {
 					if (i.getCardName().equals(personOptions.comboBox.getSelectedItem().toString())) {
 						personT = i;
@@ -110,9 +112,11 @@ public class GuessDialog extends JFrame {
 					}
 				}
  				
+				// if the submit button is pressed
 				if (submited) {
-					//System.out.println(personT.getCardName() + " " + roomT.getCardName() + " " + weaponT.getCardName());
+					// handle all the suggestion and disproving for the human player relative to the computer players
 					suggested = new Solution(personT, roomT, weaponT);
+					// case if the human player is in a room
 					if (inRoom) {
 						if (board.getPlayers().get(suggested.getPerson()) != null) {
 							board.getPlayers().get(suggested.getPerson()).setRow(board.getP1().row);
@@ -132,21 +136,20 @@ public class GuessDialog extends JFrame {
 								}								
 							}
 						}
-						//System.out.println(disproveCard.getCardName());
 						disprove = new String(disproveCard.getCardName());
 						board.setGuess(suggested.getPerson() + " " + suggested.getRoom() + " " + suggested.getWeapon());
 						board.setRespond(disprove);
+					// case if no one can disprove the human player
 					} else {
 						suggested = new Solution(personT, roomT, weaponT);
-						//setGuess(suggested.getPerson() + " " + suggested.getRoom() + " " + suggested.getWeapon());
-						//setResult("No one can disapprove.");
 						checkAccusation(suggested);
 						board.setGuess(suggested.getPerson() + " " + suggested.getRoom() + " " + suggested.getWeapon());
 						board.setRespond("No one can disprove");
 					}
 					
 				}
-				 	
+				
+				Control.allowGuessing = false; // prevent the human player from guessing more then once
 				dispose();
 			}
 		});
@@ -163,6 +166,7 @@ public class GuessDialog extends JFrame {
 		return disprove;
 	}
 
+	// display dialog GUI for weather or not the Human Player's Guess is correct or not
 	public void checkAccusation(Solution suggested) {
 		if (board.getAnswer().equals(suggested)) {
 			JFrame winning = new JFrame();
@@ -173,6 +177,7 @@ public class GuessDialog extends JFrame {
 			JOptionPane.showMessageDialog(losing, "Sorry, that's not correct", "Attention", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
+	
 	// main method for creating Label and ComboBox/Label for Rooms, Players, and Weapons
 	public class guessingOptions extends JPanel{
 		private JComboBox comboBox;

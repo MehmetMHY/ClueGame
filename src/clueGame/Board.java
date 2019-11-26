@@ -57,6 +57,7 @@ public class Board {
 	private ArrayList<Card> completeDeck;
 	
 	private String guess;
+	
 	public String getGuess() {
 		return guess;
 	}

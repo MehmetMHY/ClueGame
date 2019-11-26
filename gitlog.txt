@@ -1,3 +1,63 @@
+commit 6ebfadd76a3a7513c0360058c1da96a4314670d8
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Mon Nov 25 21:19:37 2019 -0700
+
+    Fixed some merging issues
+
+commit a9fcff8af0608cabc92ceb8e28cf728d9c50b916
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Mon Nov 25 17:56:38 2019 -0700
+
+    Fixed a nullpointer bug
+
+commit cd8ebe6052c90f556857da3b13b3baf4e671b0c4
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Mon Nov 25 15:20:13 2019 -0700
+
+    Fixed a Git Merge error
+
+commit 9c05620683e4fc761c80771be24ba47a3f281636
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Mon Nov 25 00:22:16 2019 -0700
+
+    added solutions object to HumanPlayer class and fixed a few more random bugs
+
+commit 8ec955bdb3e8414d2e24d6c38b133e03ee1805ed
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Sun Nov 24 21:27:03 2019 -0700
+
+    Fixed a Accuse Button bug
+
+commit 3725796298b703d3e23784d555bf0203783875a6
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Sun Nov 24 21:02:52 2019 -0700
+
+    made it so the accused GUI display a combobox when the human player is not in a room as well as display a room label when the player is in a room. also added an error message when the human player hits the accuse button during a computer player's turn
+
+commit d4c0ab4e4809426eec9bf47a1d931d8e40a167e4
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Fri Nov 22 02:52:25 2019 -0700
+
+    Created a TargetErrorPanel due to fix the showMessageDialog error, fixed minor errors, and finished up most of the guessDialog class
+
+commit c319fa37f6850616b8f8239bdd62e4e5113f807a
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Thu Nov 21 13:32:26 2019 -0700
+
+    Fixed bug where the accuse button still worked during a computer player's turn
+
+commit 227126bb7d5f8b0562496356f1375e01c7094fa1
+Author: Mehmet <mehmet.mhy@gmail.com>
+Date:   Thu Nov 21 11:45:38 2019 -0700
+
+    Update README.md
+
+commit 83747e14faf6c3fce29f7c4bafdc561b2a5b7d55
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Thu Nov 21 11:44:18 2019 -0700
+
+    Added GUI for Make-a-Guess which can be activate when the accuse button its pressed or when the player enters into a room
+
 commit 217ce6381e435bbff3910bcb7ef3de58f82ee943
 Author: MehmetMHY <mehmet.mhy@gmail.com>
 Date:   Tue Nov 19 22:49:23 2019 -0700

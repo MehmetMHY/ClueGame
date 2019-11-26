@@ -55,7 +55,11 @@ public class Control extends JFrame {
 	private JTextField cardRooms; // the room's name for Rooms part of My Cards GUI
 	private JTextField cardWeapons; // the Weapon's name for Weapons part of My Cards GUI
 
+	public boolean allowGuesing;
+
 	private static int diceNum; // stores rolled dice value
+	
+	public static boolean allowGuessing = true;
 
 	private static DrawBoard boardPanel; // object for drawing the board cell for the GUI
 	public static boolean accuseActive = false;
@@ -191,19 +195,28 @@ public class Control extends JFrame {
 
 			if (board.getGuess() != null) {
 				setGuess(board.getGuess());
-			}
-			if (board.getGuess() != null) {
-				setResult(board.getRespond());
+			}else {
+				setGuess("");
 			}
 			
+			if (board.getGuess() != null) {
+				setResult(board.getRespond());
+			}else {
+				setResult("");
+			}
+			
+			
 			// if its the computer players' turn(s)
-			if (boardPanel.getTurn().size() > 0) {
+			if (getBoardPanel().getTurn().size() > 0) {
 				DrawBoard.playersTurn = false;
+				
+				board.setGuess(" ");
+				board.setRespond(" ");
 				
 				// find a computer play that has not moved yet and set that player as the currentPlayer to move on the board
 				String currentPlayerName = new String("");
 				for (String s:board.getPlayers().keySet()) {
-					if (!boardPanel.getTurn().contains(s)) {
+					if (!getBoardPanel().getTurn().contains(s)) {
 						currentPlayerName = new String(s);
 						break;
 					}
@@ -215,12 +228,17 @@ public class Control extends JFrame {
 				setRoll(diceNum); // roll the dice again for the next player
 				setP(currentPlayerName); // set GUI text for "Whose Turn?" to that of the current computer player's name
 				
+				// displays dialog GUI message of whether the accusation by the computer play is correct or incorrect
 				if (board.getPlayers().get(currentPlayerName).isMakeAccusation()) {
 					if (board.getAnswer().equals(board.getPlayers().get(currentPlayerName).getMyAccusation())) {
 						JFrame winning = new JFrame();
 						String ending = "The answer was " + board.getAnswer().getPerson() + " " + board.getAnswer().getRoom() + " " + board.getAnswer().getWeapon();
 						JOptionPane.showMessageDialog(winning, currentPlayerName + " WIN! " + ending, "CONGRAT", JOptionPane.INFORMATION_MESSAGE);
 						System.exit(0);
+					}else {
+						JFrame wrong = new JFrame();
+						String ending = currentPlayerName + " accusation of " + board.getPlayers().get(currentPlayerName).getMyAccusation() + " is incorrect!";
+						JOptionPane.showMessageDialog(wrong, ending, "TRY AGAIN", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
 				
@@ -231,6 +249,7 @@ public class Control extends JFrame {
 					
 				if (temp.isDoorway()) {
 					Solution computerSuggests = board.getPlayers().get(currentPlayerName).createSuggestion(board);
+					
 //					if (computerSuggests == null) {
 //						System.out.println("suggestion null");
 //					}
@@ -242,6 +261,8 @@ public class Control extends JFrame {
 //					if (board.getPlayers().get(currentPlayerName) == null) {
 //						System.out.print("no such player");
 //					}
+					
+					// Accused play is moved to the room (Optional)
 					if (computerSuggests.getPerson().equals(board.getP1().getPlayerName())) {
 						board.getP1().setRow(board.getPlayers().get(currentPlayerName).row);
 						board.getP1().setColumn(board.getPlayers().get(currentPlayerName).column);
@@ -266,26 +287,28 @@ public class Control extends JFrame {
 					} else { 
 						board.getPlayers().get(currentPlayerName).setMakeAccusation(true);
 						board.getPlayers().get(currentPlayerName).makeAccusation(computerSuggests);
-						setResult("No one disapprove.");
+						setResult("No New Clue");
 					}
 				}
 				
 				// add computer player to turn to know if how many players have moved already during a certain period in ClueGame
-				boardPanel.getTurn().add(currentPlayerName);
+				getBoardPanel().getTurn().add(currentPlayerName);
 				
 				// when all the players has moved, including the human player, restart it so that it starts wit the human player again and the cycle continues until the game ends
-				if (boardPanel.getTurn().size() == 6) {
-					boardPanel.getTurn().clear();
+				if (getBoardPanel().getTurn().size() == 6) {
+					getBoardPanel().getTurn().clear();
 				}
 				
 			// if the human player has not moved yet and has already hit the next button
-			} else if (!boardPanel.isMoved()) {
+			} else if (!getBoardPanel().isMoved()) {
 				// displays dialog message telling the human player to make a move on the board before continuing with the game
 				JFrame notMoved = new JFrame();
 				JOptionPane.showMessageDialog(notMoved, "You need to make a move to continue the game","Message", JOptionPane.INFORMATION_MESSAGE);
-			// if its the player's turn
-			} else if (boardPanel.getTurn().size() == 0) {
+			
+				// if its the player's turn
+			} else if (getBoardPanel().getTurn().size() == 0) {
 				DrawBoard.playersTurn = true;
+				allowGuessing = true;
 				
 				// generate target cells for the human player based on the dice roll and the human player's current board cell position
 				board.calcTargets(board.getP1().row, board.getP1().column, diceNum);
@@ -295,30 +318,29 @@ public class Control extends JFrame {
 				
 				// based on the target board cells, the GUI will highlight all of those target cells
 				for (BoardCell c:board.getTargets()) {
-					boardPanel.getDrawBoard().get(c.getRow()).get(c.getCol()).setTarget(true);
+					getBoardPanel().getDrawBoard().get(c.getRow()).get(c.getCol()).setTarget(true);
 				}
 				
 				/**. 
 				 * if the player clicks the correct target cell on the GUI the player will move to that board cell, 
 				 * otherwise an error dialog will appear and the player will have to try again.
 				 */
-				boardPanel.setMoved(false);
+				getBoardPanel().setMoved(false);
 			}
-			boardPanel.repaint();
+			getBoardPanel().repaint();
 		}
 		
 		// method that runs when accuse button is pressed
 		private void accuseButtonPressed() {
-			if(DrawBoard.playersTurn) {
+			if(DrawBoard.playersTurn && allowGuessing) {
 				accuseActive = true;
 				guessDialog = new GuessDialog(board, false, "");
 				guessDialog.setVisible(true);
 			}else {
 				JFrame noAccusingAllowed = new JFrame();
-				JOptionPane.showMessageDialog(noAccusingAllowed, "Its not your turn, you can't make an Accusation","Message", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(noAccusingAllowed, "Its not your turn or you already made an accusation, you can't make an Accusation", "Message", JOptionPane.INFORMATION_MESSAGE);
 			}
 		}		
-
 
 		public JButton getNext() {
 			return next;
@@ -351,8 +373,8 @@ public class Control extends JFrame {
 		initializeBoard();
 
 		// create ClueGame board GUI
-		boardPanel = new DrawBoard(board);
-		add(boardPanel, BorderLayout.CENTER);
+		setBoardPanel(new DrawBoard(board));
+		add(getBoardPanel(), BorderLayout.CENTER);
 
 		// create control panel GUI
 		south = new SouthPanel();
@@ -495,5 +517,13 @@ public class Control extends JFrame {
 
 	public SouthPanel getSouth() {
 		return south;
+	}
+
+	public static DrawBoard getBoardPanel() {
+		return boardPanel;
+	}
+
+	public static void setBoardPanel(DrawBoard boardPanel) {
+		Control.boardPanel = boardPanel;
 	}
 }
