@@ -250,17 +250,9 @@ public class Control extends JFrame {
 				if (temp.isDoorway()) {
 					Solution computerSuggests = board.getPlayers().get(currentPlayerName).createSuggestion(board);
 					
-//					if (computerSuggests == null) {
-//						System.out.println("suggestion null");
-//					}
-//					if (board.getPlayers().get(computerSuggests.getPerson()) == null) {
-//						System.out.println("no computer suggest");
-//						System.out.println(computerSuggests.getPerson());
-//						System.out.println(computerSuggests.getWeapon());
-//					} 
-//					if (board.getPlayers().get(currentPlayerName) == null) {
-//						System.out.print("no such player");
-//					}
+					JFrame AccusationMessage = new JFrame();
+					String accuseStatement = computerSuggests.getPerson().toString() + " " + computerSuggests.getRoom().toString()+ " " + computerSuggests.getWeapon().toString();
+					JOptionPane.showMessageDialog(AccusationMessage, currentPlayerName + ": " + accuseStatement , "Accusation!", JOptionPane.INFORMATION_MESSAGE);
 					
 					// Accused play is moved to the room (Optional)
 					if (computerSuggests.getPerson().equals(board.getP1().getPlayerName())) {
