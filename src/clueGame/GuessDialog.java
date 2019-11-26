@@ -37,7 +37,7 @@ public class GuessDialog extends JFrame {
 		GuessDialog.board = gameBoard;
 		inRoom = isInRoom;
 		theRoomsName = roomName;
-		disprove = "";
+		disprove = null;
 		setTitle("Make a Guess");
 		setSize(350, 150);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
@@ -111,7 +111,7 @@ public class GuessDialog extends JFrame {
 				}
  				
 				if (submited) {
-					System.out.println(personT.getCardName() + " " + roomT.getCardName() + " " + weaponT.getCardName());
+					//System.out.println(personT.getCardName() + " " + roomT.getCardName() + " " + weaponT.getCardName());
 					suggested = new Solution(personT, roomT, weaponT);
 					if (inRoom) {
 						if (board.getPlayers().get(suggested.getPerson()) != null) {
@@ -132,12 +132,19 @@ public class GuessDialog extends JFrame {
 								}								
 							}
 						}
-						System.out.println(disproveCard.getCardName());
-					} 
+						//System.out.println(disproveCard.getCardName());
+						disprove = new String(disproveCard.getCardName());
+						board.setGuess(suggested.getPerson() + " " + suggested.getRoom() + " " + suggested.getWeapon());
+						board.setRespond(disprove);
+					} else {
+						suggested = new Solution(personT, roomT, weaponT);
+						//setGuess(suggested.getPerson() + " " + suggested.getRoom() + " " + suggested.getWeapon());
+						//setResult("No one can disapprove.");
+						checkAccusation(suggested);
+						board.setGuess(suggested.getPerson() + " " + suggested.getRoom() + " " + suggested.getWeapon());
+						board.setRespond("No one can disprove");
+					}
 					
-					
-//					suggested = new Solution(personT, roomT, weaponT);
-//					checkAccusation(suggested);
 				}
 				 	
 				dispose();
@@ -152,6 +159,10 @@ public class GuessDialog extends JFrame {
 		});
 	}
 	
+	public String getDisprove() {
+		return disprove;
+	}
+
 	public void checkAccusation(Solution suggested) {
 		if (board.getAnswer().equals(suggested)) {
 			JFrame winning = new JFrame();

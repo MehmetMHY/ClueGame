@@ -17,7 +17,7 @@ import java.awt.Color;
 public class ComputerPlayer extends Player {
 	private Solution myAccusation;
 	private boolean makeAccusation;
-	private BoardCell previousRoom;
+	private String lastVisited;
 	
 	// constructor for ComputerPlayer class
 	public ComputerPlayer(String name, int row, int col, Color color) {
@@ -27,6 +27,7 @@ public class ComputerPlayer extends Player {
 		this.column = col;
 		this.color = color;
 		makeAccusation = false;
+		lastVisited = "W";
 	}
 	
 	// equals method for ComputerPlayer to check if ComputerPlayer objects are equal to one another
@@ -45,7 +46,7 @@ public class ComputerPlayer extends Player {
 		}
 		return true;
 	}
-	
+	 
 	@Override
 	public String toString() {
 		return "ComputerPlayer [name=" + playerName + ", row=" + row + ", col=" + column + ", color=" + color + "]";
@@ -56,41 +57,20 @@ public class ComputerPlayer extends Player {
 		BoardCell temp = new BoardCell(0,0);
 		int i = 0;
 		int index = new Random().nextInt(targets.size()); // store random target cell
-		
-		System.out.println(previousRoom);
-		
 		// loop though targets set
 		for(BoardCell point : targets) {
 			// if a target cell is a Door Way, set the new location for the computerPlayer to that Door Way cell
-			if(point.isDoorway()) {
-				if(previousRoom == null) {
-					return point;
-				}else {
-					if(!previousRoom.getRoomType().equals(point.getRoomType())) {
-						return point;
-					}
-				}
+			if(point.isDoorway() && !point.getInitial().toString().equals(lastVisited)) {
+				lastVisited = new String(point.getInitial().toString());
+				return point;
 			// when the loop reaches the random determined index, set temp equal to that point
 			}else if(i == index){
 				temp = point;
 			}
 			i++;
 		}
-		
-		if(temp.isDoorway()) {
-			setPreviousRoom(temp);
-		}
-		
 		// return a random target cell location for the computerPlayer if there are no Door Ways
 		return temp;
-	}
-
-	public void setPreviousRoom(BoardCell previousRoom) {
-		this.previousRoom = previousRoom;
-	}
-
-	public BoardCell getPreviousRoom() {
-		return previousRoom;
 	}
 
 	// createSuggestion method creates Suggestions for the computerPlayer(s)
@@ -103,6 +83,11 @@ public class ComputerPlayer extends Player {
 				player.setCardName(c.getCardName());
 			}
 		}
+		if (player.getCardName().equals("temp")) {
+			Random rand = new Random();
+			int randomCard = rand.nextInt(board.getPlayerDeck().size());
+			player = board.getPlayerDeck().get(randomCard);
+		}
 		
 		// if only one room is seen, that room is selected for the suggestion
 		Card curLoc = new Card("temp");
@@ -112,6 +97,11 @@ public class ComputerPlayer extends Player {
 				curLoc.setCardName(c.getCardName());
 			}
 		}
+		if (curLoc.getCardName().equals("temp")) {
+			Random rand = new Random();
+			int randomCard = rand.nextInt(board.getRoomDeck().size());
+			player = board.getRoomDeck().get(randomCard);
+		}
 		
 		// if only one weapon is seen, that weapon is selected for the suggestion
 		Card weapon = new Card("temp");
@@ -119,6 +109,11 @@ public class ComputerPlayer extends Player {
 			if (!this.getSeenWeapons().contains(c)) {
 				weapon.setCardName(c.getCardName());
 			}
+		}
+		if (weapon.getCardName().equals("temp")) {
+			Random rand = new Random();
+			int randomCard = rand.nextInt(board.getWeaponDeck().size());
+			player = board.getWeaponDeck().get(randomCard);
 		}
 		
 		// select a Solution object as the selected player, room, and weapon

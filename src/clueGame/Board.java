@@ -55,6 +55,25 @@ public class Board {
 
 	private Set<Card> cardDealt;
 	private ArrayList<Card> completeDeck;
+	
+	private String guess;
+	public String getGuess() {
+		return guess;
+	}
+
+	public void setGuess(String guess) {
+		this.guess = guess;
+	}
+
+	private String respond;
+
+	public String getRespond() {
+		return respond;
+	}
+
+	public void setRespond(String respond) {
+		this.respond = respond;
+	}
 
 	// variable used for singleton pattern
 	private static Board theInstance = new Board();
