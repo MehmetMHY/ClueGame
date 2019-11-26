@@ -106,10 +106,11 @@ public class gameActionTests {
 	@Test
 	public void accusationTests() {
 		testDeck = board.getSolutionDeck();
-		Solution answers = new Solution(testDeck.get(0), testDeck.get(1),testDeck.get(2));
+		//Solution answers = new Solution(testDeck.get(0), testDeck.get(1),testDeck.get(2));
+		Solution answers = new Solution(testDeck.get(2), testDeck.get(1),testDeck.get(0));
 		
 		// accusation solution that is correct:
-		cTest.makeAccusation(answers);
+		cTest.makeAccusation(answers);	
 		assertTrue(board.checkAccusation(answers));
 		
 		// accusation solution with wrong person:

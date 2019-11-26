@@ -224,17 +224,23 @@ public class Control extends JFrame {
 				board.getPlayers().get(currentPlayerName).setRow(temp.getRow());
 					
 				if (temp.isDoorway()) {
-					Solution computerSuggests = board.getPlayers().get(currentPlayerName).createSuggestion(board);
-					if (board.getPlayers().get(computerSuggests.getPerson()) == null) {
-						System.out.print("no computer suggest");
-					} 
-					if (board.getPlayers().get(currentPlayerName) == null) {
-						System.out.print("no such player");
-					}
 					
-					board.getPlayers().get(computerSuggests.getPerson()).setRow(board.getPlayers().get(currentPlayerName).row);
-					board.getPlayers().get(computerSuggests.getPerson()).setColumn(board.getPlayers().get(currentPlayerName).column);
+					Solution computerSuggests = board.getPlayers().get(currentPlayerName).createSuggestion(board);
+					
+					// OPTIONAL!!!
+//					if (board.getPlayers().get(computerSuggests.getPerson()) == null) {
+//						System.out.print("no computer suggest");
+//					} 
+//					
+//					if (board.getPlayers().get(currentPlayerName) == null) {
+//						System.out.print("no such player");
+//					}
+//
+//					board.getPlayers().get(computerSuggests.getPerson()).setRow(board.getPlayers().get(currentPlayerName).row);
+//					board.getPlayers().get(computerSuggests.getPerson()).setColumn(board.getPlayers().get(currentPlayerName).column);
+
 					setGuess(computerSuggests.getPerson() + " " + computerSuggests.getRoom() + " " + computerSuggests.getWeapon());
+					
 					Card respond = board.handleSuggestion(board.getPlayers().get(currentPlayerName), board.getPlayers(), board.getP1(), computerSuggests);
 					if (respond != null) {
 						for (Map.Entry<String,ComputerPlayer> p : board.getPlayers().entrySet()) {

@@ -17,6 +17,7 @@ import java.awt.Color;
 public class ComputerPlayer extends Player {
 	private Solution myAccusation;
 	private boolean makeAccusation;
+	private BoardCell previousRoom;
 	
 	// constructor for ComputerPlayer class
 	public ComputerPlayer(String name, int row, int col, Color color) {
@@ -55,19 +56,41 @@ public class ComputerPlayer extends Player {
 		BoardCell temp = new BoardCell(0,0);
 		int i = 0;
 		int index = new Random().nextInt(targets.size()); // store random target cell
+		
+		System.out.println(previousRoom);
+		
 		// loop though targets set
 		for(BoardCell point : targets) {
 			// if a target cell is a Door Way, set the new location for the computerPlayer to that Door Way cell
 			if(point.isDoorway()) {
-				return point;
+				if(previousRoom == null) {
+					return point;
+				}else {
+					if(!previousRoom.getRoomType().equals(point.getRoomType())) {
+						return point;
+					}
+				}
 			// when the loop reaches the random determined index, set temp equal to that point
 			}else if(i == index){
 				temp = point;
 			}
 			i++;
 		}
+		
+		if(temp.isDoorway()) {
+			setPreviousRoom(temp);
+		}
+		
 		// return a random target cell location for the computerPlayer if there are no Door Ways
 		return temp;
+	}
+
+	public void setPreviousRoom(BoardCell previousRoom) {
+		this.previousRoom = previousRoom;
+	}
+
+	public BoardCell getPreviousRoom() {
+		return previousRoom;
 	}
 
 	// createSuggestion method creates Suggestions for the computerPlayer(s)
