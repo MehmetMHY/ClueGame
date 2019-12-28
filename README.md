@@ -1,4 +1,4 @@
-# Colorado School of Mines CSCI 306 ClueGame Project
+# Colorado School of Mines - CSCI 306 ClueGame Project
 - Year: Fall 2019
 
 ## About:
