@@ -9,5 +9,8 @@ the Clue Board Game using Java as well as create a GUI for this game using Java'
 - Ruidi Huang (https://github.com/RuidiH)
 - Mehmet Yilmaz (https://github.com/MehmetMHY)
 
+## Requirements:
+- Java + JFrame
+
 ## Important:
 There are quite a lot of flows with this project. The code is not clean, there are small bugs everywhere, the GUI looks like its from Windows 95, the overall structure of the code breaks nearly all of the coding principles, and the over all project did not end up as great as we thought it would. This was due to many things such as: lack of time due to our other classes, the way the class wanted us to strucutre our code, and our over all lack of experience. These not not execuses but we learned a lot from this project. Also towards the end of the class, we learned and applied a lot of coding principles which should help us in the future. Over all, this was a fun project and a great learning exeprience.
