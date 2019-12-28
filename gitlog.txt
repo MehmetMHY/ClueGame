@@ -1,3 +1,33 @@
+commit 7d2ab8c8afb5489b86b9b6d7e8025f5fd92497a4
+Author: Mehmet <mehmet.mhy@gmail.com>
+Date:   Sat Dec 28 14:53:49 2019 -0700
+
+    Update README.md
+
+commit de7a1e9bf99ad6251756e0b98ef8177b3e9e375b
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Mon Nov 25 23:52:35 2019 -0700
+
+    Final push
+
+commit 67f60bd7f1351aea74ea5d099ed88d95de4e75ac
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Mon Nov 25 23:33:52 2019 -0700
+
+    added a text sheet
+
+commit 74f99a9dc3151ad283db054c39e277b980270fd6
+Author: RuidiH <ruidihuang@mymail.mines.edu>
+Date:   Mon Nov 25 23:23:52 2019 -0700
+
+    Skipped player's move opportunity if the player makes an accusation; added some comments on board.
+
+commit dd963f656bdcac9f21366e7d3fea64567a256d33
+Author: MehmetMHY <mehmet.mhy@gmail.com>
+Date:   Mon Nov 25 23:05:00 2019 -0700
+
+    More bug fixes
+
 commit 6ebfadd76a3a7513c0360058c1da96a4314670d8
 Author: MehmetMHY <mehmet.mhy@gmail.com>
 Date:   Mon Nov 25 21:19:37 2019 -0700
